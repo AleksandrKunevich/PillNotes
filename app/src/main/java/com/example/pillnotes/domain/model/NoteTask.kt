@@ -1,7 +1,5 @@
 package com.example.pillnotes.domain.model
 
-import java.util.*
-
 data class NoteTask(
     val time: String,
     val name: String,

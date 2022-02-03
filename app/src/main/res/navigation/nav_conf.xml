@@ -11,5 +11,4 @@
         android:label="CalendarFragment"
         tools:layout="@layout/home_fragment"
         />
-
 </navigation>

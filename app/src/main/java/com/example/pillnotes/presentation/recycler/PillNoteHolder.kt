@@ -1,11 +1,9 @@
 package com.example.pillnotes.presentation.recycler
 
-import android.os.Build
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pillnotes.R
 import com.example.pillnotes.databinding.PillNotesItemBinding
 import com.example.pillnotes.domain.model.NoteTask
-import java.time.LocalDateTime
 
 class PillNoteHolder constructor(private val itemBinding: PillNotesItemBinding) :
     RecyclerView.ViewHolder(itemBinding.root) {
@@ -27,14 +25,13 @@ class PillNoteHolder constructor(private val itemBinding: PillNotesItemBinding) 
             }
             imgCheckFinish.setImageResource(checkIdDraw)
             imgPriority.setImageResource(
-                when (item.priority){
+                when (item.priority) {
                     1 -> R.drawable.ic_baseline_cancel_24_x
                     2 -> R.drawable.ic_baseline_more_vert_24
-                    3 -> R.drawable.ic_baseline_home_24
+                    3 -> R.drawable.ic_baseline_home_48
                     else -> R.drawable.ic_launcher_background
                 }
             )
         }
     }
-
 }

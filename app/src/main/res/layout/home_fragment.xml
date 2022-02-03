@@ -1,37 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_home_fragment"
     android:orientation="vertical">
 
-    <LinearLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerHome"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="0.1"
-        android:orientation="horizontal">
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearDownMenu"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerHome"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="@dimen/margin_min">
-
-        </androidx.recyclerview.widget.RecyclerView>
-
-    </LinearLayout>
+    </androidx.recyclerview.widget.RecyclerView>
 
     <LinearLayout
-
+        android:id="@+id/linearDownMenu"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="0.9"
-        android:adjustViewBounds="true"
-        android:divider="@drawable/separator"
+        android:layout_height="wrap_content"
         android:dividerPadding="8dp"
-        android:gravity="center"
         android:orientation="horizontal"
-        android:showDividers="middle">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/button1"
@@ -40,9 +33,7 @@
             android:layout_margin="@dimen/margin_min"
             android:layout_weight="1"
             android:background="@drawable/down_menu_button_background"
-            android:src="@drawable/ic_baseline_home_24"
-            android:text="Yes"
-            android:textColor="#00b0e4" />
+            android:src="@drawable/ic_baseline_home_48" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/button2"
@@ -51,9 +42,7 @@
             android:layout_margin="@dimen/margin_min"
             android:layout_weight="1"
             android:background="@drawable/down_menu_button_background"
-            android:src="@drawable/ic_baseline_home_24"
-            android:text="No"
-            android:textColor="#00b0e4" />
+            android:src="@drawable/ic_baseline_home_48" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/button3"
@@ -62,10 +51,19 @@
             android:layout_margin="@dimen/margin_min"
             android:layout_weight="1"
             android:background="@drawable/down_menu_button_background"
-            android:src="@drawable/ic_baseline_home_24"
-            android:text="Neutral"
-            android:textColor="#00b0e4" />
+            android:src="@drawable/ic_baseline_home_48" />
 
     </LinearLayout>
 
-</LinearLayout>
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_add_task_48"
+        app:layout_constraintBottom_toTopOf="@id/linearDownMenu"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="@dimen/margin_medium"
+        android:layout_marginBottom="@dimen/margin_medium">
+
+    </androidx.appcompat.widget.AppCompatImageView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

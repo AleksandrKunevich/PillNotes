@@ -4,14 +4,17 @@
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
-    <color name="background_pill_notes_item">#323333</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#000000</color>
+    <color name="white">#FFFFFFFF</color>
+
     <color name="background_home_fragment">#000000</color>
+    <color name="background_pill_notes_item">#333333</color>
+    <color name="background_down_menu_button">#5A5A5A</color>
+
     <color name="text_color_item_name">#DDDDDD</color>
     <color name="text_color_item_task">#9E9E9E</color>
     <color name="text_color_item_result">#6BE42A</color>
     <color name="text_color_item_time_wait">#F0F1EF</color>
     <color name="text_color_item_time_finish">#36B0F1</color>
-    <color name="white">#FFFFFFFF</color>
 </resources>

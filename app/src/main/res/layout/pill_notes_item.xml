@@ -19,9 +19,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/containerItem"
+        android:background="@drawable/down_menu_button_background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/background_pill_notes_item"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
