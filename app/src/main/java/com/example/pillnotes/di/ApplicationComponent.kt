@@ -1,6 +1,7 @@
 package com.example.pillnotes.di
 
 import android.content.Context
+import com.example.pillnotes.presentation.HomeFragment
 import dagger.BindsInstance
 import dagger.Component
 
@@ -11,10 +12,10 @@ interface ApplicationComponent {
     interface Builder {
 
         @BindsInstance
-        fun context(context: Context) : Builder
+        fun bindContext(context: Context) : Builder
 
         fun build(): ApplicationComponent
     }
 
-    fun inject()
+    fun inject(target: HomeFragment)
 }

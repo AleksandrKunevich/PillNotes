@@ -5,4 +5,5 @@
     <dimen name="size_pill_item_result">18sp</dimen>
     <dimen name="size_pill_item_time">26sp</dimen>
     <dimen name="margin_min">8dp</dimen>
+    <dimen name="down_menu_button_radius">16dp</dimen>
 </resources>
