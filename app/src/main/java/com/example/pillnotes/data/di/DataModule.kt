@@ -1,4 +1,4 @@
-package com.example.pillnotes.data
+package com.example.pillnotes.data.di
 
 import dagger.Module
 

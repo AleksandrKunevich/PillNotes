@@ -1,7 +1,7 @@
 package com.example.pillnotes.di
 
-import com.example.pillnotes.data.DataModule
-import com.example.pillnotes.domain.DomainModule
+import com.example.pillnotes.data.di.DataModule
+import com.example.pillnotes.domain.di.DomainModule
 import dagger.Module
 
 @Module(

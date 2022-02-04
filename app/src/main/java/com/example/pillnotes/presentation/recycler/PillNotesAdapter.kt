@@ -8,8 +8,9 @@ import com.example.pillnotes.databinding.PillNotesItemBinding
 import com.example.pillnotes.domain.model.NoteTask
 import javax.inject.Inject
 
-class PillNotesAdapter @Inject constructor(private var items: List<NoteTask>) :
-    RecyclerView.Adapter<PillNoteHolder>() {
+class PillNotesAdapter @Inject constructor() : RecyclerView.Adapter<PillNoteHolder>() {
+
+    private var items = listOf<NoteTask>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PillNoteHolder {
         val binding =

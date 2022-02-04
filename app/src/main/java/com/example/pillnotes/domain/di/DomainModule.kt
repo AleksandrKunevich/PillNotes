@@ -1,4 +1,4 @@
-package com.example.pillnotes.domain
+package com.example.pillnotes.domain.di
 
 import dagger.Module
 
