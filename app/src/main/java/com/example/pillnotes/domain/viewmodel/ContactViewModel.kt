@@ -17,7 +17,11 @@ class ContactViewModel @Inject constructor(
     private val _contact = MutableSharedFlow<List<ContactDoctor>>()
     val contact: SharedFlow<List<ContactDoctor>> get() = _contact
 
-    fun getAllContact() {
+    init {
+        getAllContact()
+    }
+
+    private fun getAllContact() {
         viewModelScope.launch {
             _contact.emitAll(
                 repository.getAllContact()

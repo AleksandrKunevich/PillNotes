@@ -17,7 +17,11 @@ class NoteTaskViewModel @Inject constructor(
     private val _noteTask = MutableLiveData<List<NoteTask>>()
     val noteTask: LiveData<List<NoteTask>> get() = _noteTask
 
-    fun getAllTask() {
+    init {
+        getAllTask()
+    }
+
+    private fun getAllTask() {
         viewModelScope.launch {
             repository.getAllNoteTask().collect { listNoteTask ->
                 _noteTask.value = listNoteTask
