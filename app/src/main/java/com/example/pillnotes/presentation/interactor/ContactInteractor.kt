@@ -1,13 +1,13 @@
 package com.example.pillnotes.presentation.interactor
 
-import com.example.pillnotes.domain.model.Contact
+import com.example.pillnotes.domain.model.ContactDoctor
 import kotlinx.coroutines.flow.Flow
 
 interface ContactInteractor {
 
-    fun getAllContact(): Flow<List<Contact>>
+    fun getAllContact(): Flow<List<ContactDoctor>>
 
-    fun insertContact(contact: Contact)
+    suspend fun insertContact(contactDoctor: ContactDoctor)
 
-    fun deleteContact(contact: Contact)
+    suspend fun deleteContact(contactDoctor: ContactDoctor)
 }

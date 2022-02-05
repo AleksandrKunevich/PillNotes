@@ -5,14 +5,11 @@ import com.example.pillnotes.domain.model.NoteTask
 import com.example.pillnotes.domain.util.toNoteTask
 import com.example.pillnotes.domain.util.toNoteTaskEntity
 import com.example.pillnotes.presentation.interactor.NoteTaskInteractor
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class NoteTaskInteractorImpl @Inject constructor(
@@ -27,16 +24,14 @@ class NoteTaskInteractorImpl @Inject constructor(
                 }
             }.flowOn(Dispatchers.IO)
 
-    @OptIn(FlowPreview::class)
-    override fun insertNoteTask(noteTask: NoteTask) {
-        CoroutineScope(Dispatchers.IO).launch {
+    override suspend fun insertNoteTask(noteTask: NoteTask) {
+        withContext(Dispatchers.IO) {
             noteTaskDao.insertAllNoteTask(noteTask.toNoteTaskEntity())
         }
     }
 
-    @OptIn(FlowPreview::class)
-    override fun deleteNoteTask(noteTask: NoteTask) {
-        CoroutineScope(Dispatchers.IO).launch {
+    override suspend fun deleteNoteTask(noteTask: NoteTask) {
+        withContext(Dispatchers.IO) {
             noteTaskDao.deleteNoteTask(noteTask.toNoteTaskEntity())
         }
     }

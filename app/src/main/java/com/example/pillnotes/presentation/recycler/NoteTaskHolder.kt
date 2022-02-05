@@ -5,7 +5,7 @@ import com.example.pillnotes.R
 import com.example.pillnotes.databinding.PillNotesItemBinding
 import com.example.pillnotes.domain.model.NoteTask
 
-class PillNoteHolder constructor(private val itemBinding: PillNotesItemBinding) :
+class NoteTaskHolder constructor(private val itemBinding: PillNotesItemBinding) :
     RecyclerView.ViewHolder(itemBinding.root) {
 
     fun bindView(item: NoteTask) {

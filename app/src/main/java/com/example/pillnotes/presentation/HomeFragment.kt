@@ -12,7 +12,7 @@ import com.example.pillnotes.R
 import com.example.pillnotes.databinding.HomeFragmentBinding
 import com.example.pillnotes.domain.model.NoteTask
 import com.example.pillnotes.domain.viewmodel.NoteTaskViewModel
-import com.example.pillnotes.presentation.recycler.PillNotesAdapter
+import com.example.pillnotes.presentation.recycler.NoteTaskAdapter
 import java.util.*
 import javax.inject.Inject
 
@@ -23,7 +23,7 @@ class HomeFragment : Fragment() {
     }
 
     @Inject
-    lateinit var adapter: PillNotesAdapter
+    lateinit var adapter: NoteTaskAdapter
 
     @Inject
     lateinit var noteTaskViewModel: NoteTaskViewModel
@@ -42,6 +42,7 @@ class HomeFragment : Fragment() {
         super.onStart()
         initRecycler()
         initObserve()
+
         binding.button2.setOnClickListener {
             findNavController().navigate(R.id.action_calendarFragment_to_mapsFragment)
         }
@@ -57,7 +58,6 @@ class HomeFragment : Fragment() {
                     2
                 )
             )
-            initObserve()
         }
     }
 

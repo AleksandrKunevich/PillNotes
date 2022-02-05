@@ -7,8 +7,8 @@ interface NoteTaskInteractor {
 
     fun getAllNoteTask(): Flow<List<NoteTask>>
 
-    fun insertNoteTask(noteTask: NoteTask)
+    suspend fun insertNoteTask(noteTask: NoteTask)
 
-    fun deleteNoteTask(noteTask: NoteTask)
+    suspend fun deleteNoteTask(noteTask: NoteTask)
 
 }

@@ -8,22 +8,22 @@ import com.example.pillnotes.databinding.PillNotesItemBinding
 import com.example.pillnotes.domain.model.NoteTask
 import javax.inject.Inject
 
-class PillNotesAdapter @Inject constructor() : RecyclerView.Adapter<PillNoteHolder>() {
+class NoteTaskAdapter @Inject constructor() : RecyclerView.Adapter<NoteTaskHolder>() {
 
     private var items = listOf<NoteTask>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PillNoteHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteTaskHolder {
         val binding =
             PillNotesItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
             )
-        return PillNoteHolder(binding)
+        return NoteTaskHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: PillNoteHolder, position: Int) {
-        holder.bindView(items[position])
+    override fun onBindViewHolder(taskHolder: NoteTaskHolder, position: Int) {
+        taskHolder.bindView(items[position])
     }
 
     override fun getItemCount() = items.size

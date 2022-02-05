@@ -1,12 +1,12 @@
 package com.example.pillnotes.domain.di
 
-import com.example.pillnotes.domain.viewmodel.di.NoteTaskViewModelModule
+import com.example.pillnotes.domain.viewmodel.di.ViewModelModule
 import dagger.Module
 
 
 @Module(
     includes = [
-        NoteTaskViewModelModule::class
+        ViewModelModule::class
     ]
 )
 
