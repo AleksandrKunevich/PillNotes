@@ -5,14 +5,16 @@ import com.example.pillnotes.presentation.HomeFragment
 import dagger.BindsInstance
 import dagger.Component
 
-@Component
+@Component(
+    modules = [AppModule::class]
+)
 interface ApplicationComponent {
 
     @Component.Builder
     interface Builder {
 
         @BindsInstance
-        fun bindContext(context: Context) : Builder
+        fun bindContext(context: Context): Builder
 
         fun build(): ApplicationComponent
     }

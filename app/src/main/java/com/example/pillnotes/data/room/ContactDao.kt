@@ -11,8 +11,8 @@ interface ContactDao {
     fun getAllContact(): Flow<List<ContactEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(vararg contacts: ContactEntity)
+    fun insertAllContacts(vararg contacts: ContactEntity)
 
     @Delete
-    fun delete(contact: ContactEntity)
+    fun deleteContact(contact: ContactEntity)
 }

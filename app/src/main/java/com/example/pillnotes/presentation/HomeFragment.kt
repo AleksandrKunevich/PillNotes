@@ -11,6 +11,7 @@ import com.example.pillnotes.DaggerApplication
 import com.example.pillnotes.R
 import com.example.pillnotes.databinding.HomeFragmentBinding
 import com.example.pillnotes.domain.model.NoteTask
+import com.example.pillnotes.domain.viewmodel.NoteTaskViewModel
 import com.example.pillnotes.presentation.recycler.PillNotesAdapter
 import java.util.*
 import javax.inject.Inject
@@ -21,16 +22,11 @@ class HomeFragment : Fragment() {
         DaggerApplication.appComponent?.inject(this)
     }
 
-    private val items = listOf(
-        NoteTask(UUID.randomUUID(), "1", "1", "1", "Ok", true, 1),
-        NoteTask(UUID.randomUUID(), "12", "1", "1", "Ok", true, 2),
-        NoteTask(UUID.randomUUID(), "13", "1", "1", "mnO", false, 3),
-        NoteTask(UUID.randomUUID(), "14", "1", "1", null, false, 1),
-        NoteTask(UUID.randomUUID(), "1114", "1", "1", null, false, 1)
-    )
-
     @Inject
     lateinit var adapter: PillNotesAdapter
+
+    @Inject
+    lateinit var noteTaskViewModel: NoteTaskViewModel
 
     private lateinit var binding: HomeFragmentBinding
 
@@ -45,10 +41,30 @@ class HomeFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         initRecycler()
-        adapter.updateList(items)
-
+        initObserve()
         binding.button2.setOnClickListener {
             findNavController().navigate(R.id.action_calendarFragment_to_mapsFragment)
+        }
+        binding.imgBtnNewTask.setOnClickListener {
+            noteTaskViewModel.addTask(
+                NoteTask(
+                    UUID.randomUUID(),
+                    "12:34",
+                    "Super Health",
+                    "every day at 1 table",
+                    "Yuuup",
+                    false,
+                    2
+                )
+            )
+            initObserve()
+        }
+    }
+
+    private fun initObserve() {
+        noteTaskViewModel.getAllTask()
+        noteTaskViewModel.noteTask.observe(viewLifecycleOwner) { listNoteTask ->
+            adapter.updateList(listNoteTask)
         }
     }
 

@@ -11,9 +11,9 @@ interface NoteTaskDao {
     fun getAllNoteTask(): Flow<List<NoteTaskEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(vararg noteTasks: NoteTaskEntity)
+    fun insertAllNoteTask(vararg noteTasks: NoteTaskEntity)
 
     @Delete
-    fun delete(noteTask: NoteTaskEntity)
+    fun deleteNoteTask(noteTask: NoteTaskEntity)
 
 }
