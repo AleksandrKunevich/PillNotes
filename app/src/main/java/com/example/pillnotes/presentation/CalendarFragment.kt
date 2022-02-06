@@ -20,9 +20,11 @@ import androidx.fragment.app.Fragment
 import com.example.pillnotes.DaggerApplication
 import com.example.pillnotes.databinding.FragmentCalendarBinding
 import com.example.pillnotes.domain.longToTime
+import com.example.pillnotes.domain.viewmodel.NoteTaskViewModel
 import java.lang.Long.parseLong
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 
 
 class CalendarFragment : Fragment() {
@@ -33,6 +35,9 @@ class CalendarFragment : Fragment() {
 
 //    @Inject
 //    lateinit var cursor: Cursor
+
+    @Inject
+    lateinit var noteTaskViewModel: NoteTaskViewModel
 
     private lateinit var binding: FragmentCalendarBinding
     private lateinit var pLauncher: ActivityResultLauncher<Array<String>>
@@ -124,61 +129,49 @@ class CalendarFragment : Fragment() {
         )!!
         cursor.moveToFirst()
         while (cursor.moveToNext()) {
-            val uidEvents = cursor.getColumnIndex(CalendarContract.Events.UID_2445)
-            val titleEvents = cursor.getColumnIndex(CalendarContract.Events.TITLE)
-            val descriptionEvents = cursor.getColumnIndex(CalendarContract.Events.DESCRIPTION)
-            val startEvents = cursor.getColumnIndex(CalendarContract.Events.DTSTART)
-            val statusEvents = cursor.getColumnIndex(CalendarContract.Events.STATUS)
+            val status = cursor.getColumnIndex(CalendarContract.Events.STATUS)
+            if (cursor.getString(status) == "com.example.pillnotes") {
+                val uidEvents = cursor.getColumnIndex(CalendarContract.Events.UID_2445)
+                val titleEvents = cursor.getColumnIndex(CalendarContract.Events.TITLE)
+                val descriptionEvents = cursor.getColumnIndex(CalendarContract.Events.DESCRIPTION)
+                val startEvents = cursor.getColumnIndex(CalendarContract.Events.DTSTART)
+                val endEvents = cursor.getColumnIndex(CalendarContract.Events.DTEND)
+                val statusEvents = cursor.getColumnIndex(CalendarContract.Events.STATUS)
+                val uid = cursor.getString(uidEvents)
+                val title = cursor.getString(titleEvents)
+                val description = cursor.getString(descriptionEvents)
+                val dayStart = cursor.getLong(startEvents).longToTime()
+                val dayEnd = cursor.getLong(endEvents).longToTime()
+                val statusEvent = cursor.getString(statusEvents)
 
-            val uid = cursor.getString(uidEvents)
-            val title = cursor.getString(titleEvents)
-            val description = cursor.getString(descriptionEvents)
-            var dayStart = "-1"
-            if (cursor.getString(startEvents) != null) {
-                dayStart = cursor.getString(startEvents)
+                Log.e("!!!!!!!", "$title + $description + $dayStart + $dayEnd +  $statusEvent")
             }
-            val dayEnd = "-1"
-            val statusEvent = cursor.getString(statusEvents)
-
-            Log.e(
-                "!!!!!!!",
-                "$uid + $title + $description + ${(dayStart.toLong()).longToTime()} + ${(dayEnd.toLong()).longToTime()} + $statusEvent"
-            )
         }
     }
 
     private fun addEventCalendar() {
-        val rand = Random().nextInt(10000) + 1
-        val eventTitle = "Events + $rand"
-        val eventDescription = "Always happy"
-        val eventDate = "02/06/2022"
-        val eventLocation = "Taj Mahal"
-
-        val cal: Calendar = Calendar.getInstance()
-        val dateFormat: SimpleDateFormat = SimpleDateFormat("MM/dd/yyyy")
-        val dEventDate: Date = dateFormat.parse(eventDate)
-        cal.time = dEventDate
-
-        val reminderDate: String = dateFormat.format(cal.time)
-        val reminderDayStart: String = "$reminderDate 11:20:00"
-        val reminderDayEnd: String = "$reminderDate 23:59:59"
-        val formatter: SimpleDateFormat = SimpleDateFormat("MM/dd/yyyy hh:mm:ss")
-        val startDate: Date = formatter.parse(reminderDayStart)
-        val endDate: Date = formatter.parse(reminderDayEnd)
+        val uid = "${noteTaskViewModel.noteTask.value?.get(0)?.uid}"
+        val eventTitle = "${noteTaskViewModel.noteTask.value?.get(0)?.title}"
+        val eventDescription = "${noteTaskViewModel.noteTask.value?.get(0)?.task}"
+        val eventDay = (noteTaskViewModel.noteTask.value?.get(0)?.time)?.removeRange(10, 19)
+        val reminderDayTimeStart: String =
+            "$eventDay ${(noteTaskViewModel.noteTask.value?.get(0)?.time?.removeRange(0, 11))}"
+        val reminderDayTimeEnd: String = reminderDayTimeStart.replaceRange(17, 19, "59")
+        val formatter: SimpleDateFormat = SimpleDateFormat("yyyy/MM/dd hh:mm:ss")
+        val startDate: Date = formatter.parse(reminderDayTimeStart)
+        val endDate: Date = formatter.parse(reminderDayTimeEnd)
         val cr: ContentResolver = requireContext().contentResolver
         val values: ContentValues = ContentValues()
 
         values.put(CalendarContract.Events.CALENDAR_ID, 1)
+        values.put(CalendarContract.Events.UID_2445, uid)
         values.put(CalendarContract.Events.DTSTART, startDate.time)
         values.put(CalendarContract.Events.DTEND, endDate.time)
         values.put(CalendarContract.Events.TITLE, eventTitle)
         values.put(CalendarContract.Events.DESCRIPTION, eventDescription)
-        values.put(CalendarContract.Events.EVENT_LOCATION, eventLocation)
         values.put(CalendarContract.Events.STATUS, "com.example.pillnotes")
 
-        val timeZone: TimeZone = TimeZone.getDefault()
-        values.put(CalendarContract.Events.EVENT_TIMEZONE, timeZone.id)
-        values.put(CalendarContract.Events.RRULE, "FREQ=HOURLY;COUNT=1")
+        values.put(CalendarContract.Events.EVENT_TIMEZONE, TimeZone.getDefault().id)
         values.put(CalendarContract.Events.HAS_ALARM, 1);
 
         val eventUri: Uri =

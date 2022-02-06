@@ -67,7 +67,7 @@ class HomeFragment : Fragment() {
             noteTaskViewModel.addTask(
                 NoteTask(
                     UUID.randomUUID(),
-                    "12:34",
+                    "2022/02/06 20:23:00",
                     "Super Health",
                     "every day at 1 table",
                     "Yuuup",
