@@ -11,7 +11,7 @@ internal fun NoteTaskEntity.toNoteTask(): NoteTask {
     return NoteTask(
         uid = uid,
         time = time,
-        name = name,
+        title = name,
         task = task,
         result = result,
         check = check,
@@ -23,7 +23,7 @@ internal fun NoteTask.toNoteTaskEntity(): NoteTaskEntity {
     return NoteTaskEntity(
         uid = uid,
         time = time,
-        name = name,
+        name = title,
         task = task,
         result = result,
         check = check,

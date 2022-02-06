@@ -11,7 +11,7 @@ class NoteTaskHolder constructor(private val itemBinding: PillNotesItemBinding) 
     fun bindView(item: NoteTask) {
         itemBinding.apply {
             tvItemTime.text = item.time
-            tvPillName.text = item.name
+            tvPillName.text = item.title
             tvPillTask.text = item.task
             if (item.result == null) {
                 tvPillResult.height = 0

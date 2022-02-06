@@ -1,6 +1,7 @@
 package com.example.pillnotes.di
 
 import android.content.Context
+import com.example.pillnotes.presentation.CalendarFragment
 import com.example.pillnotes.presentation.HomeFragment
 import dagger.BindsInstance
 import dagger.Component
@@ -20,4 +21,5 @@ interface ApplicationComponent {
     }
 
     fun inject(target: HomeFragment)
+    fun inject(target: CalendarFragment)
 }

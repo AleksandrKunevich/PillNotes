@@ -5,7 +5,7 @@ import java.util.*
 data class NoteTask(
     val uid: UUID,
     val time: String,
-    val name: String,
+    val title: String,
     val task: String,
     val result: String?,
     val check: Boolean,
