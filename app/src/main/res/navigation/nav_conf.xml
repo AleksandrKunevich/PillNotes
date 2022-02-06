@@ -3,18 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_conf"
-    app:startDestination="@id/calendarFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
-        android:id="@+id/calendarFragment"
+        android:id="@+id/homeFragment"
         android:name="com.example.pillnotes.presentation.HomeFragment"
-        android:label="CalendarFragment"
-        tools:layout="@layout/home_fragment"
-        >
+        android:label="HomeFragment"
+        tools:layout="@layout/home_fragment">
         <action
-            android:id="@+id/action_calendarFragment_to_mapsFragment"
+            android:id="@+id/action_homeFragment_to_mapsFragment"
             app:destination="@id/mapsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_calendarFragment"
+            app:destination="@id/calendarFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/calendarFragment"
+        android:name="com.example.pillnotes.presentation.CalendarFragment"
+        android:label="fragment_calendar"
+        tools:layout="@layout/fragment_calendar" />
     <fragment
         android:id="@+id/mapsFragment"
         android:name="com.example.pillnotes.presentation.MapsFragment"

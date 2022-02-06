@@ -56,8 +56,12 @@ class HomeFragment : Fragment() {
         initRecycler()
         initObserve()
 
+        binding.button3.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_calendarFragment)
+        }
+
         binding.button2.setOnClickListener {
-            findNavController().navigate(R.id.action_calendarFragment_to_mapsFragment)
+            findNavController().navigate(R.id.action_homeFragment_to_mapsFragment)
         }
         binding.imgBtnNewTask.setOnClickListener {
             noteTaskViewModel.addTask(
