@@ -11,7 +11,7 @@ import dagger.Provides
 object CalendarModule {
 
     @Provides
-    fun provideCursor2(context: Context): Cursor =
+    fun provideCursor(context: Context): Cursor =
         context.contentResolver.query(
             CalendarContract.Events.CONTENT_URI,
             null,
