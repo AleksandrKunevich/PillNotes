@@ -25,6 +25,9 @@ import kotlinx.coroutines.flow.onEach
 import java.util.*
 import javax.inject.Inject
 
+private const val TEXT_CODE = "TEXT_CODE"
+private const val TYPE_CODE = "TYPE_CODE"
+
 class HomeFragment : Fragment() {
 
     init {
@@ -41,7 +44,14 @@ class HomeFragment : Fragment() {
     lateinit var contactViewModel: ContactViewModel
 
     private lateinit var binding: HomeFragmentBinding
+    private lateinit var textQr: String
+    private lateinit var typeQr: String
     private val scope: CoroutineScope = CoroutineScope(Dispatchers.IO)
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.d("!!!!!!", "onCreate: ")
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,16 +63,24 @@ class HomeFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
+
+        arguments?.let { bundle ->
+            textQr = bundle.getString(TEXT_CODE).toString()
+            typeQr = bundle.getString(TYPE_CODE).toString()
+            binding.tvResultQrScan.textSize = 32F
+            binding.tvResultQrScan.text = "$typeQr = $textQr"
+        }
+
         initRecycler()
         initObserve()
         binding.button1.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_scannerFragment)
+            findNavController().navigate(R.id.home_to_scanner)
         }
         binding.button2.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_mapsFragment)
+            findNavController().navigate(R.id.home_to_maps)
         }
         binding.button3.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_calendarFragment)
+            findNavController().navigate(R.id.home_to_calendar)
         }
         binding.imgBtnNewTask.setOnClickListener {
             noteTaskViewModel.addTask(

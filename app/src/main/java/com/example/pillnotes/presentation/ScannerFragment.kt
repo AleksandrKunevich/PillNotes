@@ -4,8 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.pillnotes.DaggerApplication
+import com.example.pillnotes.R
 import com.example.pillnotes.databinding.FragmentScannerBinding
 import com.google.zxing.NotFoundException
 import com.google.zxing.ResultPoint
@@ -16,8 +19,11 @@ import com.journeyapps.barcodescanner.BarcodeResult
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-const val DIFF_BETWEEN_SCANS_MS = 1000
+private const val PARSED_RESULT_UNKNOWN = "UNKNOWN"
+private const val TEXT_CODE = "TEXT_CODE"
+private const val TYPE_CODE = "TYPE_CODE"
 
 class ScannerFragment : Fragment() {
 
@@ -29,6 +35,16 @@ class ScannerFragment : Fragment() {
     private lateinit var binding: FragmentScannerBinding
     private val scope = CoroutineScope(Dispatchers.IO)
 
+    override fun onResume() {
+        super.onResume()
+        binding.codeScannerView.resume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        binding.codeScannerView.pause()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,9 +53,9 @@ class ScannerFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.codeScannerView.resume()
+    override fun onStart() {
+        super.onStart()
+
         binding.codeScannerView.decodeContinuous(object : BarcodeCallback {
             override fun barcodeResult(result: BarcodeResult) {
                 onScanResult(result)
@@ -51,23 +67,18 @@ class ScannerFragment : Fragment() {
     }
 
     private fun onScanResult(barcodeResult: BarcodeResult) {
-        if (barcodeResult.timestamp - DIFF_BETWEEN_SCANS_MS < lastScanTime) {
-            return
+        val parsedResult: ParsedResult? = try {
+            ResultParser.parseResult(barcodeResult.result)
+        } catch (e: NotFoundException) {
+            null
         }
-        lastScanTime = barcodeResult.timestamp
-
+        val text = parsedResult?.displayResult ?: barcodeResult.result
+        val type = parsedResult?.type?.name ?: PARSED_RESULT_UNKNOWN
+        val bundle = bundleOf(TEXT_CODE to text.toString(), TYPE_CODE to type)
         scope.launch {
-            val parsedResult: ParsedResult? = try {
-                ResultParser.parseResult(barcodeResult.result)
-            } catch (e: NotFoundException) {
-                null
+            withContext(Dispatchers.Main) {
+                findNavController().navigate(R.id.scanner_to_home, bundle)
             }
-            val text = parsedResult?.displayResult ?: barcodeResult.result
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        binding.codeScannerView.pause()
     }
 }

@@ -10,11 +10,21 @@
         android:id="@+id/recyclerHome"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearDownMenu"
+        app:layout_constraintBottom_toTopOf="@+id/tvResultQrScan"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
     </androidx.recyclerview.widget.RecyclerView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvResultQrScan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:textSize="@dimen/size_pill_item_result"
+        app:layout_constraintBottom_toTopOf="@id/linearDownMenu"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
     <LinearLayout
         android:id="@+id/linearDownMenu"
@@ -59,11 +69,11 @@
         android:id="@+id/imgBtnNewTask"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_medium"
+        android:layout_marginBottom="@dimen/margin_medium"
         android:src="@drawable/ic_baseline_add_task_48"
         app:layout_constraintBottom_toTopOf="@id/linearDownMenu"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="@dimen/margin_medium"
-        android:layout_marginBottom="@dimen/margin_medium">
+        app:layout_constraintEnd_toEndOf="parent">
 
     </androidx.appcompat.widget.AppCompatImageView>
 

@@ -17,19 +17,19 @@ internal fun Long.longToTime(): String {
     return format.format(date)
 }
 
-internal fun Result.toQrModel(): QrModel {
-    val time = System.currentTimeMillis()
-    val title = SimpleDateFormat(DATE_FORMAT_24H, Locale.US).format(time)
-    val parsedResult: ParsedResult? = try {
-        ResultParser.parseResult(this)
-    } catch (e: NotFoundException) {
-        null
-    }
-    return QrModel(
-        time = time,
-        title = title,
-        text = parsedResult?.displayResult ?: text,
-        type = parsedResult?.type?.name ?: PARSED_RESULT_UNKNOWN,
-        format = barcodeFormat.name
-    )
-}
+//internal fun Result.toQrModel(): QrModel {
+//    val time = System.currentTimeMillis()
+//    val title = SimpleDateFormat(DATE_FORMAT_24H, Locale.US).format(time)
+//    val parsedResult: ParsedResult? = try {
+//        ResultParser.parseResult(this)
+//    } catch (e: NotFoundException) {
+//        null
+//    }
+//    return QrModel(
+//        time = time,
+//        title = title,
+//        text = parsedResult?.displayResult ?: text,
+//        type = parsedResult?.type?.name ?: PARSED_RESULT_UNKNOWN,
+//        format = barcodeFormat.name
+//    )
+//}
