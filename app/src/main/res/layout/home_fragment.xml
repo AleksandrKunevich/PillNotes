@@ -43,7 +43,7 @@
             android:layout_margin="@dimen/margin_min"
             android:layout_weight="1"
             android:background="@drawable/down_menu_button_background"
-            android:src="@drawable/ic_baseline_home_48" />
+            android:src="@drawable/ic_baseline_home_24" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/button2"
@@ -52,7 +52,7 @@
             android:layout_margin="@dimen/margin_min"
             android:layout_weight="1"
             android:background="@drawable/down_menu_button_background"
-            android:src="@drawable/ic_baseline_home_48" />
+            android:src="@drawable/ic_baseline_home_24" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/button3"
@@ -61,7 +61,7 @@
             android:layout_margin="@dimen/margin_min"
             android:layout_weight="1"
             android:background="@drawable/down_menu_button_background"
-            android:src="@drawable/ic_baseline_home_48" />
+            android:src="@drawable/ic_baseline_home_24" />
 
     </LinearLayout>
 

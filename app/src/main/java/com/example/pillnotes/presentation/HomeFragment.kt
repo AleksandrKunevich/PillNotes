@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.pillnotes.DaggerApplication
 import com.example.pillnotes.R
 import com.example.pillnotes.databinding.HomeFragmentBinding
+import com.example.pillnotes.domain.Constants
 import com.example.pillnotes.domain.model.ContactDoctor
 import com.example.pillnotes.domain.model.NoteTask
 import com.example.pillnotes.domain.viewmodel.ContactViewModel
@@ -24,9 +25,6 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import java.util.*
 import javax.inject.Inject
-
-private const val TEXT_CODE = "TEXT_CODE"
-private const val TYPE_CODE = "TYPE_CODE"
 
 class HomeFragment : Fragment() {
 
@@ -65,9 +63,8 @@ class HomeFragment : Fragment() {
         super.onStart()
 
         arguments?.let { bundle ->
-            textQr = bundle.getString(TEXT_CODE).toString()
-            typeQr = bundle.getString(TYPE_CODE).toString()
-            binding.tvResultQrScan.textSize = 32F
+            textQr = bundle.getString(Constants.TEXT_CODE).toString()
+            typeQr = bundle.getString(Constants.TYPE_CODE).toString()
             binding.tvResultQrScan.text = "$typeQr = $textQr"
         }
 

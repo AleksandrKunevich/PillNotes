@@ -1,6 +1,8 @@
 package com.example.pillnotes.di
 
 import android.content.Context
+import com.example.pillnotes.presentation.ContactsFragment
+import com.example.pillnotes.presentation.NewsPaperFragment
 import com.example.pillnotes.presentation.CalendarFragment
 import com.example.pillnotes.presentation.HomeFragment
 import com.example.pillnotes.presentation.ScannerFragment
@@ -24,4 +26,6 @@ interface ApplicationComponent {
     fun inject(target: HomeFragment)
     fun inject(target: CalendarFragment)
     fun inject(target: ScannerFragment)
+    fun inject(target: NewsPaperFragment)
+    fun inject(target: ContactsFragment)
 }

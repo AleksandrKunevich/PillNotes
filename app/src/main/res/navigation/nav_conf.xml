@@ -6,9 +6,41 @@
     app:startDestination="@id/homeFragment">
 
     <fragment
+        android:id="@+id/menuHome"
+        android:name="com.example.pillnotes.presentation.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/home_fragment">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/menuNewsPaper"
+        android:name="com.example.pillnotes.presentation.NewsPaperFragment"
+        android:label="NewsPaperFragment"
+        tools:layout="@layout/fragment_news_paper">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/menuContacts"
+        android:name="com.example.pillnotes.presentation.ContactsFragment"
+        android:label="ContactsFragment"
+        tools:layout="@layout/fragment_contacts">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/menuSetting"
+        android:name="com.example.pillnotes.presentation.SettingsFragment"
+        android:label="SettingsFragment"
+        tools:layout="@layout/fragment_settings">
+
+    </fragment>
+
+    <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.pillnotes.presentation.HomeFragment"
-        android:label="HomeFragment" >
+        android:label="HomeFragment">
         <action
             android:id="@+id/home_to_maps"
             app:destination="@id/mapsFragment" />
@@ -19,22 +51,29 @@
             android:id="@+id/home_to_scanner"
             app:destination="@id/scannerFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/scannerFragment"
         android:name="com.example.pillnotes.presentation.ScannerFragment"
-        android:label="ScannerFragment" >
+        android:label="ScannerFragment">
         <action
             android:id="@+id/scanner_to_home"
             app:destination="@id/homeFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/calendarFragment"
         android:name="com.example.pillnotes.presentation.CalendarFragment"
         android:label="fragment_calendar"
-        tools:layout="@layout/fragment_calendar" />
+        tools:layout="@layout/fragment_calendar">
+
+    </fragment>
+
     <fragment
         android:id="@+id/mapsFragment"
         android:name="com.example.pillnotes.presentation.MapsFragment"
         android:label="fragment_maps"
-        tools:layout="@layout/fragment_maps" />
+        tools:layout="@layout/fragment_maps">
+
+    </fragment>
 </navigation>

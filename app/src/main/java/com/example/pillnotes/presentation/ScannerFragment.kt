@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.pillnotes.DaggerApplication
 import com.example.pillnotes.R
 import com.example.pillnotes.databinding.FragmentScannerBinding
+import com.example.pillnotes.domain.Constants
 import com.google.zxing.NotFoundException
 import com.google.zxing.ResultPoint
 import com.google.zxing.client.result.ParsedResult
@@ -22,8 +23,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 private const val PARSED_RESULT_UNKNOWN = "UNKNOWN"
-private const val TEXT_CODE = "TEXT_CODE"
-private const val TYPE_CODE = "TYPE_CODE"
 
 class ScannerFragment : Fragment() {
 
@@ -31,7 +30,6 @@ class ScannerFragment : Fragment() {
         DaggerApplication.appComponent?.inject(this)
     }
 
-    var lastScanTime: Long = 0
     private lateinit var binding: FragmentScannerBinding
     private val scope = CoroutineScope(Dispatchers.IO)
 
@@ -74,7 +72,7 @@ class ScannerFragment : Fragment() {
         }
         val text = parsedResult?.displayResult ?: barcodeResult.result
         val type = parsedResult?.type?.name ?: PARSED_RESULT_UNKNOWN
-        val bundle = bundleOf(TEXT_CODE to text.toString(), TYPE_CODE to type)
+        val bundle = bundleOf(Constants.TEXT_CODE to text.toString(), Constants.TYPE_CODE to type)
         scope.launch {
             withContext(Dispatchers.Main) {
                 findNavController().navigate(R.id.scanner_to_home, bundle)

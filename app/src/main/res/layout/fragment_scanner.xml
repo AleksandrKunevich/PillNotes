@@ -17,7 +17,7 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_gravity="center_horizontal"
-        app:srcCompat="@drawable/ic_flash_on"
+        app:srcCompat="@drawable/ic_flash_on_24"
         app:tint="@android:color/white" />
 
 </FrameLayout>

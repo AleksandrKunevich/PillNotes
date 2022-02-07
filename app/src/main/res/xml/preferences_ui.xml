@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:icon="@drawable/ic_vibration_24"
+        android:key="@string/vibration"
+        android:title="@string/vibration_feedback" />
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:icon="@drawable/ic_music_note_24"
+        android:key="@string/sound"
+        android:title="@string/sound_feedback" />
+
+    <ListPreference
+        android:defaultValue="@string/dark"
+        android:entries="@array/pref_theme_labels"
+        android:entryValues="@array/pref_theme_values"
+        android:icon="@drawable/ic_palette_24"
+        android:key="@string/key_theme"
+        android:summary="%s"
+        android:title="@string/theme"
+        tools:summary="@string/theme_dark" />
+
+    <Preference
+        android:icon="@drawable/ic_alternate_email_24"
+        android:summary="@string/app_name" />
+
+</PreferenceScreen>

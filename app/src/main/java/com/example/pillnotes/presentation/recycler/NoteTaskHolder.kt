@@ -28,7 +28,7 @@ class NoteTaskHolder constructor(private val itemBinding: PillNotesItemBinding) 
                 when (item.priority) {
                     1 -> R.drawable.ic_baseline_cancel_24_x
                     2 -> R.drawable.ic_baseline_more_vert_24
-                    3 -> R.drawable.ic_baseline_home_48
+                    3 -> R.drawable.ic_baseline_home_24
                     else -> R.drawable.ic_launcher_background
                 }
             )
