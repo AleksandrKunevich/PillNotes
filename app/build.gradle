@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.pillnotes"
-        minSdk 21
+        minSdk 24
         targetSdk 31
         versionCode 1
         versionName "1.0"
@@ -86,6 +86,16 @@ dependencies {
     implementation "androidx.room:room-ktx:2.4.1"
     kapt "androidx.room:room-compiler:2.4.1"
 
+    // Play services
+    implementation "com.google.android.gms:play-services-location:19.0.1"
+    implementation "com.google.android.gms:play-services-safetynet:18.0.1"
     implementation 'com.google.android.gms:play-services-maps:18.0.2'
     implementation 'com.google.maps.android:android-maps-utils:0.5'
+
+    // Preference
+    implementation 'androidx.preference:preference:1.2.0'
+
+    // Zxing https://github.com/journeyapps/zxing-android-embedded#older-sdk-versions
+    implementation('com.journeyapps:zxing-android-embedded:4.1.0') { transitive = false }
+    implementation 'com.google.zxing:core:3.3.3'
 }

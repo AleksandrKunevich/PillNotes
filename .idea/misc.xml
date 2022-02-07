@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/drawable-v24/ic_flash_off.xml" value="0.2375" />
+        <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/drawable-v24/ic_flash_on.xml" value="0.1635" />
         <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1635" />
         <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/drawable/down_menu_button_background.xml" value="0.1635" />
         <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/drawable/ic_baseline_add_task_48.xml" value="0.1635" />
@@ -23,6 +25,7 @@
         <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/layout/fragment_ad_mob.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/layout/fragment_calendar.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/layout/fragment_maps.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/layout/fragment_scanner.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/layout/home_fragment.xml" value="0.176" />
         <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/layout/pill_notes_item.xml" value="0.4" />
         <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/layout/test.xml" value="0.25416666666666665" />

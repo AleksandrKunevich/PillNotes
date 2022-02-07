@@ -55,13 +55,14 @@ class HomeFragment : Fragment() {
         super.onStart()
         initRecycler()
         initObserve()
-
-        binding.button3.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_calendarFragment)
+        binding.button1.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_scannerFragment)
         }
-
         binding.button2.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_mapsFragment)
+        }
+        binding.button3.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_calendarFragment)
         }
         binding.imgBtnNewTask.setOnClickListener {
             noteTaskViewModel.addTask(
@@ -78,7 +79,7 @@ class HomeFragment : Fragment() {
             contactViewModel.addContact(
                 ContactDoctor(
                     UUID.randomUUID(),
-                    "Doctcor name",
+                    "Doctor name",
                     "superman",
                     "+11111111",
                     Location(LocationManager.GPS_PROVIDER)

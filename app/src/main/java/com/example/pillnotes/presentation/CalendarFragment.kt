@@ -87,7 +87,12 @@ class CalendarFragment : Fragment() {
 
     val perm = arrayOf(
         android.Manifest.permission.READ_CALENDAR,
-        android.Manifest.permission.WRITE_CALENDAR
+        android.Manifest.permission.WRITE_CALENDAR,
+        android.Manifest.permission.CAMERA,
+        android.Manifest.permission.VIBRATE,
+        android.Manifest.permission.ACCESS_COARSE_LOCATION,
+        android.Manifest.permission.ACCESS_FINE_LOCATION
+
     )
 
     private fun checkPermissionCalendar() {

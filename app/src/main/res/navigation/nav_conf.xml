@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_homeFragment_to_calendarFragment"
             app:destination="@id/calendarFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_scannerFragment"
+            app:destination="@id/scannerFragment" />
     </fragment>
     <fragment
         android:id="@+id/calendarFragment"
@@ -27,4 +30,8 @@
         android:name="com.example.pillnotes.presentation.MapsFragment"
         android:label="fragment_maps"
         tools:layout="@layout/fragment_maps" />
+    <fragment
+        android:id="@+id/scannerFragment"
+        android:name="com.example.pillnotes.presentation.ScannerFragment"
+        android:label="ScannerFragment" />
 </navigation>
