@@ -5,7 +5,10 @@ import com.example.pillnotes.R
 import com.example.pillnotes.databinding.PillNotesItemBinding
 import com.example.pillnotes.domain.model.NoteTask
 
-class NoteTaskHolder constructor(private val itemBinding: PillNotesItemBinding) :
+class NoteTaskHolder constructor(
+    private val itemBinding: PillNotesItemBinding,
+    private val listener: RecyclerClickListener
+) :
     RecyclerView.ViewHolder(itemBinding.root) {
 
     fun bindView(item: NoteTask) {
@@ -32,6 +35,9 @@ class NoteTaskHolder constructor(private val itemBinding: PillNotesItemBinding) 
                     else -> R.drawable.ic_launcher_background
                 }
             )
+            imgDelete.setOnClickListener {
+                listener.onDeleteClickListener(item)
+            }
         }
     }
 }

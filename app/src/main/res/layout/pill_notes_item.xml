@@ -17,11 +17,24 @@
 
     </androidx.appcompat.widget.AppCompatTextView>
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgDelete"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_margin="@dimen/margin_min"
+        android:foregroundGravity="center"
+        android:src="@drawable/ic_delete_24"
+        app:layout_constraintBottom_toTopOf="@id/containerItem"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </androidx.appcompat.widget.AppCompatImageView>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/containerItem"
-        android:background="@drawable/down_menu_button_background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/down_menu_button_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -6,9 +6,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pillnotes.databinding.PillNotesItemBinding
 import com.example.pillnotes.domain.model.NoteTask
-import javax.inject.Inject
 
-class NoteTaskAdapter @Inject constructor() : RecyclerView.Adapter<NoteTaskHolder>() {
+class NoteTaskAdapter(private val listener: RecyclerClickListener) :
+    RecyclerView.Adapter<NoteTaskHolder>() {
 
     private var items = listOf<NoteTask>()
 
@@ -19,7 +19,7 @@ class NoteTaskAdapter @Inject constructor() : RecyclerView.Adapter<NoteTaskHolde
                 parent,
                 false
             )
-        return NoteTaskHolder(binding)
+        return NoteTaskHolder(binding, listener)
     }
 
     override fun onBindViewHolder(taskHolder: NoteTaskHolder, position: Int) {

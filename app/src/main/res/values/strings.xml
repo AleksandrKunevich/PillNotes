@@ -18,5 +18,8 @@
     <string name="key_theme">theme</string>
     <string name="theme">Theme</string>
     <string name="email_me">Email me</string>
+    <string name="are_you_sure_delete_this">Are you sure delete this?</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
 
 </resources>

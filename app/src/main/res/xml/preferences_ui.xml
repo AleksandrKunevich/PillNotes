@@ -26,6 +26,6 @@
 
     <Preference
         android:icon="@drawable/ic_alternate_email_24"
-        android:summary="@string/app_name" />
+        android:summary="@string/email_me" />
 
 </PreferenceScreen>

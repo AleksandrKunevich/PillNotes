@@ -3,10 +3,10 @@ package com.example.pillnotes.presentation
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,6 +19,7 @@ import com.example.pillnotes.domain.model.NoteTask
 import com.example.pillnotes.domain.viewmodel.ContactViewModel
 import com.example.pillnotes.domain.viewmodel.NoteTaskViewModel
 import com.example.pillnotes.presentation.recycler.NoteTaskAdapter
+import com.example.pillnotes.presentation.recycler.RecyclerClickListener
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.launchIn
@@ -32,8 +33,25 @@ class HomeFragment : Fragment() {
         DaggerApplication.appComponent?.inject(this)
     }
 
-    @Inject
-    lateinit var adapter: NoteTaskAdapter
+    private val onClickNotes: RecyclerClickListener = object : RecyclerClickListener {
+        override fun onDeleteClickListener(item: NoteTask) {
+            val dialog = AlertDialog.Builder(requireContext())
+            val dialogItem = arrayOf(
+                getString(R.string.delete),
+                getString(R.string.cancel),
+            )
+            dialog
+                .setTitle(getString(R.string.are_you_sure_delete_this))
+                .setItems(dialogItem) { dialog, which ->
+                    when (which) {
+                        0 -> noteTaskViewModel.deleteTask(item)
+                    }
+                }
+                .show()
+        }
+    }
+
+    private val adapter by lazy { NoteTaskAdapter(onClickNotes) }
 
     @Inject
     lateinit var noteTaskViewModel: NoteTaskViewModel
@@ -46,11 +64,6 @@ class HomeFragment : Fragment() {
     private lateinit var typeQr: String
     private val scope: CoroutineScope = CoroutineScope(Dispatchers.IO)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        Log.d("!!!!!!", "onCreate: ")
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -58,6 +71,7 @@ class HomeFragment : Fragment() {
         binding = HomeFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
+
 
     override fun onStart() {
         super.onStart()
@@ -101,6 +115,7 @@ class HomeFragment : Fragment() {
                 )
             )
         }
+        binding.imgBtnNewTask
     }
 
     private fun initObserve() {
@@ -111,7 +126,7 @@ class HomeFragment : Fragment() {
 
         contactViewModel.contact
             .onEach { listContactDoctor ->
-                Log.d("!!!!!", "initObserve: ${listContactDoctor.size}")
+
             }
             .launchIn(scope)
     }

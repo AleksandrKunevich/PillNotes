@@ -20,6 +20,7 @@
         <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/drawable/ic_baseline_more_vert_24.xml" value="0.1635" />
         <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/drawable/ic_contacts.xml" value="0.2375" />
         <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/drawable/ic_contacts_24.xml" value="0.1635" />
+        <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/drawable/ic_delete_24.xml" value="0.1635" />
         <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1635" />
         <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/drawable/ic_music_note_24.xml" value="0.1635" />
         <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/drawable/ic_notes.xml" value="0.1635" />
@@ -41,7 +42,7 @@
         <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/layout/home_fragment.xml" value="0.264" />
         <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/layout/pill_notes_item.xml" value="0.4" />
         <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/layout/test.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/menu/menu_home_basic.xml" value="1.0" />
+        <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/menu/menu_home_basic.xml" value="0.8330097087378641" />
         <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/xml/preferences_ui.xml" value="0.25416666666666665" />
       </map>
     </option>

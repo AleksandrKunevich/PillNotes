@@ -1,11 +1,7 @@
 package com.example.pillnotes.di
 
 import android.content.Context
-import com.example.pillnotes.presentation.ContactsFragment
-import com.example.pillnotes.presentation.NewsPaperFragment
-import com.example.pillnotes.presentation.CalendarFragment
-import com.example.pillnotes.presentation.HomeFragment
-import com.example.pillnotes.presentation.ScannerFragment
+import com.example.pillnotes.presentation.*
 import dagger.BindsInstance
 import dagger.Component
 
