@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.pillnotes.DaggerApplication
 import com.example.pillnotes.R
@@ -95,6 +96,7 @@ class HomeFragment : Fragment() {
                 )
             )
             changeVisibleFloatingMenu()
+            findNavController().navigate(R.id.home_to_newNote)
         }
         binding.floatingAddAlarm.setOnClickListener {
             contactViewModel.addContact(

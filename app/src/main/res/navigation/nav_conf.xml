@@ -50,6 +50,9 @@
         <action
             android:id="@+id/home_to_scanner"
             app:destination="@id/scannerFragment" />
+        <action
+            android:id="@+id/home_to_newNote"
+            app:destination="@id/newNoteFragment" />
     </fragment>
 
     <fragment
@@ -76,4 +79,8 @@
         tools:layout="@layout/fragment_maps">
 
     </fragment>
+    <fragment
+        android:id="@+id/newNoteFragment"
+        android:name="com.example.pillnotes.presentation.NewNoteFragment"
+        android:label="NewNoteFragment" />
 </navigation>

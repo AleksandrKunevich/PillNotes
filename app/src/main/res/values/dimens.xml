@@ -2,6 +2,8 @@
 <resources>
     <dimen name="size_pill_item_name">18sp</dimen>
     <dimen name="size_pill_item_task">18sp</dimen>
+    <dimen name="size_pill_item_title">18sp</dimen>
+    <dimen name="size_pill_note_head">18sp</dimen>
     <dimen name="size_pill_item_result">18sp</dimen>
     <dimen name="size_pill_item_time">26sp</dimen>
     <dimen name="margin_min">8dp</dimen>

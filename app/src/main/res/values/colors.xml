@@ -18,4 +18,7 @@
     <color name="text_color_item_result">#6BE42A</color>
     <color name="text_color_item_time_wait">#F0F1EF</color>
     <color name="text_color_item_time_finish">#36B0F1</color>
+    <color name="text_color_note_head">#3388EE</color>
+    <color name="text_color_note_enter_text">#FF03DAC5</color>
+    <color name="text_color_note_enter_text_hint">#AA008888</color>
 </resources>
