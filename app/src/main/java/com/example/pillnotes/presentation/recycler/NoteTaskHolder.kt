@@ -1,11 +1,13 @@
 package com.example.pillnotes.presentation.recycler
 
+import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pillnotes.R
 import com.example.pillnotes.databinding.PillNotesItemBinding
 import com.example.pillnotes.domain.model.NoteTask
 
 class NoteTaskHolder constructor(
+    private val context: Context,
     private val itemBinding: PillNotesItemBinding,
     private val listener: RecyclerClickListener
 ) :
@@ -24,16 +26,14 @@ class NoteTaskHolder constructor(
             val checkIdDraw = if (item.check) {
                 R.drawable.ic_baseline_check_circle_24_done
             } else {
-                R.drawable.ic_baseline_error_outline_24_alert
+                R.drawable.add_alert_48
             }
             imgCheckFinish.setImageResource(checkIdDraw)
             imgPriority.setImageResource(
-                when (item.priority) {
-                    1 -> R.drawable.ic_baseline_cancel_24_x
-                    2 -> R.drawable.ic_baseline_more_vert_24
-                    3 -> R.drawable.ic_baseline_home_24
-                    else -> R.drawable.ic_launcher_background
-                }
+                context
+                    .resources
+                    .obtainTypedArray(R.array.spinnerPriorityDraw)
+                    .getResourceId(item.priority, 0)
             )
             imgDelete.setOnClickListener {
                 listener.onDeleteClickListener(item)

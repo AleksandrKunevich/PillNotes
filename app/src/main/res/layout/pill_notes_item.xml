@@ -57,7 +57,7 @@
             android:id="@+id/imgPriority"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_margin="@dimen/margin_min"
+            android:layout_margin="@dimen/margin_max"
             android:foregroundGravity="center"
             android:src="@android:drawable/bottom_bar"
             app:layout_constraintBottom_toBottomOf="parent"

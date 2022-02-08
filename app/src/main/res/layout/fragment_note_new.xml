@@ -55,6 +55,7 @@
         android:gravity="center"
         android:text="@string/default_time_text"
         android:textColor="@color/text_color_note_enter_text"
+        android:textSize="@dimen/size_pill_item_time"
         app:layout_constraintEnd_toStartOf="@id/etNoteDate"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvNoteTime">
@@ -84,6 +85,7 @@
         android:gravity="center"
         android:text="@string/default_date_text"
         android:textColor="@color/text_color_note_enter_text"
+        android:textSize="@dimen/size_pill_item_time"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/etNoteTime"
         app:layout_constraintTop_toBottomOf="@id/tvNoteTime">
@@ -96,7 +98,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_medium"
-        android:text="@string/enter_task"
+        android:text="@string/choose_task"
         android:textColor="@color/text_color_note_head"
         android:textSize="@dimen/size_pill_note_head"
         app:layout_constraintStart_toStartOf="parent"
@@ -104,18 +106,64 @@
 
     </androidx.appcompat.widget.AppCompatTextView>
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/etNoteTask"
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/spinnerTask"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_margin="@dimen/margin_medium"
-        android:hint="@string/enter_task_hint"
+        android:background="@color/background_home_fragment"
+        android:entries="@array/spinnerTask"
+        android:gravity="center"
         android:textColor="@color/text_color_note_enter_text"
-        android:textColorHint="@color/text_color_note_enter_text_hint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvNoteTask">
 
-    </androidx.appcompat.widget.AppCompatEditText>
+    </androidx.appcompat.widget.AppCompatSpinner>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvNotePriority"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_medium"
+        android:orientation="vertical"
+        android:text="@string/choose_priority"
+        android:textColor="@color/text_color_note_head"
+        android:textSize="@dimen/size_pill_note_head"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spinnerTask">
+
+    </androidx.appcompat.widget.AppCompatTextView>
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/spinnerPriority"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_margin="@dimen/margin_medium"
+        android:background="@color/background_home_fragment"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:textColor="@color/text_color_note_enter_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvNotePriority">
+
+    </androidx.appcompat.widget.AppCompatSpinner>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/tvCreate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_max"
+        android:background="@color/background_down_menu_button"
+        android:padding="@dimen/padding_min"
+        android:text="@string/create"
+        android:textColor="@color/text_color_note_head"
+        android:textSize="@dimen/size_pill_btn_create"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+    </androidx.appcompat.widget.AppCompatButton>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="spinnerTask">
+        <item>@string/take_pill</item>
+        <item>@string/visit_doctor</item>
+        <item>@string/do_something</item>
+    </string-array>
+
+    <string-array name="spinnerPriorityText">
+        <item>@string/very_important</item>
+        <item>@string/important</item>
+        <item>@string/not_important</item>
+    </string-array>
+
+    <integer-array name="spinnerPriorityDraw">
+        <item>@drawable/priority_very_important_24</item>
+        <item>@drawable/priority_important_24</item>
+        <item>@drawable/priority_not_important_24</item>
+    </integer-array>
+</resources>

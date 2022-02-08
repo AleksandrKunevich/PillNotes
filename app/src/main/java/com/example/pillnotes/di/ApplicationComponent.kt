@@ -20,6 +20,7 @@ interface ApplicationComponent {
     }
 
     fun inject(target: HomeFragment)
+    fun inject(target: NewNoteFragment)
     fun inject(target: CalendarFragment)
     fun inject(target: ScannerFragment)
     fun inject(target: NewsPaperFragment)

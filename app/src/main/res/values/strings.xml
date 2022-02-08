@@ -24,7 +24,8 @@
     <string name="add_note">Add note</string>
     <string name="add_alarm">Add alarm</string>
     <string name="enter_title">Enter title</string>
-    <string name="enter_task">Enter task</string>
+    <string name="choose_task">Choose task</string>
+    <string name="choose_priority">Choose priority</string>
     <string name="enter_time">Enter time</string>
     <string name="enter_date">Enter date</string>
     <string name="enter_title_hint">Please, enter title</string>
@@ -32,5 +33,12 @@
     <string name="default_time_text">12:34</string>
     <string name="default_date_text">2021/11/22</string>
     <string name="enter_time_hint">Please, choose time</string>
+    <string name="take_pill">Take a pill</string>
+    <string name="visit_doctor">Visit doctor</string>
+    <string name="do_something">Do something</string>
+    <string name="very_important">Very important</string>
+    <string name="important">Important</string>
+    <string name="not_important">Not important</string>
+    <string name="create">Create</string>
 
 </resources>

@@ -51,7 +51,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private val adapter by lazy { NoteTaskAdapter(onClickNotes) }
+    private val adapter by lazy { NoteTaskAdapter(requireContext(), onClickNotes) }
 
     @Inject
     lateinit var noteTaskViewModel: NoteTaskViewModel
@@ -84,17 +84,6 @@ class HomeFragment : Fragment() {
         initRecycler()
         initObserve()
         binding.floatingAddNote.setOnClickListener {
-            noteTaskViewModel.addTask(
-                NoteTask(
-                    UUID.randomUUID(),
-                    "2022/02/06 20:23:00",
-                    "Super Health",
-                    "every day at 1 table",
-                    "Yuuup",
-                    false,
-                    2
-                )
-            )
             changeVisibleFloatingMenu()
             findNavController().navigate(R.id.home_to_newNote)
         }
