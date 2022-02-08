@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.pillnotes.DaggerApplication
 import com.example.pillnotes.R
@@ -79,20 +78,10 @@ class HomeFragment : Fragment() {
         arguments?.let { bundle ->
             textQr = bundle.getString(Constants.TEXT_CODE).toString()
             typeQr = bundle.getString(Constants.TYPE_CODE).toString()
-            binding.tvResultQrScan.text = "$typeQr = $textQr"
         }
 
         initRecycler()
         initObserve()
-        binding.button1.setOnClickListener {
-            findNavController().navigate(R.id.home_to_scanner)
-        }
-        binding.button2.setOnClickListener {
-            findNavController().navigate(R.id.home_to_maps)
-        }
-        binding.button3.setOnClickListener {
-            findNavController().navigate(R.id.home_to_calendar)
-        }
         binding.floatingAddNote.setOnClickListener {
             noteTaskViewModel.addTask(
                 NoteTask(
@@ -105,6 +94,7 @@ class HomeFragment : Fragment() {
                     2
                 )
             )
+            changeVisibleFloatingMenu()
         }
         binding.floatingAddAlarm.setOnClickListener {
             contactViewModel.addContact(
@@ -116,25 +106,30 @@ class HomeFragment : Fragment() {
                     Location(LocationManager.GPS_PROVIDER)
                 )
             )
+            changeVisibleFloatingMenu()
         }
         binding.floatingMenu.setOnClickListener {
-            if (!isFloatingMenuVisible) {
-                binding.apply {
-                    floatingAddNote.show()
-                    floatingAddAlarm.show()
-                    tvAddNotes.visibility = View.VISIBLE
-                    tvAddAlarm.visibility = View.VISIBLE
-                }
-                isFloatingMenuVisible = true
-            } else {
-                binding.apply {
-                    floatingAddNote.hide()
-                    floatingAddAlarm.hide()
-                    tvAddNotes.visibility = View.INVISIBLE
-                    tvAddAlarm.visibility = View.INVISIBLE
-                }
-                isFloatingMenuVisible = false
+            changeVisibleFloatingMenu()
+        }
+    }
+
+    private fun changeVisibleFloatingMenu() {
+        if (!isFloatingMenuVisible) {
+            binding.apply {
+                floatingAddNote.show()
+                floatingAddAlarm.show()
+                tvAddNotes.visibility = View.VISIBLE
+                tvAddAlarm.visibility = View.VISIBLE
             }
+            isFloatingMenuVisible = true
+        } else {
+            binding.apply {
+                floatingAddNote.hide()
+                floatingAddAlarm.hide()
+                tvAddNotes.visibility = View.INVISIBLE
+                tvAddAlarm.visibility = View.INVISIBLE
+            }
+            isFloatingMenuVisible = false
         }
     }
 
