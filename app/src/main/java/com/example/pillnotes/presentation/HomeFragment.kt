@@ -63,6 +63,7 @@ class HomeFragment : Fragment() {
     private lateinit var textQr: String
     private lateinit var typeQr: String
     private val scope: CoroutineScope = CoroutineScope(Dispatchers.IO)
+    private var isFloatingMenuVisible = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -71,7 +72,6 @@ class HomeFragment : Fragment() {
         binding = HomeFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
-
 
     override fun onStart() {
         super.onStart()
@@ -93,7 +93,7 @@ class HomeFragment : Fragment() {
         binding.button3.setOnClickListener {
             findNavController().navigate(R.id.home_to_calendar)
         }
-        binding.imgBtnNewTask.setOnClickListener {
+        binding.floatingAddNote.setOnClickListener {
             noteTaskViewModel.addTask(
                 NoteTask(
                     UUID.randomUUID(),
@@ -105,6 +105,8 @@ class HomeFragment : Fragment() {
                     2
                 )
             )
+        }
+        binding.floatingAddAlarm.setOnClickListener {
             contactViewModel.addContact(
                 ContactDoctor(
                     UUID.randomUUID(),
@@ -115,7 +117,25 @@ class HomeFragment : Fragment() {
                 )
             )
         }
-        binding.imgBtnNewTask
+        binding.floatingMenu.setOnClickListener {
+            if (!isFloatingMenuVisible) {
+                binding.apply {
+                    floatingAddNote.show()
+                    floatingAddAlarm.show()
+                    tvAddNotes.visibility = View.VISIBLE
+                    tvAddAlarm.visibility = View.VISIBLE
+                }
+                isFloatingMenuVisible = true
+            } else {
+                binding.apply {
+                    floatingAddNote.hide()
+                    floatingAddAlarm.hide()
+                    tvAddNotes.visibility = View.INVISIBLE
+                    tvAddAlarm.visibility = View.INVISIBLE
+                }
+                isFloatingMenuVisible = false
+            }
+        }
     }
 
     private fun initObserve() {

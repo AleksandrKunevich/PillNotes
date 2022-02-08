@@ -65,16 +65,77 @@
 
     </LinearLayout>
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/imgBtnNewTask"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/floatingMenu"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_marginEnd="@dimen/margin_medium"
         android:layout_marginBottom="@dimen/margin_medium"
-        android:src="@drawable/ic_baseline_add_task_48"
+        android:backgroundTint="@color/background_home_fragment"
+        app:icon="@drawable/add_circle_outline_48"
         app:layout_constraintBottom_toTopOf="@id/linearDownMenu"
         app:layout_constraintEnd_toEndOf="parent">
 
-    </androidx.appcompat.widget.AppCompatImageView>
+    </com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingAddNote"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="@dimen/margin_max"
+        android:layout_marginBottom="@dimen/margin_medium"
+        android:backgroundTint="@color/background_home_fragment"
+        android:contentDescription="@string/add_note"
+        android:src="@drawable/ic_add_notes_48"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/floatingMenu"
+        app:layout_constraintEnd_toEndOf="@id/floatingMenu">
+
+    </com.google.android.material.floatingactionbutton.FloatingActionButton>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingAddAlarm"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="@dimen/margin_max"
+        android:layout_marginBottom="@dimen/margin_medium"
+        android:backgroundTint="@color/background_home_fragment"
+        android:contentDescription="@string/add_alarm"
+        android:src="@drawable/add_alert_48"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/floatingAddNote"
+        app:layout_constraintEnd_toEndOf="@id/floatingMenu">
+
+    </com.google.android.material.floatingactionbutton.FloatingActionButton>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvAddNotes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_min"
+        android:text="@string/add_note"
+        android:textColor="@color/teal_700"
+        android:textSize="@dimen/size_pill_item_task"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/floatingAddNote"
+        app:layout_constraintEnd_toStartOf="@id/floatingAddNote"
+        app:layout_constraintTop_toTopOf="@id/floatingAddNote">
+
+    </androidx.appcompat.widget.AppCompatTextView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvAddAlarm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_min"
+        android:text="@string/add_alarm"
+        android:textColor="@color/teal_700"
+        android:textSize="@dimen/size_pill_item_task"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/floatingAddAlarm"
+        app:layout_constraintEnd_toStartOf="@id/floatingAddAlarm"
+        app:layout_constraintTop_toTopOf="@id/floatingAddAlarm">
+
+    </androidx.appcompat.widget.AppCompatTextView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
