@@ -3,7 +3,6 @@ package com.example.pillnotes.presentation
 import android.content.ContentResolver
 import android.content.ContentUris
 import android.content.ContentValues
-import android.content.pm.PackageManager
 import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
@@ -12,10 +11,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.pillnotes.DaggerApplication
 import com.example.pillnotes.databinding.FragmentCalendarBinding
@@ -41,13 +36,6 @@ class CalendarFragment : Fragment() {
     lateinit var noteTaskViewModel: NoteTaskViewModel
 
     private lateinit var binding: FragmentCalendarBinding
-    private lateinit var pLauncher: ActivityResultLauncher<Array<String>>
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        registerPermissionListener()
-        checkPermissionCalendar()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -81,45 +69,6 @@ class CalendarFragment : Fragment() {
                 val status = cursor.getColumnIndex(CalendarContract.Events.STATUS)
                 if (cursor.getString(status) == "com.example.pillnotes") {
                     deleteEvent(cursor)
-                }
-            }
-        }
-    }
-
-    val perm = arrayOf(
-        android.Manifest.permission.READ_CALENDAR,
-        android.Manifest.permission.WRITE_CALENDAR,
-        android.Manifest.permission.CAMERA,
-        android.Manifest.permission.VIBRATE,
-        android.Manifest.permission.ACCESS_COARSE_LOCATION,
-        android.Manifest.permission.ACCESS_FINE_LOCATION
-
-    )
-
-    private fun checkPermissionCalendar() {
-        perm.map { permission ->
-            when {
-                ContextCompat.checkSelfPermission(
-                    requireContext(),
-                    permission
-                ) != PackageManager.PERMISSION_GRANTED -> {
-                    pLauncher.launch(perm)
-                }
-            }
-        }
-    }
-
-    private fun registerPermissionListener() {
-        pLauncher = registerForActivityResult(
-            ActivityResultContracts.RequestMultiplePermissions()
-        ) { mapPermission ->
-            perm.map { permission ->
-                if (mapPermission[permission] == true) {
-                    Toast.makeText(requireContext(), "$permission GRANTED", Toast.LENGTH_SHORT)
-                        .show()
-                } else {
-                    Toast.makeText(requireContext(), "$permission DENIED", Toast.LENGTH_SHORT)
-                        .show()
                 }
             }
         }

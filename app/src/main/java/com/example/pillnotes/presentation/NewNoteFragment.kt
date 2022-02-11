@@ -32,6 +32,8 @@ class NewNoteFragment : Fragment() {
 
     private lateinit var binding: FragmentNoteNewBinding
     private lateinit var spinnerAdapter: SpinnerCustomAdapter
+    private lateinit var textQr: String
+    private lateinit var typeQr: String
     private lateinit var cal: Calendar
     private var spinnerTaskPos = 0
     private var spinnerPriorityPos = 0
@@ -52,6 +54,7 @@ class NewNoteFragment : Fragment() {
         return binding.root
     }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -65,6 +68,13 @@ class NewNoteFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
+
+        arguments?.let { bundle ->
+            textQr = bundle.getString(Constants.TEXT_CODE).toString()
+            typeQr = bundle.getString(Constants.TYPE_CODE).toString()
+            binding.etNoteTitle.setText("$typeQr $textQr")
+        }
+
         binding.apply {
             spinnerPriority.adapter = spinnerAdapter
 
@@ -106,11 +116,7 @@ class NewNoteFragment : Fragment() {
                 findNavController().navigate(R.id.newNote_to_home)
             }
             imgQrScan.setOnClickListener {
-                childFragmentManager
-                    .beginTransaction()
-                    .addToBackStack("QR")
-                    .add(ScannerFragment(), "QR")
-                    .commit()
+                findNavController().navigate(R.id.newNote_to_scanner)
             }
             etNoteTime.setOnClickListener {
                 val timeCallBack = OnTimeSetListener { timePickerView, hourOfDay, minute ->

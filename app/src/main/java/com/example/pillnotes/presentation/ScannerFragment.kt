@@ -75,7 +75,7 @@ class ScannerFragment : Fragment() {
         val bundle = bundleOf(Constants.TEXT_CODE to text.toString(), Constants.TYPE_CODE to type)
         scope.launch {
             withContext(Dispatchers.Main) {
-                findNavController().navigate(R.id.scanner_to_home, bundle)
+                findNavController().navigate(R.id.scanner_to_newNote, bundle)
             }
         }
     }
