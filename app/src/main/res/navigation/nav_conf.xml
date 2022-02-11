@@ -79,7 +79,7 @@
     <fragment
         android:id="@+id/newNoteFragment"
         android:name="com.example.pillnotes.presentation.NewNoteFragment"
-        android:label="NewNoteFragment" >
+        android:label="NewNoteFragment">
         <action
             android:id="@+id/newNote_to_home"
             app:destination="@id/homeFragment" />

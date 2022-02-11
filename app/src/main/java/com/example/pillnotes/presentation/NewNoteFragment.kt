@@ -14,6 +14,7 @@ import com.example.pillnotes.DaggerApplication
 import com.example.pillnotes.R
 import com.example.pillnotes.databinding.FragmentNoteNewBinding
 import com.example.pillnotes.domain.Constants
+import com.example.pillnotes.domain.calendar.CalendarReminderImpl
 import com.example.pillnotes.domain.model.NoteTask
 import com.example.pillnotes.domain.viewmodel.NoteTaskViewModel
 import com.example.pillnotes.presentation.spinner.SpinnerCustomAdapter
@@ -29,6 +30,9 @@ class NewNoteFragment : Fragment() {
 
     @Inject
     lateinit var noteTaskViewModel: NoteTaskViewModel
+
+    @Inject
+    lateinit var calRem: CalendarReminderImpl
 
     private lateinit var binding: FragmentNoteNewBinding
     private lateinit var spinnerAdapter: SpinnerCustomAdapter
@@ -102,17 +106,17 @@ class NewNoteFragment : Fragment() {
                     override fun onNothingSelected(arg0: AdapterView<*>?) {}
                 }
             tvCreate.setOnClickListener {
-                noteTaskViewModel.addTask(
-                    NoteTask(
-                        UUID.randomUUID(),
-                        "${binding.etNoteTime.text} ${binding.etNoteDate.text}",
-                        "${binding.etNoteTitle.text}",
-                        "${binding.spinnerTask.selectedItem}",
-                        "result here",
-                        false,
-                        spinnerPriorityPos
-                    )
+                val newNote = NoteTask(
+                    UUID.randomUUID(),
+                    "${binding.etNoteTime.text} ${binding.etNoteDate.text}",
+                    "${binding.etNoteTitle.text}",
+                    "${binding.spinnerTask.selectedItem}",
+                    "result here",
+                    false,
+                    spinnerPriorityPos
                 )
+                noteTaskViewModel.addTask(newNote)
+                calRem.addEventCalendar(newNote)
                 findNavController().navigate(R.id.newNote_to_home)
             }
             imgQrScan.setOnClickListener {
@@ -142,7 +146,7 @@ class NewNoteFragment : Fragment() {
                     requireContext(),
                     dateCallBack,
                     cal.get(Calendar.YEAR),
-                    cal.get(Calendar.MONTH),
+                    cal.get(Calendar.MONTH) - 1,
                     cal.get(Calendar.DAY_OF_YEAR)
                 ).show()
             }

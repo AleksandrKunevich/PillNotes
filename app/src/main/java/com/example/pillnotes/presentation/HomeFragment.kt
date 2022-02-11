@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.pillnotes.DaggerApplication
 import com.example.pillnotes.R
 import com.example.pillnotes.databinding.HomeFragmentBinding
+import com.example.pillnotes.domain.calendar.CalendarReminderImpl
 import com.example.pillnotes.domain.model.ContactDoctor
 import com.example.pillnotes.domain.model.NoteTask
 import com.example.pillnotes.domain.viewmodel.ContactViewModel
@@ -43,6 +44,9 @@ class HomeFragment : Fragment() {
         DaggerApplication.appComponent?.inject(this)
     }
 
+    @Inject
+    lateinit var calRem: CalendarReminderImpl
+
     private val permissions = arrayOf(
         android.Manifest.permission.READ_CALENDAR,
         android.Manifest.permission.WRITE_CALENDAR,
@@ -63,7 +67,10 @@ class HomeFragment : Fragment() {
                 .setTitle(getString(R.string.are_you_sure_delete_this))
                 .setItems(dialogItem) { dialog, which ->
                     when (which) {
-                        0 -> noteTaskViewModel.deleteTask(item)
+                        0 -> {
+                            calRem.deleteEvent(item)
+                            noteTaskViewModel.deleteTask(item)
+                        }
                     }
                 }
                 .show()
@@ -117,6 +124,7 @@ class HomeFragment : Fragment() {
                 )
             )
             changeVisibleFloatingMenu()
+            findNavController().navigate(R.id.home_to_calendar)
         }
         binding.floatingMenu.setOnClickListener {
             changeVisibleFloatingMenu()
