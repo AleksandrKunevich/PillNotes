@@ -1,5 +1,8 @@
 package com.example.pillnotes.presentation
 
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
+import android.app.TimePickerDialog.OnTimeSetListener
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,12 +13,13 @@ import androidx.navigation.fragment.findNavController
 import com.example.pillnotes.DaggerApplication
 import com.example.pillnotes.R
 import com.example.pillnotes.databinding.FragmentNoteNewBinding
+import com.example.pillnotes.domain.Constants
 import com.example.pillnotes.domain.model.NoteTask
 import com.example.pillnotes.domain.viewmodel.NoteTaskViewModel
 import com.example.pillnotes.presentation.spinner.SpinnerCustomAdapter
+import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
-
 
 class NewNoteFragment : Fragment() {
 
@@ -28,6 +32,7 @@ class NewNoteFragment : Fragment() {
 
     private lateinit var binding: FragmentNoteNewBinding
     private lateinit var spinnerAdapter: SpinnerCustomAdapter
+    private lateinit var cal: Calendar
     private var spinnerTaskPos = 0
     private var spinnerPriorityPos = 0
 
@@ -37,6 +42,13 @@ class NewNoteFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentNoteNewBinding.inflate(inflater, container, false)
+
+        cal = Calendar.getInstance(TimeZone.getDefault())
+        binding.apply {
+            etNoteTime.text = SimpleDateFormat(Constants.TIME_FORMAT).format(cal.time)
+            etNoteDate.text = SimpleDateFormat(Constants.DATE_FORMAT).format(cal.time)
+        }
+
         return binding.root
     }
 
@@ -53,46 +65,81 @@ class NewNoteFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
+        binding.apply {
+            spinnerPriority.adapter = spinnerAdapter
 
-        binding.spinnerPriority.apply {
-            adapter = spinnerAdapter
-        }
-        binding.spinnerPriority.onItemSelectedListener =
-            object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>?, view: View?,
-                    pos: Int, id: Long
-                ) {
-                    spinnerPriorityPos = pos
+            spinnerPriority.onItemSelectedListener =
+                object : AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(
+                        parent: AdapterView<*>?, view: View?,
+                        pos: Int, id: Long
+                    ) {
+                        spinnerPriorityPos = pos
+                    }
+
+                    override fun onNothingSelected(arg0: AdapterView<*>?) {}
                 }
 
-                override fun onNothingSelected(arg0: AdapterView<*>?) {}
-            }
+            spinnerTask.onItemSelectedListener =
+                object : AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(
+                        parent: AdapterView<*>?, view: View?,
+                        pos: Int, id: Long
+                    ) {
+                        spinnerTaskPos = pos
+                    }
 
-        binding.spinnerTask.onItemSelectedListener =
-            object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>?, view: View?,
-                    pos: Int, id: Long
-                ) {
-                    spinnerTaskPos = pos
+                    override fun onNothingSelected(arg0: AdapterView<*>?) {}
                 }
-
-                override fun onNothingSelected(arg0: AdapterView<*>?) {}
-            }
-        binding.tvCreate.setOnClickListener {
-            noteTaskViewModel.addTask(
-                NoteTask(
-                    UUID.randomUUID(),
-                    "${binding.etNoteDate.text} ${binding.etNoteTime.text}",
-                    "${binding.etNoteTitle.text}",
-                    "${binding.spinnerTask.selectedItem}",
-                    "result here",
-                    false,
-                    spinnerPriorityPos
+            tvCreate.setOnClickListener {
+                noteTaskViewModel.addTask(
+                    NoteTask(
+                        UUID.randomUUID(),
+                        "${binding.etNoteTime.text} ${binding.etNoteDate.text}",
+                        "${binding.etNoteTitle.text}",
+                        "${binding.spinnerTask.selectedItem}",
+                        "result here",
+                        false,
+                        spinnerPriorityPos
+                    )
                 )
-            )
-            findNavController().navigate(R.id.newNote_to_home)
+                findNavController().navigate(R.id.newNote_to_home)
+            }
+            imgQrScan.setOnClickListener {
+                childFragmentManager
+                    .beginTransaction()
+                    .addToBackStack("QR")
+                    .add(ScannerFragment(), "QR")
+                    .commit()
+            }
+            etNoteTime.setOnClickListener {
+                val timeCallBack = OnTimeSetListener { timePickerView, hourOfDay, minute ->
+                    cal.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                    cal.set(Calendar.MINUTE, minute)
+                    etNoteTime.text = SimpleDateFormat(Constants.TIME_FORMAT).format(cal.time)
+                }
+                TimePickerDialog(
+                    requireContext(),
+                    timeCallBack,
+                    cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true
+                ).show()
+            }
+            etNoteDate.setOnClickListener {
+                val dateCallBack =
+                    DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                        cal.set(Calendar.YEAR, year)
+                        cal.set(Calendar.MONTH, month)
+                        cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                        etNoteDate.text = SimpleDateFormat(Constants.DATE_FORMAT).format(cal.time)
+                    }
+                DatePickerDialog(
+                    requireContext(),
+                    dateCallBack,
+                    cal.get(Calendar.YEAR),
+                    cal.get(Calendar.MONTH),
+                    cal.get(Calendar.DAY_OF_YEAR)
+                ).show()
+            }
         }
     }
 }

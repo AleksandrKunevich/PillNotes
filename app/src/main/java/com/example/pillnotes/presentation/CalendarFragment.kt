@@ -19,6 +19,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.pillnotes.DaggerApplication
 import com.example.pillnotes.databinding.FragmentCalendarBinding
+import com.example.pillnotes.domain.Constants
 import com.example.pillnotes.domain.longToTime
 import com.example.pillnotes.domain.viewmodel.NoteTaskViewModel
 import java.lang.Long.parseLong
@@ -162,7 +163,7 @@ class CalendarFragment : Fragment() {
         val reminderDayTimeStart: String =
             "$eventDay ${(noteTaskViewModel.noteTask.value?.get(0)?.time?.removeRange(0, 11))}"
         val reminderDayTimeEnd: String = reminderDayTimeStart.replaceRange(17, 19, "59")
-        val formatter: SimpleDateFormat = SimpleDateFormat("yyyy/MM/dd hh:mm:ss")
+        val formatter: SimpleDateFormat = SimpleDateFormat(Constants.DATE_FORMAT_24H)
         val startDate: Date = formatter.parse(reminderDayTimeStart)
         val endDate: Date = formatter.parse(reminderDayTimeEnd)
         val cr: ContentResolver = requireContext().contentResolver

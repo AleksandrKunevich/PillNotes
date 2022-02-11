@@ -26,11 +26,21 @@
         android:hint="@string/enter_title_hint"
         android:textColor="@color/text_color_note_enter_text"
         android:textColorHint="@color/text_color_note_enter_text_hint"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/imgQrScan"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvNoteTitle">
 
     </androidx.appcompat.widget.AppCompatEditText>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgQrScan"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="@dimen/margin_min"
+        android:src="@drawable/ic_qr_code_scanner_24"
+        app:layout_constraintBottom_toBottomOf="@id/etNoteTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/etNoteTitle" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvNoteTime"
