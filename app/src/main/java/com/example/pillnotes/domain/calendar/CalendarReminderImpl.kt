@@ -30,7 +30,6 @@ class CalendarReminderImpl @Inject constructor(private val context: Context) : C
         val eventTime = noteTask.time.substring(0, 5)
         val reminderDayTimeStart = "$eventTime $eventDay"
         val reminderDayTimeEnd = reminderDayTimeStart
-//            .replaceRange(3, 5, "59")
         Log.e(TAG, "$reminderDayTimeEnd")
 
         val formatter = SimpleDateFormat(Constants.DATE_FORMAT_24H)
@@ -47,6 +46,11 @@ class CalendarReminderImpl @Inject constructor(private val context: Context) : C
         values.put(CalendarContract.Events.STATUS, "com.example.pillnotes")
         values.put(CalendarContract.Events.EVENT_TIMEZONE, TimeZone.getDefault().id)
         values.put(CalendarContract.Events.HAS_ALARM, 1);
+//        RRULE:FREQ=YEARLY;BYMONTH=4;BYDAY=-1SU;UNTIL=19730429T070000Z
+//        RRULE:FREQ=YEARLY;UNTIL=20000131T140000Z;BYMONTH=1;BYDAY=SU,MO,TU,WE,TH,FR,SA
+//        intent.putExtra(CalendarContract.Reminders.RRULE,"FREQ=YEARLY;INTERVAL=1;BYYEARDAY=1,2;UNTIL=20161210;");
+        val rrule = "FREQ=WEEKLY;BYDAY=TH"
+        values.put(CalendarContract.Events.RRULE, rrule);
         val eventUri: Uri =
             Uri.parse(CalendarContract.Events.CONTENT_URI.toString())
         val uri: Uri? = cr.insert(eventUri, values)
