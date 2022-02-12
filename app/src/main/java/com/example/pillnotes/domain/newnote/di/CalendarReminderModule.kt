@@ -1,8 +1,8 @@
-package com.example.pillnotes.domain.spinner.di
+package com.example.pillnotes.domain.newnote.di
 
 import android.content.Context
-import com.example.pillnotes.domain.spinner.NewNoteUtil
-import com.example.pillnotes.domain.spinner.NewNoteUtilImpl
+import com.example.pillnotes.domain.newnote.NewNoteUtil
+import com.example.pillnotes.domain.newnote.NewNoteUtilImpl
 import dagger.Module
 import dagger.Provides
 

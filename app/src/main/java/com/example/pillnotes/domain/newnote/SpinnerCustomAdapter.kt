@@ -1,4 +1,4 @@
-package com.example.pillnotes.domain.spinner
+package com.example.pillnotes.domain.newnote
 
 import android.content.Context
 import android.view.LayoutInflater

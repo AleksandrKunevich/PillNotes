@@ -1,7 +1,5 @@
 package com.example.pillnotes.presentation
 
-import android.app.DatePickerDialog
-import android.app.TimePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +13,7 @@ import com.example.pillnotes.databinding.FragmentNoteNewBinding
 import com.example.pillnotes.domain.Constants
 import com.example.pillnotes.domain.calendar.CalendarReminderImpl
 import com.example.pillnotes.domain.model.NoteTask
-import com.example.pillnotes.domain.spinner.NewNoteUtilImpl
+import com.example.pillnotes.domain.newnote.NewNoteUtilImpl
 import com.example.pillnotes.domain.viewmodel.NoteTaskViewModel
 import java.text.SimpleDateFormat
 import java.util.*
@@ -59,9 +57,8 @@ class NewNoteFragment : Fragment() {
         return binding.root
     }
 
-    override fun onStart() {
-        super.onStart()
-
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         arguments?.let { bundle ->
             if (bundle.getString(Constants.TEXT_CODE) != null) {
                 textQr = bundle.getString(Constants.TEXT_CODE).toString()
@@ -74,10 +71,13 @@ class NewNoteFragment : Fragment() {
                 isRrule = true
             }
         }
+        binding.spinnerPriority.adapter = newNoteUtil.setSpinnerAdapter()
+    }
+
+    override fun onStart() {
+        super.onStart()
 
         binding.apply {
-
-            spinnerPriority.adapter = newNoteUtil.setSpinnerAdapter()
             spinnerPriority.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
                     parent: AdapterView<*>?, view: View?,
@@ -134,40 +134,9 @@ class NewNoteFragment : Fragment() {
                 calRem.addEventCalendar(newNote)
                 findNavController().navigate(R.id.newNote_to_home)
             }
-            imgQrScan.setOnClickListener {
-                findNavController().navigate(R.id.newNote_to_scanner)
-            }
-            etNoteTime.setOnClickListener {
-                val timeCallBack =
-                    TimePickerDialog.OnTimeSetListener { timePickerView, hourOfDay, minute ->
-                        cal.set(Calendar.HOUR_OF_DAY, hourOfDay)
-                        cal.set(Calendar.MINUTE, minute)
-                        etNoteTime.text = SimpleDateFormat(Constants.TIME_FORMAT).format(cal.time)
-                    }
-                TimePickerDialog(
-                    requireContext(),
-                    timeCallBack,
-                    cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true
-                ).show()
-
-            }
-            etNoteDate.setOnClickListener {
-                val dateCallBack =
-                    DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-                        cal.set(Calendar.YEAR, year)
-                        cal.set(Calendar.MONTH, month)
-                        cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                        etNoteDate.text =
-                            SimpleDateFormat(Constants.DATE_FORMAT).format(cal.time)
-                    }
-                DatePickerDialog(
-                    requireContext(),
-                    dateCallBack,
-                    cal.get(Calendar.YEAR),
-                    cal.get(Calendar.MONTH) - 1,
-                    cal.get(Calendar.DAY_OF_YEAR)
-                ).show()
-            }
+            imgQrScan.setOnClickListener { findNavController().navigate(R.id.newNote_to_scanner) }
+            newNoteUtil.setTime(etNoteTime, requireContext())
+            newNoteUtil.setDate(etNoteDate, requireContext())
         }
     }
 }
