@@ -2,7 +2,6 @@ package com.example.pillnotes.presentation
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
-import android.app.TimePickerDialog.OnTimeSetListener
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,8 +15,8 @@ import com.example.pillnotes.databinding.FragmentNoteNewBinding
 import com.example.pillnotes.domain.Constants
 import com.example.pillnotes.domain.calendar.CalendarReminderImpl
 import com.example.pillnotes.domain.model.NoteTask
+import com.example.pillnotes.domain.spinner.NewNoteUtilImpl
 import com.example.pillnotes.domain.viewmodel.NoteTaskViewModel
-import com.example.pillnotes.presentation.spinner.SpinnerCustomAdapter
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -34,8 +33,10 @@ class NewNoteFragment : Fragment() {
     @Inject
     lateinit var calRem: CalendarReminderImpl
 
+    @Inject
+    lateinit var newNoteUtil: NewNoteUtilImpl
+
     private lateinit var binding: FragmentNoteNewBinding
-    private lateinit var spinnerAdapter: SpinnerCustomAdapter
     private lateinit var textQr: String
     private lateinit var typeQr: String
     private lateinit var cal: Calendar
@@ -58,17 +59,6 @@ class NewNoteFragment : Fragment() {
         return binding.root
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        spinnerAdapter = SpinnerCustomAdapter(
-            requireContext(),
-            R.layout.spinner_row_priority,
-            R.id.spinnerPriorityText,
-            resources.getStringArray(R.array.spinnerPriorityText)
-        )
-    }
-
     override fun onStart() {
         super.onStart()
 
@@ -86,19 +76,19 @@ class NewNoteFragment : Fragment() {
         }
 
         binding.apply {
-            spinnerPriority.adapter = spinnerAdapter
 
-            spinnerPriority.onItemSelectedListener =
-                object : AdapterView.OnItemSelectedListener {
-                    override fun onItemSelected(
-                        parent: AdapterView<*>?, view: View?,
-                        pos: Int, id: Long
-                    ) {
-                        spinnerPriorityPos = pos
-                    }
-
-                    override fun onNothingSelected(arg0: AdapterView<*>?) {}
+            spinnerPriority.adapter = newNoteUtil.setSpinnerAdapter()
+            spinnerPriority.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?, view: View?,
+                    pos: Int, id: Long
+                ) {
+                    spinnerPriorityPos = pos
                 }
+
+                override fun onNothingSelected(arg0: AdapterView<*>?) {
+                }
+            }
 
             spinnerTask.onItemSelectedListener =
                 object : AdapterView.OnItemSelectedListener {
@@ -148,16 +138,18 @@ class NewNoteFragment : Fragment() {
                 findNavController().navigate(R.id.newNote_to_scanner)
             }
             etNoteTime.setOnClickListener {
-                val timeCallBack = OnTimeSetListener { timePickerView, hourOfDay, minute ->
-                    cal.set(Calendar.HOUR_OF_DAY, hourOfDay)
-                    cal.set(Calendar.MINUTE, minute)
-                    etNoteTime.text = SimpleDateFormat(Constants.TIME_FORMAT).format(cal.time)
-                }
+                val timeCallBack =
+                    TimePickerDialog.OnTimeSetListener { timePickerView, hourOfDay, minute ->
+                        cal.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                        cal.set(Calendar.MINUTE, minute)
+                        etNoteTime.text = SimpleDateFormat(Constants.TIME_FORMAT).format(cal.time)
+                    }
                 TimePickerDialog(
                     requireContext(),
                     timeCallBack,
                     cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true
                 ).show()
+
             }
             etNoteDate.setOnClickListener {
                 val dateCallBack =
