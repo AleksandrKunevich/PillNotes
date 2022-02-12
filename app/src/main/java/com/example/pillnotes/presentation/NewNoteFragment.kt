@@ -39,6 +39,8 @@ class NewNoteFragment : Fragment() {
     private lateinit var textQr: String
     private lateinit var typeQr: String
     private lateinit var cal: Calendar
+    private var isRrule = false
+    private var rrule = ""
     private var spinnerTaskPos = 0
     private var spinnerPriorityPos = 0
 
@@ -48,16 +50,13 @@ class NewNoteFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentNoteNewBinding.inflate(inflater, container, false)
-
         cal = Calendar.getInstance(TimeZone.getDefault())
         binding.apply {
             etNoteTime.text = SimpleDateFormat(Constants.TIME_FORMAT).format(cal.time)
             etNoteDate.text = SimpleDateFormat(Constants.DATE_FORMAT).format(cal.time)
         }
-
         return binding.root
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,9 +73,16 @@ class NewNoteFragment : Fragment() {
         super.onStart()
 
         arguments?.let { bundle ->
-            textQr = bundle.getString(Constants.TEXT_CODE).toString()
-            typeQr = bundle.getString(Constants.TYPE_CODE).toString()
-            binding.etNoteTitle.setText("$typeQr $textQr")
+            if (bundle.getString(Constants.TEXT_CODE) != null) {
+                textQr = bundle.getString(Constants.TEXT_CODE).toString()
+                typeQr = bundle.getString(Constants.TYPE_CODE).toString()
+                binding.etNoteTitle.setText("$typeQr $textQr")
+            }
+
+            if (bundle.getString(Constants.PERIOD_CODE) != null) {
+                binding.spinnerPeriod.setSelection(4)
+                isRrule = true
+            }
         }
 
         binding.apply {
@@ -105,6 +111,24 @@ class NewNoteFragment : Fragment() {
 
                     override fun onNothingSelected(arg0: AdapterView<*>?) {}
                 }
+
+            spinnerPeriod.onItemSelectedListener =
+                object : AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(
+                        parent: AdapterView<*>?, view: View?,
+                        pos: Int, id: Long
+                    ) {
+                        when (pos) {
+                            0 -> rrule = "FREQ=DAILY"
+                            1 -> rrule = "FREQ=WEEKLY;INTERVAL=1"
+                            2 -> rrule = "FREQ=MONTHLY;INTERVAL=1"
+                            3 -> rrule = "FREQ=YEARLY;INTERVAL=1"
+                        }
+                    }
+
+                    override fun onNothingSelected(arg0: AdapterView<*>?) {}
+                }
+
             tvCreate.setOnClickListener {
                 val newNote = NoteTask(
                     UUID.randomUUID(),
@@ -113,7 +137,8 @@ class NewNoteFragment : Fragment() {
                     "${binding.spinnerTask.selectedItem}",
                     "result here",
                     false,
-                    spinnerPriorityPos
+                    spinnerPriorityPos,
+                    rrule
                 )
                 noteTaskViewModel.addTask(newNote)
                 calRem.addEventCalendar(newNote)
@@ -140,7 +165,8 @@ class NewNoteFragment : Fragment() {
                         cal.set(Calendar.YEAR, year)
                         cal.set(Calendar.MONTH, month)
                         cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                        etNoteDate.text = SimpleDateFormat(Constants.DATE_FORMAT).format(cal.time)
+                        etNoteDate.text =
+                            SimpleDateFormat(Constants.DATE_FORMAT).format(cal.time)
                     }
                 DatePickerDialog(
                     requireContext(),

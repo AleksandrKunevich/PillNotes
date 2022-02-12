@@ -17,4 +17,11 @@
         <item>@drawable/priority_important_24</item>
         <item>@drawable/priority_not_important_24</item>
     </integer-array>
+
+    <string-array name="spinnerPeriod">
+        <item>@string/every_day</item>
+        <item>@string/every_week</item>
+        <item>@string/every_month</item>
+        <item>@string/every_year</item>
+    </string-array>
 </resources>

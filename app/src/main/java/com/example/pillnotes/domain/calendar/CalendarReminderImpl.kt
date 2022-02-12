@@ -29,6 +29,7 @@ class CalendarReminderImpl @Inject constructor(private val context: Context) : C
         val eventDay = noteTask.time.substring(6, 16)
         val eventTime = noteTask.time.substring(0, 5)
         val reminderDayTimeStart = "$eventTime $eventDay"
+//        val reminderDayTimeEnd = "12:12 01/01/2099"
         val reminderDayTimeEnd = reminderDayTimeStart
         Log.e(TAG, "$reminderDayTimeEnd")
 
@@ -38,19 +39,14 @@ class CalendarReminderImpl @Inject constructor(private val context: Context) : C
         val cr: ContentResolver = context.contentResolver
         val values = ContentValues()
         values.put(CalendarContract.Events.CALENDAR_ID, 1)
-        values.put(CalendarContract.Events.UID_2445, uid)
         values.put(CalendarContract.Events.DTSTART, startDate.time)
         values.put(CalendarContract.Events.DTEND, endDate.time)
         values.put(CalendarContract.Events.TITLE, eventTitle)
         values.put(CalendarContract.Events.DESCRIPTION, eventDescription)
-        values.put(CalendarContract.Events.STATUS, "com.example.pillnotes")
+        values.put(CalendarContract.Events.STATUS, uid)
         values.put(CalendarContract.Events.EVENT_TIMEZONE, TimeZone.getDefault().id)
         values.put(CalendarContract.Events.HAS_ALARM, 1);
-//        RRULE:FREQ=YEARLY;BYMONTH=4;BYDAY=-1SU;UNTIL=19730429T070000Z
-//        RRULE:FREQ=YEARLY;UNTIL=20000131T140000Z;BYMONTH=1;BYDAY=SU,MO,TU,WE,TH,FR,SA
-//        intent.putExtra(CalendarContract.Reminders.RRULE,"FREQ=YEARLY;INTERVAL=1;BYYEARDAY=1,2;UNTIL=20161210;");
-        val rrule = "FREQ=WEEKLY;BYDAY=TH"
-        values.put(CalendarContract.Events.RRULE, rrule);
+        values.put(CalendarContract.Events.RRULE, noteTask.rrule);
         val eventUri: Uri =
             Uri.parse(CalendarContract.Events.CONTENT_URI.toString())
         val uri: Uri? = cr.insert(eventUri, values)
@@ -78,7 +74,7 @@ class CalendarReminderImpl @Inject constructor(private val context: Context) : C
         )!!
         cursor.moveToFirst()
         while (cursor.moveToNext()) {
-            val uid = cursor.getColumnIndex(CalendarContract.Events.UID_2445)
+            val uid = cursor.getColumnIndex(CalendarContract.Events.STATUS)
             if (cursor.getString(uid) == noteTask.uid.toString()) {
                 val longId = cursor.getColumnIndex(CalendarContract.Events._ID)
                 val deleteUri = ContentUris.withAppendedId(
@@ -101,31 +97,31 @@ class CalendarReminderImpl @Inject constructor(private val context: Context) : C
         cursor.moveToFirst()
         while (cursor.moveToNext()) {
             val status = cursor.getColumnIndex(CalendarContract.Events.STATUS)
-            if (cursor.getString(status) == "com.example.pillnotes") {
-                val uidEvents = cursor.getColumnIndex(CalendarContract.Events.UID_2445)
-                val titleEvents = cursor.getColumnIndex(CalendarContract.Events.TITLE)
-                val descriptionEvents = cursor.getColumnIndex(CalendarContract.Events.DESCRIPTION)
-                val startEvents = cursor.getColumnIndex(CalendarContract.Events.DTSTART)
-                val endEvents = cursor.getColumnIndex(CalendarContract.Events.DTEND)
-                val statusEvents = cursor.getColumnIndex(CalendarContract.Events.STATUS)
-                val uid = cursor.getString(uidEvents)
-                val title = cursor.getString(titleEvents)
-                val description = cursor.getString(descriptionEvents)
-                val dayStart = cursor.getLong(startEvents).longToTime()
-                val dayEnd = cursor.getLong(endEvents).longToTime()
-                val statusEvent = cursor.getString(statusEvents)
-
-                Log.e(
-                    TAG, """
+            val uidEvents = cursor.getColumnIndex(CalendarContract.Events.UID_2445)
+            val titleEvents = cursor.getColumnIndex(CalendarContract.Events.TITLE)
+            val rruleEvents = cursor.getColumnIndex(CalendarContract.Events.RRULE)
+            val descriptionEvents = cursor.getColumnIndex(CalendarContract.Events.DESCRIPTION)
+            val startEvents = cursor.getColumnIndex(CalendarContract.Events.DTSTART)
+            val endEvents = cursor.getColumnIndex(CalendarContract.Events.DTEND)
+            val statusEvents = cursor.getColumnIndex(CalendarContract.Events.STATUS)
+            val uid = cursor.getString(uidEvents)
+            val title = cursor.getString(titleEvents)
+            val rrule = cursor.getString(rruleEvents)
+            val description = cursor.getString(descriptionEvents)
+            val dayStart = cursor.getLong(startEvents).longToTime()
+            val dayEnd = cursor.getLong(endEvents).longToTime()
+            val statusEvent = cursor.getString(statusEvents)
+            Log.e(
+                TAG, """
                        id: $uid
                        title: $title
                        description: $description
                        start: $dayStart 
+                       rrule: $rrule 
                        end: $dayEnd
                        status: $statusEvent
                       """.trimIndent()
-                )
-            }
+            )
         }
     }
 }

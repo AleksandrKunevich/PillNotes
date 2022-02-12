@@ -27,5 +27,8 @@ data class NoteTaskEntity(
     val check: Boolean,
 
     @ColumnInfo(name = "priority")
-    val priority: Int
+    val priority: Int,
+
+    @ColumnInfo(name = "rrule")
+    val rrule: String
 )

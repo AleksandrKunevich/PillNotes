@@ -76,6 +76,7 @@
         tools:layout="@layout/fragment_maps">
 
     </fragment>
+
     <fragment
         android:id="@+id/newNoteFragment"
         android:name="com.example.pillnotes.presentation.NewNoteFragment"
@@ -86,5 +87,10 @@
         <action
             android:id="@+id/newNote_to_scanner"
             app:destination="@id/scannerFragment" />
+        <argument
+            android:name="privacyPolicyLink"
+            android:defaultValue=""
+            app:argType="string" />
     </fragment>
+
 </navigation>

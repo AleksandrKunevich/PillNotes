@@ -15,7 +15,8 @@ internal fun NoteTaskEntity.toNoteTask(): NoteTask {
         task = task,
         result = result,
         check = check,
-        priority = priority
+        priority = priority,
+        rrule = rrule
     )
 }
 
@@ -27,7 +28,8 @@ internal fun NoteTask.toNoteTaskEntity(): NoteTaskEntity {
         task = task,
         result = result,
         check = check,
-        priority = priority
+        priority = priority,
+        rrule = rrule
     )
 }
 

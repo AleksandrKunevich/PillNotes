@@ -176,4 +176,34 @@
 
     </androidx.appcompat.widget.AppCompatButton>
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvNotePeriod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_medium"
+        android:orientation="vertical"
+        android:text="@string/choose_period"
+        android:textColor="@color/text_color_note_head"
+        android:textSize="@dimen/size_pill_note_head"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spinnerPriority">
+
+    </androidx.appcompat.widget.AppCompatTextView>
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/spinnerPeriod"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_margin="@dimen/margin_medium"
+        android:background="@color/background_home_fragment"
+        android:entries="@array/spinnerPeriod"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:textColor="@color/text_color_note_enter_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvNotePeriod">
+
+    </androidx.appcompat.widget.AppCompatSpinner>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
