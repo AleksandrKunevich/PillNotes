@@ -1,8 +1,6 @@
 package com.example.pillnotes.presentation
 
 import android.content.pm.PackageManager
-import android.location.Location
-import android.location.LocationManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -19,7 +17,6 @@ import com.example.pillnotes.DaggerApplication
 import com.example.pillnotes.R
 import com.example.pillnotes.databinding.HomeFragmentBinding
 import com.example.pillnotes.domain.calendar.CalendarReminderImpl
-import com.example.pillnotes.domain.model.ContactDoctor
 import com.example.pillnotes.domain.model.NoteTask
 import com.example.pillnotes.domain.viewmodel.ContactViewModel
 import com.example.pillnotes.domain.viewmodel.NoteTaskViewModel
@@ -29,7 +26,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import java.util.*
 import javax.inject.Inject
 
 class HomeFragment : Fragment() {
@@ -40,13 +36,6 @@ class HomeFragment : Fragment() {
         private const val DENIED = "DENIED"
     }
 
-    init {
-        DaggerApplication.appComponent?.inject(this)
-    }
-
-    @Inject
-    lateinit var calRem: CalendarReminderImpl
-
     private val permissions = arrayOf(
         android.Manifest.permission.READ_CALENDAR,
         android.Manifest.permission.WRITE_CALENDAR,
@@ -55,6 +44,25 @@ class HomeFragment : Fragment() {
         android.Manifest.permission.ACCESS_COARSE_LOCATION,
         android.Manifest.permission.ACCESS_FINE_LOCATION
     )
+
+    init {
+        DaggerApplication.appComponent?.inject(this)
+    }
+
+    @Inject
+    lateinit var calRem: CalendarReminderImpl
+
+    @Inject
+    lateinit var noteTaskViewModel: NoteTaskViewModel
+
+    @Inject
+    lateinit var contactViewModel: ContactViewModel
+
+    private lateinit var binding: HomeFragmentBinding
+    private lateinit var pLauncher: ActivityResultLauncher<Array<String>>
+    private val adapter by lazy { NoteTaskAdapter(requireContext(), onClickNotes) }
+    private val scope: CoroutineScope = CoroutineScope(Dispatchers.IO)
+    private var isFloatingMenuVisible = false
 
     private val onClickNotes: RecyclerClickListener = object : RecyclerClickListener {
         override fun onDeleteClickListener(item: NoteTask) {
@@ -76,19 +84,6 @@ class HomeFragment : Fragment() {
                 .show()
         }
     }
-
-    private val adapter by lazy { NoteTaskAdapter(requireContext(), onClickNotes) }
-
-    @Inject
-    lateinit var noteTaskViewModel: NoteTaskViewModel
-
-    @Inject
-    lateinit var contactViewModel: ContactViewModel
-
-    private lateinit var binding: HomeFragmentBinding
-    private lateinit var pLauncher: ActivityResultLauncher<Array<String>>
-    private val scope: CoroutineScope = CoroutineScope(Dispatchers.IO)
-    private var isFloatingMenuVisible = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -114,17 +109,17 @@ class HomeFragment : Fragment() {
             findNavController().navigate(R.id.home_to_newNote)
         }
         binding.floatingAddAlarm.setOnClickListener {
-            contactViewModel.addContact(
-                ContactDoctor(
-                    UUID.randomUUID(),
-                    "Doctor name",
-                    "superman",
-                    "+11111111",
-                    Location(LocationManager.GPS_PROVIDER)
-                )
-            )
             changeVisibleFloatingMenu()
-            findNavController().navigate(R.id.home_to_calendar)
+            findNavController().navigate(R.id.home_to_alarm)
+//            contactViewModel.addContact(
+//                ContactDoctor(
+//                    UUID.randomUUID(),
+//                    "Doctor name",
+//                    "superman",
+//                    "+11111111",
+//                    Location(LocationManager.GPS_PROVIDER)
+//                )
+//            )
         }
         binding.floatingMenu.setOnClickListener {
             changeVisibleFloatingMenu()
@@ -159,7 +154,7 @@ class HomeFragment : Fragment() {
 
         contactViewModel.contact
             .onEach { listContactDoctor ->
-
+                // Some do...
             }
             .launchIn(scope)
     }

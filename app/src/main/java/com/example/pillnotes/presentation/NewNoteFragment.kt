@@ -71,12 +71,12 @@ class NewNoteFragment : Fragment() {
                 isRrule = true
             }
         }
-        binding.spinnerPriority.adapter = newNoteUtil.setSpinnerAdapter()
     }
 
     override fun onStart() {
         super.onStart()
 
+        binding.spinnerPriority.adapter = newNoteUtil.setSpinnerAdapter()
         binding.apply {
             spinnerPriority.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(

@@ -50,6 +50,9 @@
         <action
             android:id="@+id/home_to_newNote"
             app:destination="@id/newNoteFragment" />
+        <action
+            android:id="@+id/home_to_alarm"
+            app:destination="@id/alarmFragment" />
     </fragment>
 
     <fragment
@@ -91,6 +94,15 @@
             android:name="privacyPolicyLink"
             android:defaultValue=""
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/alarmFragment"
+        android:name="com.example.pillnotes.presentation.AlarmFragment"
+        android:label="fragment_alarm"
+        tools:layout="@layout/fragment_alarm" >
+        <action
+            android:id="@+id/alarm_to_home"
+            app:destination="@id/homeFragment" />
     </fragment>
 
 </navigation>
