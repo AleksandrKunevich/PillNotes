@@ -8,7 +8,7 @@
         android:visible="true" />
 
     <item
-        android:id="@+id/menuNewsPaper"
+        android:id="@+id/menuGooglePath"
         android:icon="@drawable/ic_baseline_newspaper_48"
         android:title="@string/news"
         android:visible="true" />

@@ -54,23 +54,26 @@ dependencies {
     implementation "androidx.fragment:fragment-ktx:1.4.1"
 
     // LiveData
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.4.0"
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.0"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.4.1"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.1"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1"
 
     // Glide
     implementation 'com.github.bumptech.glide:glide:4.12.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.android.gms:play-services-maps:18.0.2'
+    implementation 'com.google.android.libraries.places:places:2.5.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
 
     // Navigation
-    implementation "androidx.navigation:navigation-fragment-ktx:2.4.0"
-    implementation "androidx.navigation:navigation-ui-ktx:2.4.0"
+    implementation "androidx.navigation:navigation-fragment-ktx:2.4.1"
+    implementation "androidx.navigation:navigation-ui-ktx:2.4.1"
 
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:2.9.0"
     implementation "com.squareup.retrofit2:converter-gson:2.9.0"
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    implementation "com.squareup.retrofit:retrofit:1.9.0"
 
     // Daggers
     implementation 'com.google.dagger:dagger-android:2.40.5'
@@ -90,7 +93,7 @@ dependencies {
     implementation "com.google.android.gms:play-services-location:19.0.1"
     implementation "com.google.android.gms:play-services-safetynet:18.0.1"
     implementation 'com.google.android.gms:play-services-maps:18.0.2'
-    implementation 'com.google.maps.android:android-maps-utils:0.5'
+    implementation 'com.google.maps.android:android-maps-utils-v3:2.3.0'
 
     // Preference
     implementation 'androidx.preference:preference:1.2.0'
@@ -98,4 +101,12 @@ dependencies {
     // Zxing https://github.com/journeyapps/zxing-android-embedded#older-sdk-versions
     implementation('com.journeyapps:zxing-android-embedded:4.1.0') { transitive = false }
     implementation 'com.google.zxing:core:3.3.3'
+
+//    implementation 'com.mcxiaoke.volley:library:1.0.19'
+//    implementation 'com.android.support:multidex:1.0.3'
+    implementation 'com.squareup.retrofit:retrofit:2.0.0-beta2'
+//    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.squareup.retrofit:converter-gson:2.0.0-beta2'
+//    implementation 'com.squareup.okhttp:okhttp:2.7.2'
+
 }

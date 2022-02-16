@@ -14,8 +14,8 @@
     </fragment>
 
     <fragment
-        android:id="@+id/menuNewsPaper"
-        android:name="com.example.pillnotes.presentation.NewsPaperFragment"
+        android:id="@+id/menuGooglePath"
+        android:name="com.example.pillnotes.presentation.MapsFragment"
         android:label="NewsPaperFragment"
         tools:layout="@layout/fragment_news_paper">
 
