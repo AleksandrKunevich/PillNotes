@@ -19,7 +19,7 @@ class CalendarViewHolder(
     fun bindView(item: LocalDate) {
         itemBinding.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                tvCellDay.text = item.dayOfMonth.toString()
+                cellDayText.text = item.dayOfMonth.toString()
             }
             if (item == CalendarUtils.selectedDate)
                 parentView.setBackgroundColor(

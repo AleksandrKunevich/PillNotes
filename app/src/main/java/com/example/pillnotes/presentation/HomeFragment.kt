@@ -1,9 +1,9 @@
 package com.example.pillnotes.presentation
 
+import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -72,6 +72,7 @@ class HomeFragment : Fragment() {
     private val adapterNote by lazy { NoteTaskAdapter(requireContext(), onClickNotes) }
     private val adapterCalendar by lazy { CalendarAdapter(requireContext(), onClickDayWeek) }
     private val scope: CoroutineScope = CoroutineScope(Dispatchers.IO)
+
     private var days = arrayListOf<LocalDate>()
     private var isFloatingMenuVisible = false
 
@@ -98,10 +99,9 @@ class HomeFragment : Fragment() {
 
     private val onClickDayWeek: CalendarAdapter.OnItemListener =
         object : CalendarAdapter.OnItemListener {
-            override fun onItemClick(position: Int, date: LocalDate?) {
-                CalendarUtils.selectedDate = date!!
-                days = CalendarUtils.daysInWeekArray(CalendarUtils.selectedDate)
-                adapterCalendar.updateList(days)
+            override fun onItemClick(position: Int, date: LocalDate) {
+                CalendarUtils.selectedDate = date
+                setWeekView()
             }
         }
 
@@ -121,22 +121,18 @@ class HomeFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-
-        initRecyclerHome()
         initRecyclerCalendar()
-        initObserve()
         setWeekView()
+        initRecyclerHome()
+        initObserve()
+
         binding.apply {
             btnPreviousWeekAction.setOnClickListener {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    CalendarUtils.selectedDate = CalendarUtils.selectedDate!!.minusWeeks(1)
-                }
+                CalendarUtils.selectedDate = CalendarUtils.selectedDate.minusWeeks(1)
                 setWeekView()
             }
             btnNextWeekAction.setOnClickListener {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    CalendarUtils.selectedDate = CalendarUtils.selectedDate!!.plusWeeks(1)
-                }
+                CalendarUtils.selectedDate = CalendarUtils.selectedDate.plusWeeks(1)
                 setWeekView()
             }
             floatingAddNote.setOnClickListener {
@@ -182,18 +178,6 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun initObserve() {
-        noteTaskViewModel.noteTask.observe(viewLifecycleOwner) { listNoteTask ->
-            adapterNote.updateList(listNoteTask)
-        }
-
-        contactViewModel.contact
-            .onEach { listContactDoctor ->
-                // Some do...
-            }
-            .launchIn(scope)
-    }
-
     private fun initRecyclerHome() {
         binding.apply {
             recyclerHome.adapter = adapterNote
@@ -203,9 +187,33 @@ class HomeFragment : Fragment() {
 
     private fun initRecyclerCalendar() {
         binding.apply {
-            calendarRecyclerView.adapter = adapterCalendar
-            calendarRecyclerView.layoutManager = GridLayoutManager(activity, 7)
+            recyclerCalendar.adapter = adapterCalendar
+            recyclerCalendar.layoutManager = GridLayoutManager(activity, 7)
         }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun setWeekView() {
+        binding.apply {
+            monthYearTV.text = CalendarUtils.monthYearFromDate(CalendarUtils.selectedDate)
+            days = CalendarUtils.daysInWeekArray(CalendarUtils.selectedDate)
+            adapterCalendar.updateList(days)
+            recyclerCalendar.post { adapterCalendar.notifyDataSetChanged() }
+        }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun initObserve() {
+        noteTaskViewModel.noteTask.observe(viewLifecycleOwner) { listNoteTask ->
+            adapterNote.updateList(listNoteTask)
+            binding.recyclerHome.post { adapterNote.notifyDataSetChanged() }
+        }
+
+        contactViewModel.contact
+            .onEach { listContactDoctor ->
+                // Some do...
+            }
+            .launchIn(scope)
     }
 
     private fun checkPermissionCalendar() {
@@ -234,14 +242,4 @@ class HomeFragment : Fragment() {
             }
         }
     }
-
-    private fun setWeekView() {
-        binding.apply {
-            tvMonthYear.text = CalendarUtils.monthYearFromDate(CalendarUtils.selectedDate)
-            days = CalendarUtils.daysInWeekArray(CalendarUtils.selectedDate)
-            adapterCalendar.updateList(days)
-        }
-    }
-
-
 }

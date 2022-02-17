@@ -32,6 +32,5 @@ class NoteTaskAdapter(
 
     fun updateList(data: List<NoteTask>) {
         items = data
-        notifyDataSetChanged()
     }
 }

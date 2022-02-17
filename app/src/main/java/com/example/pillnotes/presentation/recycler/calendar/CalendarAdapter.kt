@@ -38,11 +38,10 @@ class CalendarAdapter(
     override fun getItemCount() = days.size
 
     interface OnItemListener {
-        fun onItemClick(position: Int, date: LocalDate?)
+        fun onItemClick(position: Int, date: LocalDate)
     }
 
     fun updateList(data: ArrayList<LocalDate>) {
         days = data
-        notifyDataSetChanged()
     }
 }
