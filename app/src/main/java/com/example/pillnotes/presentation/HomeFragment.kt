@@ -103,6 +103,7 @@ class HomeFragment : Fragment() {
                 CalendarUtils.selectedDate = date
                 setWeekView()
             }
+
         }
 
     override fun onCreateView(

@@ -1,7 +1,6 @@
 package com.example.pillnotes.presentation.recycler.calendar
 
 import android.content.Context
-import android.os.Build
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pillnotes.R
 import com.example.pillnotes.databinding.CalendarCellBinding
@@ -12,22 +11,21 @@ import java.time.LocalDate
 class CalendarViewHolder(
     private val context: Context,
     private val itemBinding: CalendarCellBinding,
-    private val onItemListener: OnItemListener,
+    private var onItemListener: OnItemListener,
 ) :
     RecyclerView.ViewHolder(itemBinding.root) {
 
     fun bindView(item: LocalDate) {
         itemBinding.apply {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                cellDayText.text = item.dayOfMonth.toString()
+            cellDayText.text = item.dayOfMonth.toString()
+            if (item == CalendarUtils.selectedDate) {
+                cellDayText.setBackgroundColor(context.resources.getColor(R.color.teal_200))
+            } else {
+                cellDayText.setBackgroundColor(context.resources.getColor(R.color.gray))
             }
-            if (item == CalendarUtils.selectedDate)
-                parentView.setBackgroundColor(
-                    context.resources.getColor(
-                        R.color.light_gray
-                    )
-                )
         }
-        onItemListener.onItemClick(adapterPosition, item)
+        itemBinding.cellDayText.setOnClickListener {
+            onItemListener.onItemClick(adapterPosition, item)
+        }
     }
 }

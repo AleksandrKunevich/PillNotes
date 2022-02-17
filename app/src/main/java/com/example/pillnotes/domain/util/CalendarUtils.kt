@@ -8,7 +8,7 @@ import java.util.ArrayList
 object CalendarUtils {
     var selectedDate: LocalDate = LocalDate.now()
     fun monthYearFromDate(date: LocalDate): String {
-        val formatter = DateTimeFormatter.ofPattern("MMMM yyyy")
+        val formatter = DateTimeFormatter.ofPattern("MM / yyyy")
         return date.format(formatter)
     }
 

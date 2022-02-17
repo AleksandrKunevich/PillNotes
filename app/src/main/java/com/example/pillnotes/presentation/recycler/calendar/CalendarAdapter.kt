@@ -15,19 +15,12 @@ class CalendarAdapter(
     private var days = arrayListOf<LocalDate>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CalendarViewHolder {
-
         val binding =
             CalendarCellBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
             )
-        val layoutParams: ViewGroup.LayoutParams = binding.parentView.layoutParams
-        if (days.size > 15) {
-            layoutParams.height = (parent.height * 0.166666666).toInt()
-        } else {
-            layoutParams.height = parent.height
-        }
         return CalendarViewHolder(context, binding, onItemListener)
     }
 
