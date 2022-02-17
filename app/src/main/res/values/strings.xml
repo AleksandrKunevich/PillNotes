@@ -22,8 +22,11 @@
     <string name="are_you_sure_delete_this">Are you sure delete this?</string>
     <string name="cancel">Cancel</string>
     <string name="delete">Delete</string>
+    <string name="back">Back</string>
+    <string name="forward">Forward</string>
     <string name="add_note">Add note</string>
     <string name="add_alarm">Add alarm</string>
+    <string name="add_contact">Add contact</string>
     <string name="enter_title">Enter title</string>
     <string name="choose_task">Choose task</string>
     <string name="choose_priority">Choose priority</string>
@@ -33,7 +36,7 @@
     <string name="enter_title_hint">Please, enter title</string>
     <string name="enter_task_hint">Please, enter task</string>
     <string name="default_time_text">12:34</string>
-    <string name="default_date_text">2021/11/22</string>
+    <string name="default_date_text">23/02/2022</string>
     <string name="enter_time_hint">Please, choose time</string>
     <string name="take_pill">Take a pill</string>
     <string name="visit_doctor">Visit doctor</string>
@@ -49,6 +52,13 @@
     <string name="other">Other...</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sun">SUN</string>
+    <string name="mon">MON</string>
+    <string name="tue">TUE</string>
+    <string name="wed">WED</string>
+    <string name="thur">THUR</string>
+    <string name="fri">FRI</string>
+    <string name="sat">SAT</string>
 
 
     <string-array name="place_type">

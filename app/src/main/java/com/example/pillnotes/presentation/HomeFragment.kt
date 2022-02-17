@@ -1,6 +1,9 @@
 package com.example.pillnotes.presentation
 
 import android.content.pm.PackageManager
+import android.location.Location
+import android.location.LocationManager
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,20 +15,26 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.pillnotes.DaggerApplication
 import com.example.pillnotes.R
 import com.example.pillnotes.databinding.HomeFragmentBinding
 import com.example.pillnotes.domain.calendar.CalendarReminderImpl
+import com.example.pillnotes.domain.model.ContactDoctor
 import com.example.pillnotes.domain.model.NoteTask
+import com.example.pillnotes.domain.util.CalendarUtils
 import com.example.pillnotes.domain.viewmodel.ContactViewModel
 import com.example.pillnotes.domain.viewmodel.NoteTaskViewModel
 import com.example.pillnotes.presentation.recycler.NoteTaskAdapter
 import com.example.pillnotes.presentation.recycler.RecyclerClickListener
+import com.example.pillnotes.presentation.recycler.calendar.CalendarAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import java.time.LocalDate
+import java.util.*
 import javax.inject.Inject
 
 class HomeFragment : Fragment() {
@@ -60,8 +69,10 @@ class HomeFragment : Fragment() {
 
     private lateinit var binding: HomeFragmentBinding
     private lateinit var pLauncher: ActivityResultLauncher<Array<String>>
-    private val adapter by lazy { NoteTaskAdapter(requireContext(), onClickNotes) }
+    private val adapterNote by lazy { NoteTaskAdapter(requireContext(), onClickNotes) }
+    private val adapterCalendar by lazy { CalendarAdapter(requireContext(), onClickDayWeek) }
     private val scope: CoroutineScope = CoroutineScope(Dispatchers.IO)
+    private var days = arrayListOf<LocalDate>()
     private var isFloatingMenuVisible = false
 
     private val onClickNotes: RecyclerClickListener = object : RecyclerClickListener {
@@ -85,6 +96,15 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private val onClickDayWeek: CalendarAdapter.OnItemListener =
+        object : CalendarAdapter.OnItemListener {
+            override fun onItemClick(position: Int, date: LocalDate?) {
+                CalendarUtils.selectedDate = date!!
+                days = CalendarUtils.daysInWeekArray(CalendarUtils.selectedDate)
+                adapterCalendar.updateList(days)
+            }
+        }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -102,27 +122,43 @@ class HomeFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        initRecycler()
+        initRecyclerHome()
+        initRecyclerCalendar()
         initObserve()
-        binding.floatingAddNote.setOnClickListener {
-            changeVisibleFloatingMenu()
-            findNavController().navigate(R.id.home_to_newNote)
-        }
-        binding.floatingAddAlarm.setOnClickListener {
-            changeVisibleFloatingMenu()
-            findNavController().navigate(R.id.home_to_alarm)
-//            contactViewModel.addContact(
-//                ContactDoctor(
-//                    UUID.randomUUID(),
-//                    "Doctor name",
-//                    "superman",
-//                    "+11111111",
-//                    Location(LocationManager.GPS_PROVIDER)
-//                )
-//            )
-        }
-        binding.floatingMenu.setOnClickListener {
-            changeVisibleFloatingMenu()
+        setWeekView()
+        binding.apply {
+            btnPreviousWeekAction.setOnClickListener {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    CalendarUtils.selectedDate = CalendarUtils.selectedDate!!.minusWeeks(1)
+                }
+                setWeekView()
+            }
+            btnNextWeekAction.setOnClickListener {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    CalendarUtils.selectedDate = CalendarUtils.selectedDate!!.plusWeeks(1)
+                }
+                setWeekView()
+            }
+            floatingAddNote.setOnClickListener {
+                changeVisibleFloatingMenu()
+                findNavController().navigate(R.id.home_to_newNote)
+            }
+            floatingAdd.setOnClickListener {
+                changeVisibleFloatingMenu()
+                findNavController().navigate(R.id.home_to_contacts)
+                contactViewModel.addContact(
+                    ContactDoctor(
+                        UUID.randomUUID(),
+                        "Doctor name",
+                        "superman",
+                        "+11111111",
+                        Location(LocationManager.GPS_PROVIDER)
+                    )
+                )
+            }
+            floatingMenu.setOnClickListener {
+                changeVisibleFloatingMenu()
+            }
         }
     }
 
@@ -130,26 +166,25 @@ class HomeFragment : Fragment() {
         if (!isFloatingMenuVisible) {
             binding.apply {
                 floatingAddNote.show()
-                floatingAddAlarm.show()
+                floatingAdd.show()
                 tvAddNotes.visibility = View.VISIBLE
-                tvAddAlarm.visibility = View.VISIBLE
+                tvAddContact.visibility = View.VISIBLE
             }
             isFloatingMenuVisible = true
         } else {
             binding.apply {
                 floatingAddNote.hide()
-                floatingAddAlarm.hide()
+                floatingAdd.hide()
                 tvAddNotes.visibility = View.INVISIBLE
-                tvAddAlarm.visibility = View.INVISIBLE
+                tvAddContact.visibility = View.INVISIBLE
             }
             isFloatingMenuVisible = false
         }
     }
 
     private fun initObserve() {
-
         noteTaskViewModel.noteTask.observe(viewLifecycleOwner) { listNoteTask ->
-            adapter.updateList(listNoteTask)
+            adapterNote.updateList(listNoteTask)
         }
 
         contactViewModel.contact
@@ -159,10 +194,17 @@ class HomeFragment : Fragment() {
             .launchIn(scope)
     }
 
-    private fun initRecycler() {
+    private fun initRecyclerHome() {
         binding.apply {
-            recyclerHome.adapter = adapter
+            recyclerHome.adapter = adapterNote
             recyclerHome.layoutManager = LinearLayoutManager(activity)
+        }
+    }
+
+    private fun initRecyclerCalendar() {
+        binding.apply {
+            calendarRecyclerView.adapter = adapterCalendar
+            calendarRecyclerView.layoutManager = GridLayoutManager(activity, 7)
         }
     }
 
@@ -192,4 +234,14 @@ class HomeFragment : Fragment() {
             }
         }
     }
+
+    private fun setWeekView() {
+        binding.apply {
+            tvMonthYear.text = CalendarUtils.monthYearFromDate(CalendarUtils.selectedDate)
+            days = CalendarUtils.daysInWeekArray(CalendarUtils.selectedDate)
+            adapterCalendar.updateList(days)
+        }
+    }
+
+
 }

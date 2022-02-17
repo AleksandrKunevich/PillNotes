@@ -1,6 +1,5 @@
 package com.example.pillnotes.presentation.recycler
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,8 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.pillnotes.databinding.PillNotesItemBinding
 import com.example.pillnotes.domain.model.NoteTask
 
-class NoteTaskAdapter(private val context: Context, private val listener: RecyclerClickListener) :
-    RecyclerView.Adapter<NoteTaskHolder>() {
+class NoteTaskAdapter(
+    private val context: Context,
+    private val listener: RecyclerClickListener
+) : RecyclerView.Adapter<NoteTaskHolder>() {
 
     private var items = listOf<NoteTask>()
 
@@ -29,7 +30,6 @@ class NoteTaskAdapter(private val context: Context, private val listener: Recycl
 
     override fun getItemCount() = items.size
 
-    @SuppressLint("NotifyDataSetChanged")
     fun updateList(data: List<NoteTask>) {
         items = data
         notifyDataSetChanged()

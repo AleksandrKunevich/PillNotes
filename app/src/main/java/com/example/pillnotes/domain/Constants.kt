@@ -7,5 +7,4 @@ object Constants {
     const val TIME_FORMAT = "HH:mm"
     const val DATE_FORMAT = "dd/MM/yyyy"
     const val DATE_FORMAT_24H = "$TIME_FORMAT $DATE_FORMAT"
-    const val ALARM_ID = "ALARM_ID"
 }

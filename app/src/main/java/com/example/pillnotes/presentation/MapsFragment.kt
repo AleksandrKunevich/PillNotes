@@ -1,6 +1,5 @@
 package com.example.pillnotes.presentation
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.pillnotes.R
 import com.example.pillnotes.presentation.maps.MyApiRequestInterface
-import com.example.pillnotes.presentation.maps2.MainActivity22
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -97,11 +95,11 @@ class MapsFragment : Fragment() {
 //            callback)
 //        a
 
-        startActivity(Intent(requireContext(), MainActivity22::class.java))
+//        startActivity(Intent(requireContext(), MainActivity22::class.java))
     }
-
+    
     val API_KEY = "AIzaSyAIZRmVsM33sZ3-Xmkn2IpScp5R-LO8y1c"
-    val base_url = "http://maps.googleapis.com/"
+    val base_url = "https://maps.googleapis.com"
 
     private var gson: Gson = GsonBuilder()
         .setLenient()
@@ -112,9 +110,8 @@ class MapsFragment : Fragment() {
         .addConverterFactory(GsonConverterFactory.create(gson))
         .build()
 
-    fun getNewsInternet(): MyApiRequestInterface =
+    fun getGoogleMapsResponse(): MyApiRequestInterface =
         getClient().create(MyApiRequestInterface::class.java)
-
 
 
 }
