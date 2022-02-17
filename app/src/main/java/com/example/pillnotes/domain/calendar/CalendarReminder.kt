@@ -1,12 +1,12 @@
 package com.example.pillnotes.domain.calendar
 
-import com.example.pillnotes.domain.model.NoteTask
+import com.example.pillnotes.domain.model.NoteTaskBase
 
 interface CalendarReminder {
 
-    fun addEventCalendar(noteTask: NoteTask)
+    fun addEventCalendar(noteTask: List<NoteTaskBase>)
 
-    fun deleteEvent(noteTask: NoteTask)
+    fun deleteEvent(noteTask: NoteTaskBase)
 
     fun showEventCalendar()
 }

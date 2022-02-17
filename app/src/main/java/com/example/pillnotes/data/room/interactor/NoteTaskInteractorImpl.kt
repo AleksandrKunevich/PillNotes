@@ -1,7 +1,7 @@
 package com.example.pillnotes.data.room.interactor
 
 import com.example.pillnotes.data.room.NoteTaskDao
-import com.example.pillnotes.domain.model.NoteTask
+import com.example.pillnotes.domain.model.NoteTaskBase
 import com.example.pillnotes.domain.util.toNoteTask
 import com.example.pillnotes.domain.util.toNoteTaskEntity
 import com.example.pillnotes.presentation.interactor.NoteTaskInteractor
@@ -16,7 +16,7 @@ class NoteTaskInteractorImpl @Inject constructor(
     private val noteTaskDao: NoteTaskDao
 ) : NoteTaskInteractor {
 
-    override fun getAllNoteTask(): Flow<List<NoteTask>> =
+    override fun getAllNoteTask(): Flow<List<NoteTaskBase>> =
         noteTaskDao.getAllNoteTask()
             .map { entities ->
                 entities.map { entity ->
@@ -24,13 +24,13 @@ class NoteTaskInteractorImpl @Inject constructor(
                 }
             }.flowOn(Dispatchers.IO)
 
-    override suspend fun insertNoteTask(noteTask: NoteTask) {
+    override suspend fun insertNoteTask(noteTask: NoteTaskBase) {
         withContext(Dispatchers.IO) {
             noteTaskDao.insertAllNoteTask(noteTask.toNoteTaskEntity())
         }
     }
 
-    override suspend fun deleteNoteTask(noteTask: NoteTask) {
+    override suspend fun deleteNoteTask(noteTask: NoteTaskBase) {
         withContext(Dispatchers.IO) {
             noteTaskDao.deleteNoteTask(noteTask.toNoteTaskEntity())
         }

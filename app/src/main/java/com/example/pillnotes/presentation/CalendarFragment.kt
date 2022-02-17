@@ -41,7 +41,7 @@ class CalendarFragment : Fragment() {
         }
 
         binding.btnAddEventCalendar.setOnClickListener {
-            calRem.addEventCalendar(noteTaskViewModel.noteTask.value?.get(0)!!)
+            calRem.addEventCalendar(listOf(noteTaskViewModel.noteTask.value?.get(0)!!))
         }
 
         binding.btnDeleteAllEvent.setOnClickListener {

@@ -22,7 +22,7 @@ import com.example.pillnotes.R
 import com.example.pillnotes.databinding.HomeFragmentBinding
 import com.example.pillnotes.domain.calendar.CalendarReminderImpl
 import com.example.pillnotes.domain.model.ContactDoctor
-import com.example.pillnotes.domain.model.NoteTask
+import com.example.pillnotes.domain.model.NoteTaskBase
 import com.example.pillnotes.domain.util.CalendarUtils
 import com.example.pillnotes.domain.viewmodel.ContactViewModel
 import com.example.pillnotes.domain.viewmodel.NoteTaskViewModel
@@ -69,7 +69,8 @@ class HomeFragment : Fragment() {
 
     private lateinit var binding: HomeFragmentBinding
     private lateinit var pLauncher: ActivityResultLauncher<Array<String>>
-    private val adapterNote by lazy { NoteTaskAdapter(requireContext(), onClickNotes) }
+//    private val adapterNote by lazy { NoteTaskAdapter(requireContext(), onClickNotes) }
+    private val adapterNote by lazy { NoteTaskAdapter(requireContext()) }
     private val adapterCalendar by lazy { CalendarAdapter(requireContext(), onClickDayWeek) }
     private val scope: CoroutineScope = CoroutineScope(Dispatchers.IO)
 
@@ -77,7 +78,7 @@ class HomeFragment : Fragment() {
     private var isFloatingMenuVisible = false
 
     private val onClickNotes: RecyclerClickListener = object : RecyclerClickListener {
-        override fun onDeleteClickListener(item: NoteTask) {
+        override fun onDeleteClickListener(item: NoteTaskBase) {
             val dialog = AlertDialog.Builder(requireContext())
             val dialogItem = arrayOf(
                 getString(R.string.delete),

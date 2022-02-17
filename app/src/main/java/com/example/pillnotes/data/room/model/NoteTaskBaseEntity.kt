@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 import java.util.*
 
 @Entity(tableName = "note_task")
-data class NoteTaskEntity(
+data class NoteTaskBaseEntity(
 
     @PrimaryKey
     var uid: UUID = UUID.randomUUID(),

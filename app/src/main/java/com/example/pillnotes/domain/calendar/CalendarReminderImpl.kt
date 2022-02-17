@@ -9,7 +9,7 @@ import android.provider.CalendarContract
 import android.util.Log
 import com.example.pillnotes.domain.Constants
 import com.example.pillnotes.domain.longToTime
-import com.example.pillnotes.domain.model.NoteTask
+import com.example.pillnotes.domain.model.NoteTaskBase
 import java.lang.Long
 import java.text.SimpleDateFormat
 import java.util.*
@@ -22,12 +22,39 @@ class CalendarReminderImpl @Inject constructor(private val context: Context) : C
         const val TAG = "class CalendarReminderImpl"
     }
 
-    override fun addEventCalendar(noteTask: NoteTask) {
-        val uid = noteTask.uid.toString()
-        val eventTitle = noteTask.title
-        val eventDescription = noteTask.task
-        val eventDay = noteTask.time.substring(6, 16)
-        val eventTime = noteTask.time.substring(0, 5)
+    var timeBase = ""
+    var uidBase = UUID.randomUUID()
+    var nameBase = ""
+    var taskBase = ""
+    var resultBase = ""
+    var checkBase = false
+    var priorityBase = 0
+    var rruleBase = ""
+
+    override fun addEventCalendar(noteTask: List<NoteTaskBase>) {
+
+        noteTask.forEach {
+            when (it) {
+                is NoteTaskBase.NoteTime -> {
+                    timeBase = it.time
+                }
+                is NoteTaskBase.NoteBody -> {
+                    uidBase = it.uid
+                    nameBase = it.title
+                    taskBase = it.task
+                    resultBase = it.result.toString()
+                    checkBase = it.check
+                    priorityBase = it.priority
+                    rruleBase = it.rrule
+                }
+            }
+        }
+
+        val uid = uidBase.toString()
+        val eventTitle = nameBase
+        val eventDescription = taskBase
+        val eventDay = timeBase.substring(6, 16)
+        val eventTime = timeBase.substring(0, 5)
         val reminderDayTimeStart = "$eventTime $eventDay"
 //        val reminderDayTimeEnd = "12:12 01/01/2099"
         val reminderDayTimeEnd = reminderDayTimeStart
@@ -46,7 +73,7 @@ class CalendarReminderImpl @Inject constructor(private val context: Context) : C
         values.put(CalendarContract.Events.STATUS, uid)
         values.put(CalendarContract.Events.EVENT_TIMEZONE, TimeZone.getDefault().id)
         values.put(CalendarContract.Events.HAS_ALARM, 1);
-        values.put(CalendarContract.Events.RRULE, noteTask.rrule);
+        values.put(CalendarContract.Events.RRULE, rruleBase);
         val eventUri: Uri =
             Uri.parse(CalendarContract.Events.CONTENT_URI.toString())
         val uri: Uri? = cr.insert(eventUri, values)
@@ -64,7 +91,7 @@ class CalendarReminderImpl @Inject constructor(private val context: Context) : C
         val remindersUri: Uri? = context.contentResolver.insert(reminderUri, reminders)
     }
 
-    override fun deleteEvent(noteTask: NoteTask) {
+    override fun deleteEvent(noteTask: NoteTaskBase) {
         val cursor = context.contentResolver.query(
             CalendarContract.Events.CONTENT_URI,
             null,
@@ -75,7 +102,7 @@ class CalendarReminderImpl @Inject constructor(private val context: Context) : C
         cursor.moveToFirst()
         while (cursor.moveToNext()) {
             val uid = cursor.getColumnIndex(CalendarContract.Events.STATUS)
-            if (cursor.getString(uid) == noteTask.uid.toString()) {
+            if (cursor.getString(uid) == uidBase.toString()) {
                 val longId = cursor.getColumnIndex(CalendarContract.Events._ID)
                 val deleteUri = ContentUris.withAppendedId(
                     CalendarContract.Events.CONTENT_URI,

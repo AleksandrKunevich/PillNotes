@@ -12,7 +12,7 @@ import com.example.pillnotes.R
 import com.example.pillnotes.databinding.FragmentNoteNewBinding
 import com.example.pillnotes.domain.Constants
 import com.example.pillnotes.domain.calendar.CalendarReminderImpl
-import com.example.pillnotes.domain.model.NoteTask
+import com.example.pillnotes.domain.model.NoteTaskBase
 import com.example.pillnotes.domain.newnote.NewNoteUtilImpl
 import com.example.pillnotes.domain.viewmodel.NoteTaskViewModel
 import java.text.SimpleDateFormat
@@ -120,16 +120,21 @@ class NewNoteFragment : Fragment() {
                 }
 
             tvCreate.setOnClickListener {
-                val newNote = NoteTask(
-                    UUID.randomUUID(),
-                    "${binding.etNoteTime.text} ${binding.etNoteDate.text}",
-                    "${binding.etNoteTitle.text}",
-                    "${binding.spinnerTask.selectedItem}",
-                    "result here",
-                    false,
-                    spinnerPriorityPos,
-                    rrule
-                )
+                val newNote =
+                    listOf(
+                        NoteTaskBase.NoteTime(
+                            time = "${binding.etNoteTime.text} ${binding.etNoteDate.text}"
+                        ),
+                        NoteTaskBase.NoteBody(
+                            uid = UUID.randomUUID(),
+                            title = "${binding.etNoteTitle.text}",
+                            task = "${binding.spinnerTask.selectedItem}",
+                            result = "result here",
+                            check = false,
+                            priority = spinnerPriorityPos,
+                            rrule = rrule
+                        )
+                    )
                 noteTaskViewModel.addTask(newNote)
                 calRem.addEventCalendar(newNote)
                 findNavController().navigate(R.id.newNote_to_home)

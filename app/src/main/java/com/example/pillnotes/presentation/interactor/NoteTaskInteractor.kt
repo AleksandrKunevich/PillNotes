@@ -1,14 +1,14 @@
 package com.example.pillnotes.presentation.interactor
 
-import com.example.pillnotes.domain.model.NoteTask
+import com.example.pillnotes.domain.model.NoteTaskBase
 import kotlinx.coroutines.flow.Flow
 
 interface NoteTaskInteractor {
 
-    fun getAllNoteTask(): Flow<List<NoteTask>>
+    fun getAllNoteTask(): Flow<List<NoteTaskBase>>
 
-    suspend fun insertNoteTask(noteTask: NoteTask)
+    suspend fun insertNoteTask(noteTask: NoteTaskBase)
 
-    suspend fun deleteNoteTask(noteTask: NoteTask)
+    suspend fun deleteNoteTask(noteTask: NoteTaskBase)
 
 }

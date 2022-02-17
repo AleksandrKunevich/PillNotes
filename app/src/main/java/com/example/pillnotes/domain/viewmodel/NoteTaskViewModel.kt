@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.pillnotes.domain.model.NoteTask
+import com.example.pillnotes.domain.model.NoteTaskBase
 import com.example.pillnotes.presentation.interactor.NoteTaskInteractor
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -14,8 +14,8 @@ class NoteTaskViewModel @Inject constructor(
     private val repository: NoteTaskInteractor
 ) : ViewModel() {
 
-    private val _noteTask = MutableLiveData<List<NoteTask>>()
-    val noteTask: LiveData<List<NoteTask>> get() = _noteTask
+    private val _noteTask = MutableLiveData<List<NoteTaskBase>>()
+    val noteTask: LiveData<List<NoteTaskBase>> get() = _noteTask
 
     init {
         getAllTask()
@@ -29,13 +29,13 @@ class NoteTaskViewModel @Inject constructor(
         }
     }
 
-    fun addTask(noteTask: NoteTask) {
+    fun addTask(noteTask: List<NoteTaskBase>) {
         viewModelScope.launch {
-            repository.insertNoteTask(noteTask)
+            repository.insertNoteTask(noteTask[0])
         }
     }
 
-    fun deleteTask(noteTask: NoteTask) {
+    fun deleteTask(noteTask: NoteTaskBase) {
         viewModelScope.launch {
             repository.deleteNoteTask(noteTask)
         }
