@@ -1,5 +1,6 @@
 package com.example.pillnotes.presentation.recycler
 
+import android.annotation.SuppressLint
 import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pillnotes.R
@@ -14,22 +15,21 @@ class NoteTaskHolder constructor(
 ) :
     RecyclerView.ViewHolder(itemBinding.root) {
 
+    @SuppressLint("Recycle")
     fun bindView(item: NoteTask) {
         itemBinding.apply {
-            tvItemTime.text = item.time.substring(Constants.TIME_START_INDEX, Constants.TIME_END_INDEX)
-            tvPillName.text = item.title
-            tvPillTask.text = item.task
-            if (item.result == null) {
-                tvPillResult.height = 0
-            } else {
-                tvPillResult.text = item.result
+            tvTime.text = item.time.substring(Constants.TIME_START_INDEX, Constants.TIME_END_INDEX)
+            tvTitle.text = item.title
+            val arraySpinnerText = context.resources.getStringArray(R.array.spinnerPeriod)
+            tvRrule.text = when (item.rrule) {
+                Constants.RRULE_ONE_TIME -> arraySpinnerText[0]
+                Constants.RRULE_DAILY -> arraySpinnerText[1]
+                Constants.RRULE_WEEKLY -> arraySpinnerText[2]
+                Constants.RRULE_MONTHLY -> arraySpinnerText[3]
+                Constants.RRULE_YEARLY -> arraySpinnerText[4]
+                else -> ""
             }
-            val checkIdDraw = if (item.check) {
-                R.drawable.ic_baseline_check_circle_24_done
-            } else {
-                R.drawable.add_alert_48
-            }
-            imgCheckFinish.setImageResource(checkIdDraw)
+            tvTask.text = item.task
             imgPriority.setImageResource(
                 context
                     .resources

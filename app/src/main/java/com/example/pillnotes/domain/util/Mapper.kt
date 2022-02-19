@@ -11,10 +11,8 @@ internal fun NoteTaskEntity.toNoteTask(): NoteTask {
     return NoteTask(
         uid = uid,
         time = time,
-        title = name,
+        title = title,
         task = task,
-        result = result,
-        check = check,
         priority = priority,
         rrule = rrule
     )
@@ -24,10 +22,8 @@ internal fun NoteTask.toNoteTaskEntity(): NoteTaskEntity {
     return NoteTaskEntity(
         uid = uid,
         time = time,
-        name = title,
+        title = title,
         task = task,
-        result = result,
-        check = check,
         priority = priority,
         rrule = rrule
     )

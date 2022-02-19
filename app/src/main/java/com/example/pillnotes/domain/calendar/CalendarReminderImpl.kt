@@ -21,7 +21,7 @@ import kotlin.Int
 class CalendarReminderImpl @Inject constructor(private val context: Context) : CalendarReminder {
 
     companion object {
-        const val TAG = "class CalendarReminderImpl"
+        const val TAG = "TAG:com.example.pillnotes.domain.calendar.CalendarReminderImpl"
     }
 
     override fun addEventCalendar(noteTask: NoteTask) {
@@ -67,7 +67,7 @@ class CalendarReminderImpl @Inject constructor(private val context: Context) : C
             val remindersUri: Uri? = context.contentResolver.insert(reminderUri, reminders)
         } catch (e: Exception) {
             Toast.makeText(context, "Sorry! Calendar ERROR.", Toast.LENGTH_SHORT).show()
-            Log.e(TAG, "exception: ${e.stackTrace}")
+            Log.e(TAG, "exception: $e")
         }
     }
 

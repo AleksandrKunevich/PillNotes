@@ -15,16 +15,10 @@ data class NoteTaskEntity(
     val time: String,
 
     @ColumnInfo(name = "name")
-    val name: String,
+    val title: String,
 
     @ColumnInfo(name = "task")
     val task: String,
-
-    @ColumnInfo(name = "result")
-    val result: String?,
-
-    @ColumnInfo(name = "check")
-    val check: Boolean,
 
     @ColumnInfo(name = "priority")
     val priority: Int,

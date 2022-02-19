@@ -223,6 +223,7 @@ class HomeFragment : Fragment() {
             .launchIn(scope)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun setNoteTaskUpdate(listNoteTask: List<NoteTask>) {
         adapterNote.updateList(listNoteTask, monthYear, CalendarUtils.selectedDate)
         binding.recyclerHome.post { adapterNote.notifyDataSetChanged() }

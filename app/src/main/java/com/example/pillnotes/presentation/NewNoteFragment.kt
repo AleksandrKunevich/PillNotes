@@ -1,5 +1,6 @@
 package com.example.pillnotes.presentation
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -43,6 +44,7 @@ class NewNoteFragment : Fragment() {
     private var spinnerTaskPos = 0
     private var spinnerPriorityPos = 0
 
+    @SuppressLint("SimpleDateFormat")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -57,6 +59,7 @@ class NewNoteFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let { bundle ->
@@ -123,13 +126,11 @@ class NewNoteFragment : Fragment() {
             tvCreate.setOnClickListener {
                 val newNote = NoteTask(
                     UUID.randomUUID(),
-                    "${binding.etNoteTime.text} ${binding.etNoteDate.text}",
-                    "${binding.etNoteTitle.text}",
-                    "${binding.spinnerTask.selectedItem}",
-                    "result here",
-                    false,
-                    spinnerPriorityPos,
-                    rrule
+                    time = "${binding.etNoteTime.text} ${binding.etNoteDate.text}",
+                    title = "${binding.etNoteTitle.text}",
+                    task = "${binding.spinnerTask.selectedItem}",
+                    priority = spinnerPriorityPos,
+                    rrule = rrule
                 )
                 noteTaskViewModel.addTask(newNote)
                 calRem.addEventCalendar(newNote)

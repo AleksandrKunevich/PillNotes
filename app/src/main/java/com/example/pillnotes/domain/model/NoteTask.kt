@@ -7,8 +7,6 @@ data class NoteTask(
     val time: String,
     val title: String,
     val task: String,
-    val result: String?,
-    val check: Boolean,
     val priority: Int,
     val rrule: String
 )
