@@ -3,8 +3,8 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'androidx.navigation.safeargs'
-    id 'kotlin-parcelize'
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
+    id 'org.jetbrains.kotlin.android.extensions'
 }
 
 android {
@@ -40,6 +40,10 @@ android {
 
     kapt {
         generateStubs = true
+    }
+
+    androidExtensions {
+        experimental = true
     }
 }
 

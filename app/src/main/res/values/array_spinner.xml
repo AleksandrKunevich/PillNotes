@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="spinnerTask">
+    <string-array name="spinnerTaskText">
         <item>@string/take_pill</item>
         <item>@string/visit_doctor</item>
         <item>@string/do_something</item>
@@ -18,7 +18,7 @@
         <item>@drawable/priority_not_important_24</item>
     </integer-array>
 
-    <string-array name="spinnerPeriod">
+    <string-array name="spinnerRruleText">
         <item>@string/one_time</item>
         <item>@string/every_day</item>
         <item>@string/every_week</item>

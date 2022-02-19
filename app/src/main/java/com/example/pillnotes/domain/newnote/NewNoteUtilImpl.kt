@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Context
 import android.view.View
+import android.widget.ArrayAdapter
 import androidx.appcompat.widget.AppCompatTextView
 import com.example.pillnotes.R
 import com.example.pillnotes.domain.Constants
@@ -13,12 +14,30 @@ import javax.inject.Inject
 
 class NewNoteUtilImpl @Inject constructor(private val context: Context) : NewNoteUtil {
 
-    override fun setSpinnerAdapter(): SpinnerCustomAdapter {
+    override fun setSpinnerPriorityAdapter(): SpinnerCustomAdapter {
         return SpinnerCustomAdapter(
             context,
             R.layout.spinner_row_priority,
-            R.id.spinnerPriorityText,
+            R.id.spinnerPriority,
             context.resources.getStringArray(R.array.spinnerPriorityText)
+        )
+    }
+
+    override fun setSpinnerTaskAdapter(): ArrayAdapter<String> {
+        return ArrayAdapter(
+            context,
+            R.layout.spinner_row_task,
+            R.id.spinnerTaskRow,
+            context.resources.getStringArray(R.array.spinnerTaskText)
+        )
+    }
+
+    override fun setSpinnerRruleAdapter(): ArrayAdapter<String> {
+        return ArrayAdapter(
+            context,
+            R.layout.spinner_row_rrule,
+            R.id.spinnerRruleRow,
+            context.resources.getStringArray(R.array.spinnerRruleText)
         )
     }
 

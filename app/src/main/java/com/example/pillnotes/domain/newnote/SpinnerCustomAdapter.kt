@@ -31,7 +31,7 @@ class SpinnerCustomAdapter(
         val inflater: LayoutInflater = LayoutInflater.from(context)
         val row: View = inflater.inflate(R.layout.spinner_row_priority, parent, false)
         val spIcon = row.findViewById<ImageView>(R.id.spinnerPriorityImage)
-        val spText = row.findViewById<TextView>(R.id.spinnerPriorityText)
+        val spText = row.findViewById<TextView>(R.id.spinnerPriorityRow)
         val imageArray = context.resources.obtainTypedArray(R.array.spinnerPriorityDraw)
         spIcon.setImageResource(imageArray.getResourceId(position, 0))
         spText.text = context.resources.getStringArray(R.array.spinnerPriorityText)[position]

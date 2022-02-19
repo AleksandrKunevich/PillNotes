@@ -5,11 +5,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pillnotes.databinding.CalendarCellBinding
+import com.example.pillnotes.domain.calendar.CalendarWeekOnItemListener
 import java.time.LocalDate
 
 class CalendarAdapter(
     private val context: Context,
-    private val onItemListener: OnItemListener
+    private val onItemListener: CalendarWeekOnItemListener
 ) : RecyclerView.Adapter<CalendarViewHolder>() {
 
     private var days = arrayListOf<LocalDate>()
@@ -29,10 +30,6 @@ class CalendarAdapter(
     }
 
     override fun getItemCount() = days.size
-
-    interface OnItemListener {
-        fun onItemClick(position: Int, date: LocalDate)
-    }
 
     fun updateList(data: ArrayList<LocalDate>) {
         days = data

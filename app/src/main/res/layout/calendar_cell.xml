@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:text="@string/default_date_text"
         android:textColor="@color/text_color_item_task"
+        android:background="@color/background_home_fragment"
         android:textSize="@dimen/size_pill_item_task"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

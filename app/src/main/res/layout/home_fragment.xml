@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_home_fragment"
     android:orientation="vertical">
 
     <LinearLayout
@@ -27,7 +28,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/back"
-                android:textColor="@color/blue"
+                android:backgroundTint="@color/gray"
+                android:textColor="@color/text_color_item_name"
                 android:textSize="@dimen/size_pill_item_result"
                 android:textStyle="bold" />
 
@@ -47,7 +49,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/forward"
-                android:textColor="@color/blue"
+                android:backgroundTint="@color/gray"
+                android:textColor="@color/text_color_item_name"
                 android:textSize="@dimen/size_pill_item_task"
                 android:textStyle="bold" />
 
@@ -124,11 +127,10 @@
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_calendar"
+            android:id="@+id/recyclerCalendar"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="@color/text_color_item_task" />
+            android:layout_weight="1" />
 
     </LinearLayout>
 

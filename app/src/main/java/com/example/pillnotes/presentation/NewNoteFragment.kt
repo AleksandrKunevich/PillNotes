@@ -39,8 +39,11 @@ class NewNoteFragment : Fragment() {
     private lateinit var textQr: String
     private lateinit var typeQr: String
     private lateinit var cal: Calendar
+    private var note: NoteTask? = null
+    private var randomUUID = UUID.randomUUID()
     private var isRrule = false
     private var rrule = ""
+    private var rrulePos = 0
     private var spinnerTaskPos = 0
     private var spinnerPriorityPos = 0
 
@@ -70,17 +73,20 @@ class NewNoteFragment : Fragment() {
             }
 
             if (bundle.getString(Constants.PERIOD_CODE) != null) {
-                binding.spinnerPeriod.setSelection(4)
+                binding.spinnerRrule.setSelection(4)
                 isRrule = true
+            }
+
+            if (bundle.getParcelable<NoteTask>(Constants.NOTE_TASK_CODE) != null) {
+                note = bundle.getParcelable<NoteTask>(Constants.NOTE_TASK_CODE)!!
             }
         }
     }
 
     override fun onStart() {
         super.onStart()
-
-        binding.spinnerPriority.adapter = newNoteUtil.setSpinnerAdapter()
         binding.apply {
+            spinnerPriority.adapter = newNoteUtil.setSpinnerPriorityAdapter()
             spinnerPriority.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
                     parent: AdapterView<*>?, view: View?,
@@ -92,40 +98,38 @@ class NewNoteFragment : Fragment() {
                 override fun onNothingSelected(arg0: AdapterView<*>?) {
                 }
             }
-
-            spinnerTask.onItemSelectedListener =
-                object : AdapterView.OnItemSelectedListener {
-                    override fun onItemSelected(
-                        parent: AdapterView<*>?, view: View?,
-                        pos: Int, id: Long
-                    ) {
-                        spinnerTaskPos = pos
-                    }
-
-                    override fun onNothingSelected(arg0: AdapterView<*>?) {}
+            spinnerTask.adapter = newNoteUtil.setSpinnerTaskAdapter()
+            spinnerTask.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?, view: View?,
+                    pos: Int, id: Long
+                ) {
+                    spinnerTaskPos = pos
                 }
 
-            spinnerPeriod.onItemSelectedListener =
-                object : AdapterView.OnItemSelectedListener {
-                    override fun onItemSelected(
-                        parent: AdapterView<*>?, view: View?,
-                        pos: Int, id: Long
-                    ) {
-                        when (pos) {
-                            0 -> rrule = Constants.RRULE_ONE_TIME
-                            1 -> rrule = Constants.RRULE_DAILY
-                            2 -> rrule = Constants.RRULE_WEEKLY
-                            3 -> rrule = Constants.RRULE_MONTHLY
-                            4 -> rrule = Constants.RRULE_YEARLY
-                        }
+                override fun onNothingSelected(arg0: AdapterView<*>?) {}
+            }
+            spinnerRrule.adapter = newNoteUtil.setSpinnerRruleAdapter()
+            spinnerRrule.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?, view: View?,
+                    pos: Int, id: Long
+                ) {
+                    when (pos) {
+                        0 -> rrule = Constants.RRULE_ONE_TIME
+                        1 -> rrule = Constants.RRULE_DAILY
+                        2 -> rrule = Constants.RRULE_WEEKLY
+                        3 -> rrule = Constants.RRULE_MONTHLY
+                        4 -> rrule = Constants.RRULE_YEARLY
                     }
-
-                    override fun onNothingSelected(arg0: AdapterView<*>?) {}
                 }
 
+                override fun onNothingSelected(arg0: AdapterView<*>?) {}
+            }
+            initNote()
             tvCreate.setOnClickListener {
                 val newNote = NoteTask(
-                    UUID.randomUUID(),
+                    randomUUID,
                     time = "${binding.etNoteTime.text} ${binding.etNoteDate.text}",
                     title = "${binding.etNoteTitle.text}",
                     task = "${binding.spinnerTask.selectedItem}",
@@ -139,6 +143,40 @@ class NewNoteFragment : Fragment() {
             imgQrScan.setOnClickListener { findNavController().navigate(R.id.newNote_to_scanner) }
             newNoteUtil.setTime(etNoteTime, requireContext())
             newNoteUtil.setDate(etNoteDate, requireContext())
+        }
+    }
+
+    private fun initNote() {
+        if (note != null) {
+            randomUUID = note!!.uid
+            binding.apply {
+                etNoteTitle.setText(note!!.title)
+                etNoteTime.text =
+                    note!!.time.substring(Constants.TIME_START_INDEX, Constants.TIME_END_INDEX)
+                etNoteDate.text =
+                    note!!.time.substring(Constants.DAY_START_INDEX, Constants.DAY_END_INDEX)
+                val arraySpinnerTask =
+                    requireContext().resources.getStringArray(R.array.spinnerTaskText)
+                spinnerTaskPos = when (note!!.task) {
+                    arraySpinnerTask[0] -> 0
+                    arraySpinnerTask[1] -> 1
+                    arraySpinnerTask[2] -> 2
+                    else -> 0
+                }
+                spinnerTask.setSelection(spinnerTaskPos)
+                spinnerPriorityPos = note!!.priority
+                spinnerPriority.setSelection(spinnerPriorityPos)
+                rrulePos = when (note!!.rrule) {
+                    Constants.RRULE_ONE_TIME -> 0
+                    Constants.RRULE_DAILY -> 1
+                    Constants.RRULE_WEEKLY -> 2
+                    Constants.RRULE_MONTHLY -> 3
+                    Constants.RRULE_YEARLY -> 4
+                    else -> 0
+                }
+                spinnerRrule.setSelection(rrulePos)
+                rrule = note!!.rrule
+            }
         }
     }
 }

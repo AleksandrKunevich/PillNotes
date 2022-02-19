@@ -13,6 +13,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -20,15 +21,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.pillnotes.DaggerApplication
 import com.example.pillnotes.R
 import com.example.pillnotes.databinding.HomeFragmentBinding
+import com.example.pillnotes.domain.Constants
 import com.example.pillnotes.domain.calendar.CalendarReminderImpl
+import com.example.pillnotes.domain.calendar.CalendarWeekOnItemListener
 import com.example.pillnotes.domain.model.ContactDoctor
 import com.example.pillnotes.domain.model.NoteTask
+import com.example.pillnotes.domain.newnote.NoteTaskClickListener
 import com.example.pillnotes.domain.util.CalendarUtils
 import com.example.pillnotes.domain.viewmodel.ContactViewModel
 import com.example.pillnotes.domain.viewmodel.NoteTaskViewModel
-import com.example.pillnotes.presentation.recycler.NoteTaskAdapter
-import com.example.pillnotes.presentation.recycler.RecyclerClickListener
 import com.example.pillnotes.presentation.recycler.calendar.CalendarAdapter
+import com.example.pillnotes.presentation.recycler.notetask.NoteTaskAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.launchIn
@@ -40,7 +43,7 @@ import javax.inject.Inject
 class HomeFragment : Fragment() {
 
     companion object {
-        private const val TAG = "class HomeFragment"
+        private const val TAG = "TAG:com.example.pillnotes.presentation.HomeFragment"
         private const val GRANTED = "GRANTED"
         private const val DENIED = "DENIED"
     }
@@ -78,7 +81,7 @@ class HomeFragment : Fragment() {
     private var listNoteTask = listOf<NoteTask>()
     private var isFloatingMenuVisible = false
 
-    private val onClickNotes: RecyclerClickListener = object : RecyclerClickListener {
+    private val onClickNotes: NoteTaskClickListener = object : NoteTaskClickListener {
         override fun onDeleteClickListener(item: NoteTask) {
             val dialog = AlertDialog.Builder(requireContext())
             val dialogItem = arrayOf(
@@ -97,10 +100,15 @@ class HomeFragment : Fragment() {
                 }
                 .show()
         }
+
+        override fun onNoteTaskClickListener(item: NoteTask) {
+            val bundle = bundleOf(Constants.NOTE_TASK_CODE to item)
+            findNavController().navigate(R.id.home_to_newNote, bundle)
+        }
     }
 
-    private val onClickDayWeek: CalendarAdapter.OnItemListener =
-        object : CalendarAdapter.OnItemListener {
+    private val onClickDayWeek: CalendarWeekOnItemListener =
+        object : CalendarWeekOnItemListener {
             override fun onItemClick(position: Int, date: LocalDate) {
                 CalendarUtils.selectedDate = date
                 setWeekView()

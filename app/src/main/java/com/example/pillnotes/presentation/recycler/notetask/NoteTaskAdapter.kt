@@ -1,4 +1,4 @@
-package com.example.pillnotes.presentation.recycler
+package com.example.pillnotes.presentation.recycler.notetask
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,12 +7,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.pillnotes.databinding.PillNotesItemBinding
 import com.example.pillnotes.domain.Constants
 import com.example.pillnotes.domain.model.NoteTask
+import com.example.pillnotes.domain.newnote.NoteTaskClickListener
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 class NoteTaskAdapter(
     private val context: Context,
-    private val listener: RecyclerClickListener
+    private val listener: NoteTaskClickListener
 ) : RecyclerView.Adapter<NoteTaskHolder>() {
 
     private var items = listOf<NoteTask>()

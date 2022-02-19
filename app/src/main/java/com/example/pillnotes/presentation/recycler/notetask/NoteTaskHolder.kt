@@ -1,4 +1,4 @@
-package com.example.pillnotes.presentation.recycler
+package com.example.pillnotes.presentation.recycler.notetask
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -7,11 +7,12 @@ import com.example.pillnotes.R
 import com.example.pillnotes.databinding.PillNotesItemBinding
 import com.example.pillnotes.domain.Constants
 import com.example.pillnotes.domain.model.NoteTask
+import com.example.pillnotes.domain.newnote.NoteTaskClickListener
 
 class NoteTaskHolder constructor(
     private val context: Context,
     private val itemBinding: PillNotesItemBinding,
-    private val listener: RecyclerClickListener
+    private val listener: NoteTaskClickListener
 ) :
     RecyclerView.ViewHolder(itemBinding.root) {
 
@@ -20,7 +21,7 @@ class NoteTaskHolder constructor(
         itemBinding.apply {
             tvTime.text = item.time.substring(Constants.TIME_START_INDEX, Constants.TIME_END_INDEX)
             tvTitle.text = item.title
-            val arraySpinnerText = context.resources.getStringArray(R.array.spinnerPeriod)
+            val arraySpinnerText = context.resources.getStringArray(R.array.spinnerRruleText)
             tvRrule.text = when (item.rrule) {
                 Constants.RRULE_ONE_TIME -> arraySpinnerText[0]
                 Constants.RRULE_DAILY -> arraySpinnerText[1]
@@ -38,6 +39,9 @@ class NoteTaskHolder constructor(
             )
             imgDelete.setOnClickListener {
                 listener.onDeleteClickListener(item)
+            }
+            containerItem.setOnClickListener {
+                listener.onNoteTaskClickListener(item)
             }
         }
     }
