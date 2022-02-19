@@ -109,10 +109,11 @@ class NewNoteFragment : Fragment() {
                         pos: Int, id: Long
                     ) {
                         when (pos) {
-                            0 -> rrule = "FREQ=DAILY"
-                            1 -> rrule = "FREQ=WEEKLY;INTERVAL=1"
-                            2 -> rrule = "FREQ=MONTHLY;INTERVAL=1"
-                            3 -> rrule = "FREQ=YEARLY;INTERVAL=1"
+                            0 -> rrule = ""
+                            1 -> rrule = "FREQ=DAILY"
+                            2 -> rrule = "FREQ=WEEKLY;INTERVAL=1"
+                            3 -> rrule = "FREQ=MONTHLY;INTERVAL=1"
+                            4 -> rrule = "FREQ=YEARLY;INTERVAL=1"
                         }
                     }
 

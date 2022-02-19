@@ -1,14 +1,14 @@
 package com.example.pillnotes.domain.util
 
+import com.example.pillnotes.domain.Constants
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
-import java.util.ArrayList
 
 object CalendarUtils {
     var selectedDate: LocalDate = LocalDate.now()
     fun monthYearFromDate(date: LocalDate): String {
-        val formatter = DateTimeFormatter.ofPattern("MM / yyyy")
+        val formatter = DateTimeFormatter.ofPattern(Constants.MONTH_YEAR_FORMAT)
         return date.format(formatter)
     }
 

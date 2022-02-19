@@ -19,6 +19,7 @@
     </integer-array>
 
     <string-array name="spinnerPeriod">
+        <item>@string/one_time</item>
         <item>@string/every_day</item>
         <item>@string/every_week</item>
         <item>@string/every_month</item>

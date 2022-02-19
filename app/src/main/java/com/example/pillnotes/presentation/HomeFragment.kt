@@ -71,9 +71,11 @@ class HomeFragment : Fragment() {
     private lateinit var pLauncher: ActivityResultLauncher<Array<String>>
     private val adapterNote by lazy { NoteTaskAdapter(requireContext(), onClickNotes) }
     private val adapterCalendar by lazy { CalendarAdapter(requireContext(), onClickDayWeek) }
+    private var monthYear = CalendarUtils.monthYearFromDate(CalendarUtils.selectedDate)
     private val scope: CoroutineScope = CoroutineScope(Dispatchers.IO)
 
     private var days = arrayListOf<LocalDate>()
+    private var listNoteTask = listOf<NoteTask>()
     private var isFloatingMenuVisible = false
 
     private val onClickNotes: RecyclerClickListener = object : RecyclerClickListener {
@@ -102,6 +104,7 @@ class HomeFragment : Fragment() {
             override fun onItemClick(position: Int, date: LocalDate) {
                 CalendarUtils.selectedDate = date
                 setWeekView()
+                setNoteTaskUpdate(listNoteTask)
             }
 
         }
@@ -125,16 +128,18 @@ class HomeFragment : Fragment() {
         initRecyclerCalendar()
         setWeekView()
         initRecyclerHome()
-        initObserve()
+        initNoteTask()
 
         binding.apply {
             btnPreviousWeekAction.setOnClickListener {
                 CalendarUtils.selectedDate = CalendarUtils.selectedDate.minusWeeks(1)
                 setWeekView()
+                setNoteTaskUpdate(listNoteTask)
             }
             btnNextWeekAction.setOnClickListener {
                 CalendarUtils.selectedDate = CalendarUtils.selectedDate.plusWeeks(1)
                 setWeekView()
+                setNoteTaskUpdate(listNoteTask)
             }
             floatingAddNote.setOnClickListener {
                 changeVisibleFloatingMenu()
@@ -196,7 +201,8 @@ class HomeFragment : Fragment() {
     @SuppressLint("NotifyDataSetChanged")
     private fun setWeekView() {
         binding.apply {
-            monthYearTV.text = CalendarUtils.monthYearFromDate(CalendarUtils.selectedDate)
+            monthYear = CalendarUtils.monthYearFromDate(CalendarUtils.selectedDate)
+            monthYearTV.text = monthYear
             days = CalendarUtils.daysInWeekArray(CalendarUtils.selectedDate)
             adapterCalendar.updateList(days)
             recyclerCalendar.post { adapterCalendar.notifyDataSetChanged() }
@@ -204,10 +210,10 @@ class HomeFragment : Fragment() {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private fun initObserve() {
-        noteTaskViewModel.noteTask.observe(viewLifecycleOwner) { listNoteTask ->
-            adapterNote.updateList(listNoteTask)
-            binding.recyclerHome.post { adapterNote.notifyDataSetChanged() }
+    private fun initNoteTask() {
+        noteTaskViewModel.noteTask.observe(viewLifecycleOwner) {
+            listNoteTask = it
+            setNoteTaskUpdate(listNoteTask)
         }
 
         contactViewModel.contact
@@ -215,6 +221,11 @@ class HomeFragment : Fragment() {
                 // Some do...
             }
             .launchIn(scope)
+    }
+
+    private fun setNoteTaskUpdate(listNoteTask: List<NoteTask>) {
+        adapterNote.updateList(listNoteTask, monthYear, CalendarUtils.selectedDate.toString())
+        binding.recyclerHome.post { adapterNote.notifyDataSetChanged() }
     }
 
     private fun checkPermissionCalendar() {

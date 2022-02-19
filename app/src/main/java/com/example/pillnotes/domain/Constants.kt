@@ -6,5 +6,16 @@ object Constants {
     const val PERIOD_CODE = "TYPE_CODE"
     const val TIME_FORMAT = "HH:mm"
     const val DATE_FORMAT = "dd/MM/yyyy"
+    const val MONTH_YEAR_FORMAT = "MM/yyyy"
+    const val DAY_START_INDEX = 6
+    const val DAY_END_INDEX = 16
+    const val DAY_SELECTED_START_INDEX = 6
+    const val DAY_SELECTED_END_INDEX = 8
+    const val INCOME_DAY_SELECTED_START_INDEX = 8
+    const val INCOME_DAY_SELECTED_END_INDEX = 10
+    const val MONTH_YEAR_SELECTED_START_INDEX = 9
+    const val MONTH_YEAR_SELECTED_END_INDEX = 16
+    const val TIME_START_INDEX = 0
+    const val TIME_END_INDEX = 5
     const val DATE_FORMAT_24H = "$TIME_FORMAT $DATE_FORMAT"
 }

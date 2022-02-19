@@ -45,6 +45,7 @@
     <string name="important">Important</string>
     <string name="not_important">Not important</string>
     <string name="create">Create</string>
+    <string name="one_time">One time</string>
     <string name="every_day">Every day</string>
     <string name="every_week">Every week</string>
     <string name="every_month">Every month</string>

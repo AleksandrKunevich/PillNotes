@@ -26,10 +26,9 @@ class CalendarReminderImpl @Inject constructor(private val context: Context) : C
         val uid = noteTask.uid.toString()
         val eventTitle = noteTask.title
         val eventDescription = noteTask.task
-        val eventDay = noteTask.time.substring(6, 16)
-        val eventTime = noteTask.time.substring(0, 5)
+        val eventDay = noteTask.time.substring(Constants.DAY_START_INDEX, Constants.DAY_END_INDEX)
+        val eventTime = noteTask.time.substring(Constants.TIME_START_INDEX, Constants.TIME_END_INDEX)
         val reminderDayTimeStart = "$eventTime $eventDay"
-//        val reminderDayTimeEnd = "12:12 01/01/2099"
         val reminderDayTimeEnd = reminderDayTimeStart
         Log.e(TAG, "$reminderDayTimeEnd")
 
