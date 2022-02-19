@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pillnotes.R
 import com.example.pillnotes.databinding.PillNotesItemBinding
+import com.example.pillnotes.domain.Constants
 import com.example.pillnotes.domain.model.NoteTask
 
 class NoteTaskHolder constructor(
@@ -15,7 +16,7 @@ class NoteTaskHolder constructor(
 
     fun bindView(item: NoteTask) {
         itemBinding.apply {
-            tvItemTime.text = item.time
+            tvItemTime.text = item.time.substring(Constants.TIME_START_INDEX, Constants.TIME_END_INDEX)
             tvPillName.text = item.title
             tvPillTask.text = item.task
             if (item.result == null) {

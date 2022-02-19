@@ -7,6 +7,7 @@ import android.content.Context
 import android.net.Uri
 import android.provider.CalendarContract
 import android.util.Log
+import android.widget.Toast
 import com.example.pillnotes.domain.Constants
 import com.example.pillnotes.domain.longToTime
 import com.example.pillnotes.domain.model.NoteTask
@@ -14,6 +15,7 @@ import java.lang.Long
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
+import kotlin.Exception
 import kotlin.Int
 
 class CalendarReminderImpl @Inject constructor(private val context: Context) : CalendarReminder {
@@ -27,7 +29,8 @@ class CalendarReminderImpl @Inject constructor(private val context: Context) : C
         val eventTitle = noteTask.title
         val eventDescription = noteTask.task
         val eventDay = noteTask.time.substring(Constants.DAY_START_INDEX, Constants.DAY_END_INDEX)
-        val eventTime = noteTask.time.substring(Constants.TIME_START_INDEX, Constants.TIME_END_INDEX)
+        val eventTime =
+            noteTask.time.substring(Constants.TIME_START_INDEX, Constants.TIME_END_INDEX)
         val reminderDayTimeStart = "$eventTime $eventDay"
         val reminderDayTimeEnd = reminderDayTimeStart
         Log.e(TAG, "$reminderDayTimeEnd")
@@ -60,7 +63,12 @@ class CalendarReminderImpl @Inject constructor(private val context: Context) : C
         reminders.put(CalendarContract.Reminders.MINUTES, 1)
         val reminderUri: Uri =
             Uri.parse(CalendarContract.Reminders.CONTENT_URI.toString())
-        val remindersUri: Uri? = context.contentResolver.insert(reminderUri, reminders)
+        try {
+            val remindersUri: Uri? = context.contentResolver.insert(reminderUri, reminders)
+        } catch (e: Exception) {
+            Toast.makeText(context, "Sorry! Calendar ERROR.", Toast.LENGTH_SHORT).show()
+            Log.e(TAG, "exception: ${e.stackTrace}")
+        }
     }
 
     override fun deleteEvent(noteTask: NoteTask) {
