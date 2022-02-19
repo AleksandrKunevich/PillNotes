@@ -224,7 +224,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setNoteTaskUpdate(listNoteTask: List<NoteTask>) {
-        adapterNote.updateList(listNoteTask, monthYear, CalendarUtils.selectedDate.toString())
+        adapterNote.updateList(listNoteTask, monthYear, CalendarUtils.selectedDate)
         binding.recyclerHome.post { adapterNote.notifyDataSetChanged() }
     }
 

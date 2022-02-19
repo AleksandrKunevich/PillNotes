@@ -109,11 +109,11 @@ class NewNoteFragment : Fragment() {
                         pos: Int, id: Long
                     ) {
                         when (pos) {
-                            0 -> rrule = ""
-                            1 -> rrule = "FREQ=DAILY"
-                            2 -> rrule = "FREQ=WEEKLY;INTERVAL=1"
-                            3 -> rrule = "FREQ=MONTHLY;INTERVAL=1"
-                            4 -> rrule = "FREQ=YEARLY;INTERVAL=1"
+                            0 -> rrule = Constants.RRULE_ONE_TIME
+                            1 -> rrule = Constants.RRULE_DAILY
+                            2 -> rrule = Constants.RRULE_WEEKLY
+                            3 -> rrule = Constants.RRULE_MONTHLY
+                            4 -> rrule = Constants.RRULE_YEARLY
                         }
                     }
 
