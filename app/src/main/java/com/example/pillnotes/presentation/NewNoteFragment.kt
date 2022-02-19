@@ -136,6 +136,9 @@ class NewNoteFragment : Fragment() {
                     priority = spinnerPriorityPos,
                     rrule = rrule
                 )
+                if (note != null) {
+                    noteTaskViewModel.deleteTask(note!!)
+                }
                 noteTaskViewModel.addTask(newNote)
                 calRem.addEventCalendar(newNote)
                 findNavController().navigate(R.id.newNote_to_home)
