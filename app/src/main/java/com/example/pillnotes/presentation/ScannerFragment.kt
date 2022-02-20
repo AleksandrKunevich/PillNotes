@@ -11,6 +11,7 @@ import com.example.pillnotes.DaggerApplication
 import com.example.pillnotes.R
 import com.example.pillnotes.databinding.FragmentScannerBinding
 import com.example.pillnotes.domain.Constants
+import com.example.pillnotes.domain.model.NoteTask
 import com.example.pillnotes.domain.util.FlashLightUtils
 import com.google.zxing.NotFoundException
 import com.google.zxing.ResultPoint
@@ -84,9 +85,16 @@ class ScannerFragment : Fragment() {
         } catch (e: NotFoundException) {
             null
         }
-        val text = parsedResult?.displayResult ?: barcodeResult.result
+        var text = parsedResult?.displayResult ?: barcodeResult.result
+        if (text == null) {
+            text = PARSED_RESULT_UNKNOWN
+        }
         val type = parsedResult?.type?.name ?: PARSED_RESULT_UNKNOWN
-        val bundle = bundleOf(Constants.TEXT_CODE to text.toString(), Constants.TYPE_CODE to type)
+        val bundle = bundleOf(
+            Constants.TEXT_CODE to text.toString(),
+            Constants.TYPE_CODE to type,
+            Constants.NOTE_TASK_CODE to arguments?.getParcelable<NoteTask>(Constants.NOTE_TASK_CODE)
+        )
         scope.launch {
             withContext(Dispatchers.Main) {
                 findNavController().navigate(R.id.scanner_to_newNote, bundle)

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.pillnotes.DaggerApplication
@@ -99,7 +100,7 @@ class NewNoteFragment : Fragment() {
             }
 
             if (bundle.getParcelable<NoteTask>(Constants.NOTE_TASK_CODE) != null) {
-                note = bundle.getParcelable<NoteTask>(Constants.NOTE_TASK_CODE)!!
+                note = bundle.getParcelable(Constants.NOTE_TASK_CODE)!!
             }
         }
     }
@@ -171,7 +172,17 @@ class NewNoteFragment : Fragment() {
                     findNavController().navigate(R.id.newNote_to_home)
                 }
             }
-            imgQrScan.setOnClickListener { findNavController().navigate(R.id.newNote_to_scanner) }
+            imgQrScan.setOnClickListener {
+
+                val bundle = bundleOf(Constants.NOTE_TASK_CODE to NoteTask(
+                    randomUUID,
+                    time = "${binding.etNoteTime.text} ${binding.etNoteDate.text}",
+                    title = "${binding.etNoteTitle.text}",
+                    task = "${binding.spinnerTask.selectedItem}",
+                    priority = spinnerPriorityPos,
+                    rrule = rrule
+                ))
+                findNavController().navigate(R.id.newNote_to_scanner, bundle) }
             newNoteUtil.setTime(etNoteTime, requireContext())
             newNoteUtil.setDate(etNoteDate, requireContext())
         }
