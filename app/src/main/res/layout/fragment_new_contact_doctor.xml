@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_home_fragment"
+    tools:context=".NewContactDoctorFragment">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgTakePhotoContact"
+        android:layout_width="240dp"
+        android:layout_height="240dp"
+        android:layout_margin="@dimen/margin_min"
+        android:src="@drawable/ic_account_contact_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </androidx.appcompat.widget.AppCompatImageView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvContactName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_medium"
+        android:text="@string/enter_name"
+        android:textColor="@color/text_color_note_enter_text"
+        android:textSize="@dimen/size_pill_note_head"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imgTakePhotoContact">
+
+    </androidx.appcompat.widget.AppCompatTextView>
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etContactName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_medium"
+        android:hint="@string/name"
+        android:textColor="@color/text_color_note_enter_text"
+        android:textColorHint="@color/text_color_note_enter_text_hint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvContactName">
+
+    </androidx.appcompat.widget.AppCompatEditText>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvContactProfession"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_medium"
+        android:text="@string/profession"
+        android:textColor="@color/text_color_note_enter_text"
+        android:textSize="@dimen/size_pill_note_head"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etContactName">
+
+    </androidx.appcompat.widget.AppCompatTextView>
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etContactProfession"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_medium"
+        android:hint="@string/profession"
+        android:textColor="@color/text_color_note_enter_text"
+        android:textColorHint="@color/text_color_note_enter_text_hint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvContactProfession">
+
+    </androidx.appcompat.widget.AppCompatEditText>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvContactPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_medium"
+        android:text="@string/enter_phone"
+        android:textColor="@color/text_color_note_enter_text"
+        android:textSize="@dimen/size_pill_note_head"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etContactProfession">
+
+    </androidx.appcompat.widget.AppCompatTextView>
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etContactPhone"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_medium"
+        android:hint="@string/profession"
+        android:textColor="@color/text_color_note_enter_text"
+        android:textColorHint="@color/text_color_note_enter_text_hint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvContactPhone">
+
+    </androidx.appcompat.widget.AppCompatEditText>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvContactLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_medium"
+        android:text="@string/choose_location"
+        android:textColor="@color/text_color_note_enter_text"
+        android:textSize="@dimen/size_pill_note_head"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etContactPhone">
+
+    </androidx.appcompat.widget.AppCompatTextView>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgTakeLocation"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_margin="@dimen/margin_min"
+        android:src="@drawable/ic_baseline_map_24"
+        app:layout_constraintBottom_toBottomOf="@id/tvContactLocation"
+        app:layout_constraintEnd_toStartOf="@+id/cbIsLocation"
+        app:layout_constraintStart_toEndOf="@id/tvContactLocation"
+        app:layout_constraintTop_toTopOf="@id/tvContactLocation">
+
+    </androidx.appcompat.widget.AppCompatImageView>
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/cbIsLocation"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="@color/background_home_fragment"
+        android:button="@drawable/checkbox_location"
+        android:checked="false"
+        app:layout_constraintBottom_toBottomOf="@id/imgTakeLocation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/imgTakeLocation">
+
+    </androidx.appcompat.widget.AppCompatCheckBox>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnCreate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_max"
+        android:background="@color/background_down_menu_button"
+        android:padding="@dimen/padding_min"
+        android:text="@string/create"
+        android:textColor="@color/text_color_note_head"
+        android:textSize="@dimen/size_pill_btn_create"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+    </androidx.appcompat.widget.AppCompatButton>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

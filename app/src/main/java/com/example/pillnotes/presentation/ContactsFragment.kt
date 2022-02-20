@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.pillnotes.DaggerApplication
 import com.example.pillnotes.R
@@ -60,7 +61,7 @@ class ContactsFragment : Fragment() {
         }
 
         override fun onContactDoctorClick(item: ContactDoctor) {
-
+            findNavController().navigate(R.id.contacts_to_newContact)
         }
 
         override fun onContactDoctorCallClick(item: ContactDoctor) {
@@ -70,7 +71,10 @@ class ContactsFragment : Fragment() {
         }
 
         override fun onContactDoctorMapsClick(item: ContactDoctor) {
-
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data =
+                Uri.parse("http://maps.google.com/maps?saddr=20.344,34.34&daddr=20.5666,45.345")
+            startActivity(Intent.createChooser(intent, getString(R.string.choose_tracker)))
         }
 
     }

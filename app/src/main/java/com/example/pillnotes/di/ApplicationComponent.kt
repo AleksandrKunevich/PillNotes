@@ -1,6 +1,7 @@
 package com.example.pillnotes.di
 
 import android.content.Context
+import com.example.pillnotes.NewContactDoctorFragment
 import com.example.pillnotes.presentation.*
 import dagger.BindsInstance
 import dagger.Component
@@ -26,4 +27,5 @@ interface ApplicationComponent {
     fun inject(target: NewsPaperFragment)
     fun inject(target: ContactsFragment)
     fun inject(target: SettingsFragment)
+    fun inject(target: NewContactDoctorFragment)
 }

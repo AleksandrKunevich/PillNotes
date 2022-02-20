@@ -30,8 +30,8 @@
             android:id="@+id/home_to_settings"
             app:destination="@id/menuSetting" />
         <action
-            android:id="@+id/menu_to_contacts"
-            app:destination="@id/menuContacts" />
+            android:id="@+id/home_to_newContact"
+            app:destination="@id/newContactDoctorFragment" />
     </fragment>
 
     <fragment
@@ -71,6 +71,19 @@
         android:id="@+id/menuContacts"
         android:name="com.example.pillnotes.presentation.ContactsFragment"
         android:label="ContactsFragment"
-        tools:layout="@layout/fragment_contacts"/>
+        tools:layout="@layout/fragment_contacts">
+        <action
+            android:id="@+id/contacts_to_newContact"
+            app:destination="@id/newContactDoctorFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newContactDoctorFragment"
+        android:name="com.example.pillnotes.NewContactDoctorFragment"
+        android:label="fragment_new_contact_doctor"
+        tools:layout="@layout/fragment_new_contact_doctor" >
+        <action
+            android:id="@+id/newContact_to_contacts"
+            app:destination="@id/menuContacts" />
+    </fragment>
 
 </navigation>

@@ -29,12 +29,18 @@
     <string name="add_alarm">Add alarm</string>
     <string name="add_contact">Add contact</string>
     <string name="enter_title">Enter title</string>
+    <string name="enter_name">Enter name</string>
+    <string name="enter_phone">Enter phone number</string>
+    <string name="choose_location">Choose location:</string>
     <string name="choose_task">Choose task</string>
     <string name="choose_priority">Choose priority</string>
     <string name="choose_period">Choose period</string>
     <string name="enter_time">Enter time</string>
     <string name="enter_date">Enter date</string>
+    <string name="enter_profession">Enter profession</string>
     <string name="enter_title_hint">Please, enter title</string>
+    <string name="name">Name</string>
+    <string name="profession">Profession</string>
     <string name="enter_task_hint">Please, enter task</string>
     <string name="default_time_text">12:34</string>
     <string name="default_date_text">23/02/2022</string>
@@ -64,6 +70,7 @@
     <string name="sat">SAT</string>
     <string name="chooseemail">Choose Email Client</string>
     <string name="choose_call">Choose how You call:</string>
+    <string name="choose_tracker">Choose location tracker:</string>
 
 
     <string-array name="place_type">

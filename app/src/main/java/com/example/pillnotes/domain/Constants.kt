@@ -2,7 +2,8 @@ package com.example.pillnotes.domain
 
 object Constants {
     const val TEXT_CODE = "TEXT_CODE"
-    const val NOTE_TASK_CODE = "UID_CODE"
+    const val NOTE_TASK_CODE = "NOTE_CODE"
+    const val CONTACT_CODE = "CONTACT_CODE"
     const val TYPE_CODE = "TYPE_CODE"
     const val PERIOD_CODE = "TYPE_CODE"
     const val TIME_FORMAT = "HH:mm"

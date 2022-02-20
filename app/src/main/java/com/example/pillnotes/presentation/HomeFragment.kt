@@ -140,9 +140,9 @@ class HomeFragment : Fragment() {
                 changeVisibleFloatingMenu()
                 findNavController().navigate(R.id.home_to_newNote)
             }
-            floatingAdd.setOnClickListener {
+            floatingAddContact.setOnClickListener {
                 changeVisibleFloatingMenu()
-                findNavController().navigate(R.id.home_to_contacts)
+                findNavController().navigate(R.id.home_to_newContact)
             }
             floatingMenu.setOnClickListener {
                 changeVisibleFloatingMenu()
@@ -154,7 +154,7 @@ class HomeFragment : Fragment() {
         if (!isFloatingMenuVisible) {
             binding.apply {
                 floatingAddNote.show()
-                floatingAdd.show()
+                floatingAddContact.show()
                 tvAddNotes.visibility = View.VISIBLE
                 tvAddContact.visibility = View.VISIBLE
             }
@@ -162,7 +162,7 @@ class HomeFragment : Fragment() {
         } else {
             binding.apply {
                 floatingAddNote.hide()
-                floatingAdd.hide()
+                floatingAddContact.hide()
                 tvAddNotes.visibility = View.INVISIBLE
                 tvAddContact.visibility = View.INVISIBLE
             }

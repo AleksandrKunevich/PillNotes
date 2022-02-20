@@ -173,7 +173,7 @@
     </com.google.android.material.floatingactionbutton.FloatingActionButton>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingAdd"
+        android:id="@+id/floatingAddContact"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginEnd="@dimen/margin_max"
@@ -211,9 +211,9 @@
         android:textColor="@color/teal_700"
         android:textSize="@dimen/size_pill_item_task"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@id/floatingAdd"
-        app:layout_constraintEnd_toStartOf="@id/floatingAdd"
-        app:layout_constraintTop_toTopOf="@id/floatingAdd">
+        app:layout_constraintBottom_toBottomOf="@id/floatingAddContact"
+        app:layout_constraintEnd_toStartOf="@id/floatingAddContact"
+        app:layout_constraintTop_toTopOf="@id/floatingAddContact">
 
     </androidx.appcompat.widget.AppCompatTextView>
 

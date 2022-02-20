@@ -29,11 +29,11 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imgPhotoDoctor"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_margin="@dimen/margin_medium"
             android:foregroundGravity="center"
-            android:src="@drawable/ic_account_24"
+            android:src="@drawable/ic_account_contact_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">

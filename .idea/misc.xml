@@ -13,9 +13,11 @@
         <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/drawable/add_alert_48.xml" value="0.1635" />
         <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/drawable/add_circle_outline_48.xml" value="0.1635" />
         <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/drawable/add_notes_48.xml" value="0.1635" />
+        <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/drawable/checkbox_location.xml" value="0.1615" />
         <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/drawable/down_menu_button_background.xml" value="0.1635" />
         <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/drawable/ic_account.xml" value="0.1635" />
         <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/drawable/ic_account_24.xml" value="0.1635" />
+        <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/drawable/ic_account_gray_24.xml" value="0.1615" />
         <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/drawable/ic_add_notes_48.xml" value="0.2375" />
         <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/drawable/ic_alternate_email_24.xml" value="0.1635" />
         <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/drawable/ic_baseline_add_task_48.xml" value="0.1635" />
@@ -60,6 +62,7 @@
         <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/layout/fragment_calendar.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/layout/fragment_contacts.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/layout/fragment_maps.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/layout/fragment_new_contact_doctor.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/layout/fragment_news_paper.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/layout/fragment_note_new.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/layout/fragment_period.xml" value="0.25052083333333336" />
