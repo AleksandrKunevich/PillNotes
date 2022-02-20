@@ -160,6 +160,7 @@ class NewNoteFragment : Fragment() {
 
                 CoroutineScope(Dispatchers.Main).launch {
                     if (note != null) {
+                        calRem.deleteEvent(note!!)
                         noteTaskViewModel.deleteTask(note!!)
                     }
                     takeIf { preference.isVibration() }?.apply { vibrateUtils.runVibrate() }

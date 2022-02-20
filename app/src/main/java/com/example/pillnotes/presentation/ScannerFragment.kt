@@ -11,6 +11,7 @@ import com.example.pillnotes.DaggerApplication
 import com.example.pillnotes.R
 import com.example.pillnotes.databinding.FragmentScannerBinding
 import com.example.pillnotes.domain.Constants
+import com.example.pillnotes.domain.util.FlashLightUtils
 import com.google.zxing.NotFoundException
 import com.google.zxing.ResultPoint
 import com.google.zxing.client.result.ParsedResult
@@ -21,17 +22,24 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-
-private const val PARSED_RESULT_UNKNOWN = "UNKNOWN"
+import javax.inject.Inject
 
 class ScannerFragment : Fragment() {
+
+    companion object {
+        private const val PARSED_RESULT_UNKNOWN = "UNKNOWN"
+    }
 
     init {
         DaggerApplication.appComponent?.inject(this)
     }
 
+    @Inject
+    lateinit var flashLight: FlashLightUtils
+
     private lateinit var binding: FragmentScannerBinding
     private val scope = CoroutineScope(Dispatchers.IO)
+    private var flashLightStatus = false
 
     override fun onResume() {
         super.onResume()
@@ -54,14 +62,20 @@ class ScannerFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        binding.codeScannerView.decodeContinuous(object : BarcodeCallback {
-            override fun barcodeResult(result: BarcodeResult) {
-                onScanResult(result)
-            }
+        binding.apply {
+            codeScannerView.decodeContinuous(object : BarcodeCallback {
+                override fun barcodeResult(result: BarcodeResult) {
+                    onScanResult(result)
+                }
 
-            override fun possibleResultPoints(resultPoints: List<ResultPoint>) {
+                override fun possibleResultPoints(resultPoints: List<ResultPoint>) {
+                }
+            })
+            flashButton.setOnClickListener {
+                flashLightStatus = !flashLightStatus
+                flashLight.toggleFlashLight(flashLightStatus, binding)
             }
-        })
+        }
     }
 
     private fun onScanResult(barcodeResult: BarcodeResult) {

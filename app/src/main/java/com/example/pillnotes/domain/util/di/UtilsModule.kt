@@ -2,7 +2,9 @@ package com.example.pillnotes.domain.util.di
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.view.View
 import androidx.preference.PreferenceManager
+import com.example.pillnotes.domain.util.FlashLightUtils
 import com.example.pillnotes.domain.util.SoundUtils
 import com.example.pillnotes.domain.util.VibrationUtils
 import dagger.Module
@@ -20,4 +22,7 @@ object UtilsModule {
 
     @Provides
     fun provideSoundUtils(context: Context): SoundUtils = SoundUtils(context)
+
+    @Provides
+    fun provideFlashLightUtils(): FlashLightUtils = FlashLightUtils()
 }

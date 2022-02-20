@@ -6,7 +6,7 @@ import android.os.VibrationEffect
 import android.os.Vibrator
 import android.os.VibratorManager
 
-private const val VIBRATION_TIME = 200L
+private const val VIBRATION_TIME = 300L
 
 class VibrationUtils(private val context: Context) {
 
