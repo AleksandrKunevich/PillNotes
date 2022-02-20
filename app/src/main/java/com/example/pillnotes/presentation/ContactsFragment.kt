@@ -1,11 +1,11 @@
 package com.example.pillnotes.presentation
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.location.Location
 import android.location.LocationManager
+import android.net.Uri
 import android.os.Bundle
-import android.telephony.PhoneNumberFormattingTextWatcher
-import android.telephony.PhoneNumberUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -64,7 +64,9 @@ class ContactsFragment : Fragment() {
         }
 
         override fun onContactDoctorCallClick(item: ContactDoctor) {
-
+            val intent = Intent(Intent.ACTION_DIAL)
+            intent.data = Uri.parse("tel:${item.phone}")
+            startActivity(Intent.createChooser(intent, getString(R.string.choose_call)))
         }
 
         override fun onContactDoctorMapsClick(item: ContactDoctor) {
