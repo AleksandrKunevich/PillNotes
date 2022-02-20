@@ -3,6 +3,7 @@ package com.example.pillnotes.domain.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pillnotes.domain.model.ContactDoctor
+import com.example.pillnotes.domain.model.NoteTask
 import com.example.pillnotes.presentation.interactor.ContactInteractor
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -32,6 +33,12 @@ class ContactViewModel @Inject constructor(
     fun addContact(contact: ContactDoctor) {
         viewModelScope.launch {
             repository.insertContact(contact)
+        }
+    }
+
+    fun deleteContact(contact: ContactDoctor) {
+        viewModelScope.launch {
+            repository.deleteContact(contact)
         }
     }
 }

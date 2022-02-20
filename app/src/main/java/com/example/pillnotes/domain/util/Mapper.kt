@@ -2,7 +2,7 @@ package com.example.pillnotes.domain.util
 
 import android.location.Location
 import android.location.LocationManager
-import com.example.pillnotes.data.room.model.ContactEntity
+import com.example.pillnotes.data.room.model.ContactDoctorEntity
 import com.example.pillnotes.data.room.model.NoteTaskEntity
 import com.example.pillnotes.domain.model.ContactDoctor
 import com.example.pillnotes.domain.model.NoteTask
@@ -29,8 +29,8 @@ internal fun NoteTask.toNoteTaskEntity(): NoteTaskEntity {
     )
 }
 
-internal fun ContactDoctor.toContactEntity(): ContactEntity {
-    return ContactEntity(
+internal fun ContactDoctor.toContactEntity(): ContactDoctorEntity {
+    return ContactDoctorEntity(
         uid = uid,
         name = name,
         profession = profession,
@@ -40,7 +40,7 @@ internal fun ContactDoctor.toContactEntity(): ContactEntity {
     )
 }
 
-internal fun ContactEntity.toContact(): ContactDoctor {
+internal fun ContactDoctorEntity.toContact(): ContactDoctor {
     return ContactDoctor(
         uid = uid,
         name = name,

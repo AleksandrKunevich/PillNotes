@@ -2,8 +2,6 @@ package com.example.pillnotes.presentation
 
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
-import android.location.Location
-import android.location.LocationManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -24,20 +22,13 @@ import com.example.pillnotes.databinding.HomeFragmentBinding
 import com.example.pillnotes.domain.Constants
 import com.example.pillnotes.domain.calendar.CalendarReminderImpl
 import com.example.pillnotes.domain.calendar.CalendarWeekOnItemListener
-import com.example.pillnotes.domain.model.ContactDoctor
 import com.example.pillnotes.domain.model.NoteTask
 import com.example.pillnotes.domain.newnote.NoteTaskClickListener
 import com.example.pillnotes.domain.util.CalendarUtils
-import com.example.pillnotes.domain.viewmodel.ContactViewModel
 import com.example.pillnotes.domain.viewmodel.NoteTaskViewModel
 import com.example.pillnotes.presentation.recycler.calendar.CalendarAdapter
 import com.example.pillnotes.presentation.recycler.notetask.NoteTaskAdapter
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import java.time.LocalDate
-import java.util.*
 import javax.inject.Inject
 
 class HomeFragment : Fragment() {
@@ -67,15 +58,11 @@ class HomeFragment : Fragment() {
     @Inject
     lateinit var noteTaskViewModel: NoteTaskViewModel
 
-    @Inject
-    lateinit var contactViewModel: ContactViewModel
-
     private lateinit var binding: HomeFragmentBinding
     private lateinit var pLauncher: ActivityResultLauncher<Array<String>>
     private val adapterNote by lazy { NoteTaskAdapter(requireContext(), onClickNotes) }
     private val adapterCalendar by lazy { CalendarAdapter(requireContext(), onClickDayWeek) }
     private var monthYear = CalendarUtils.monthYearFromDate(CalendarUtils.selectedDate)
-    private val scope: CoroutineScope = CoroutineScope(Dispatchers.IO)
 
     private var days = arrayListOf<LocalDate>()
     private var listNoteTask = listOf<NoteTask>()
@@ -156,15 +143,6 @@ class HomeFragment : Fragment() {
             floatingAdd.setOnClickListener {
                 changeVisibleFloatingMenu()
                 findNavController().navigate(R.id.home_to_contacts)
-                contactViewModel.addContact(
-                    ContactDoctor(
-                        UUID.randomUUID(),
-                        "Doctor name",
-                        "superman",
-                        "+11111111",
-                        Location(LocationManager.GPS_PROVIDER)
-                    )
-                )
             }
             floatingMenu.setOnClickListener {
                 changeVisibleFloatingMenu()
@@ -223,12 +201,6 @@ class HomeFragment : Fragment() {
             listNoteTask = it
             setNoteTaskUpdate(listNoteTask)
         }
-
-        contactViewModel.contact
-            .onEach { listContactDoctor ->
-                // Some do...
-            }
-            .launchIn(scope)
     }
 
     @SuppressLint("NotifyDataSetChanged")

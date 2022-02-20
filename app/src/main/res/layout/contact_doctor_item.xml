@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgDelete"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_margin="@dimen/margin_medium"
+        android:foregroundGravity="center"
+        android:src="@drawable/ic_delete_gray_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </androidx.appcompat.widget.AppCompatImageView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/containerContact"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_min"
+        android:background="@drawable/down_menu_button_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imgDelete">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgPhotoDoctor"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_margin="@dimen/margin_medium"
+            android:foregroundGravity="center"
+            android:src="@drawable/ic_account_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </androidx.appcompat.widget.AppCompatImageView>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvDoctorName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_medium"
+            android:text=""
+            android:textColor="@color/text_color_item_name"
+            android:textSize="@dimen/size_pill_item_name"
+            app:layout_constraintEnd_toStartOf="@+id/imgDoctorCall"
+            app:layout_constraintStart_toEndOf="@id/imgPhotoDoctor"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </androidx.appcompat.widget.AppCompatTextView>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvDoctorProfession"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_medium"
+            android:text=""
+            android:textColor="@color/text_color_item_task"
+            android:textSize="@dimen/size_pill_item_task"
+            app:layout_constraintEnd_toStartOf="@+id/imgDoctorCall"
+            app:layout_constraintStart_toEndOf="@id/imgPhotoDoctor"
+            app:layout_constraintTop_toBottomOf="@id/tvDoctorName">
+
+        </androidx.appcompat.widget.AppCompatTextView>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvDoctorPhone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_medium"
+            android:text=""
+            android:textColor="@color/text_color_item_result"
+            android:textSize="@dimen/size_pill_item_result"
+            app:layout_constraintEnd_toStartOf="@+id/imgDoctorCall"
+            app:layout_constraintStart_toEndOf="@id/imgPhotoDoctor"
+            app:layout_constraintTop_toBottomOf="@id/tvDoctorProfession">
+
+        </androidx.appcompat.widget.AppCompatTextView>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgDoctorCall"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_margin="@dimen/margin_medium"
+            android:foregroundGravity="center"
+            android:src="@drawable/ic_baseline_call_24"
+            app:layout_constraintBottom_toTopOf="@+id/imgDoctorMaps"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </androidx.appcompat.widget.AppCompatImageView>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgDoctorMaps"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_margin="@dimen/margin_medium"
+            android:foregroundGravity="center"
+            android:src="@drawable/ic_baseline_map_24"
+            app:layout_constraintTop_toBottomOf="@id/imgDoctorCall"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+        </androidx.appcompat.widget.AppCompatImageView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

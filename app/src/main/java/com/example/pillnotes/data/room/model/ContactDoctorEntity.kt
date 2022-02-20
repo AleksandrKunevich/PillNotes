@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 import java.util.*
 
 @Entity(tableName = "contact")
-data class ContactEntity(
+data class ContactDoctorEntity(
 
     @PrimaryKey
     val uid: UUID = UUID.randomUUID(),
