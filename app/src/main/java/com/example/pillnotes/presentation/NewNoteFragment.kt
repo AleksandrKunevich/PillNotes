@@ -1,6 +1,7 @@
 package com.example.pillnotes.presentation
 
 import android.annotation.SuppressLint
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,12 +14,23 @@ import com.example.pillnotes.R
 import com.example.pillnotes.databinding.FragmentNoteNewBinding
 import com.example.pillnotes.domain.Constants
 import com.example.pillnotes.domain.calendar.CalendarReminderImpl
+import com.example.pillnotes.domain.isSound
+import com.example.pillnotes.domain.isVibration
 import com.example.pillnotes.domain.model.NoteTask
 import com.example.pillnotes.domain.newnote.NewNoteUtilImpl
+import com.example.pillnotes.domain.util.SoundUtils
+import com.example.pillnotes.domain.util.VibrationUtils
 import com.example.pillnotes.domain.viewmodel.NoteTaskViewModel
+import kotlinx.android.synthetic.main.fragment_note_new.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
+
+private const val WAIT_TIME = 200L
 
 class NewNoteFragment : Fragment() {
 
@@ -34,6 +46,15 @@ class NewNoteFragment : Fragment() {
 
     @Inject
     lateinit var newNoteUtil: NewNoteUtilImpl
+
+    @Inject
+    lateinit var vibrateUtils: VibrationUtils
+
+    @Inject
+    lateinit var soundUtils: SoundUtils
+
+    @Inject
+    lateinit var preference: SharedPreferences
 
     private lateinit var binding: FragmentNoteNewBinding
     private lateinit var textQr: String
@@ -127,7 +148,7 @@ class NewNoteFragment : Fragment() {
                 override fun onNothingSelected(arg0: AdapterView<*>?) {}
             }
             initNote()
-            tvCreate.setOnClickListener {
+            btnCreate.setOnClickListener {
                 val newNote = NoteTask(
                     randomUUID,
                     time = "${binding.etNoteTime.text} ${binding.etNoteDate.text}",
@@ -136,12 +157,18 @@ class NewNoteFragment : Fragment() {
                     priority = spinnerPriorityPos,
                     rrule = rrule
                 )
-                if (note != null) {
-                    noteTaskViewModel.deleteTask(note!!)
+
+                CoroutineScope(Dispatchers.Main).launch {
+                    if (note != null) {
+                        noteTaskViewModel.deleteTask(note!!)
+                    }
+                    takeIf { preference.isVibration() }?.apply { vibrateUtils.runVibrate() }
+                    takeIf { preference.isSound() }?.apply { soundUtils.playBeep() }
+                    delay(WAIT_TIME)
+                    noteTaskViewModel.addTask(newNote)
+                    calRem.addEventCalendar(newNote)
+                    findNavController().navigate(R.id.newNote_to_home)
                 }
-                noteTaskViewModel.addTask(newNote)
-                calRem.addEventCalendar(newNote)
-                findNavController().navigate(R.id.newNote_to_home)
             }
             imgQrScan.setOnClickListener { findNavController().navigate(R.id.newNote_to_scanner) }
             newNoteUtil.setTime(etNoteTime, requireContext())
@@ -180,6 +207,7 @@ class NewNoteFragment : Fragment() {
                 spinnerRrule.setSelection(rrulePos)
                 rrule = note!!.rrule
             }
+            btnCreate.text = requireContext().resources.getString(R.string.upgrade)
         }
     }
 }

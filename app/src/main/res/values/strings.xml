@@ -17,6 +17,7 @@
     <string name="value_theme_dark">dark</string>
     <string name="value_theme_light">light</string>
     <string name="key_theme">theme</string>
+    <string name="key_email_me">emailme</string>
     <string name="theme">Theme</string>
     <string name="email_me">Email me</string>
     <string name="are_you_sure_delete_this">Are you sure delete this?</string>
@@ -45,6 +46,7 @@
     <string name="important">Important</string>
     <string name="not_important">Not important</string>
     <string name="create">Create</string>
+    <string name="upgrade">Upgrade</string>
     <string name="one_time">One time</string>
     <string name="every_day">Every day</string>
     <string name="every_week">Every week</string>

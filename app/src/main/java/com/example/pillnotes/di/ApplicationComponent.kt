@@ -25,4 +25,5 @@ interface ApplicationComponent {
     fun inject(target: CalendarFragment)
     fun inject(target: NewsPaperFragment)
     fun inject(target: ContactsFragment)
+    fun inject(target: SettingsFragment)
 }
