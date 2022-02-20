@@ -62,6 +62,7 @@
     <string name="thur">THUR</string>
     <string name="fri">FRI</string>
     <string name="sat">SAT</string>
+    <string name="chooseemail">Choose Email Client</string>
 
 
     <string-array name="place_type">

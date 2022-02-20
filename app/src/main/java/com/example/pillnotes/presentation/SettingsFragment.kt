@@ -4,21 +4,17 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.example.pillnotes.DaggerApplication
 import com.example.pillnotes.R
-import com.example.pillnotes.databinding.FragmentSettingsBinding
 import javax.inject.Inject
 
 class SettingsFragment : PreferenceFragmentCompat() {
 
     companion object {
         private const val EMAIL = "Kunsanba@gmail.com"
-        private const val SUBJECT = "KunsanbaSubject@gmail.com"
+        private const val SUBJECT = "Pill Notes"
         private const val MESSAGE = "Hello dear friend, Aliaksandr"
     }
 
@@ -39,17 +35,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val email =
             findPreference<Preference>(requireContext().resources.getString(R.string.key_email_me))
         email?.setOnPreferenceClickListener {
-            val intent: Intent = Intent(Intent.ACTION_SENDTO)
-            intent.data = Uri.parse("mailto:")
-            intent.type = "text/plain"
-            intent.putExtra(Intent.EXTRA_EMAIL, EMAIL)
-            intent.putExtra(Intent.EXTRA_SUBJECT, SUBJECT)
-            intent.putExtra(Intent.EXTRA_TEXT, MESSAGE)
-            try {
-                startActivity(Intent.createChooser(intent, "Choose Email Client..."))
-            } catch (e: Exception) {
-                e.stackTrace
-            }
+            val intent = Intent(Intent.ACTION_SENDTO)
+            intent.data = Uri.parse("mailto:" + Uri.encode(EMAIL) +
+                    "?subject=" + Uri.encode(SUBJECT) +
+                    "&body=" + Uri.encode(MESSAGE))
+            startActivity(Intent.createChooser(intent, "Send mail..."))
             true
         }
     }
