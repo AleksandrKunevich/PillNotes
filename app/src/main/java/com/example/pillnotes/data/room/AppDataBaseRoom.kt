@@ -5,6 +5,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.pillnotes.data.room.model.ContactDoctorEntity
 import com.example.pillnotes.data.room.model.NoteTaskEntity
+import com.example.pillnotes.data.room.util.BitMapConverter
 import com.example.pillnotes.data.room.util.UUIDConverter
 
 @Database(
@@ -15,7 +16,8 @@ import com.example.pillnotes.data.room.util.UUIDConverter
 
 @TypeConverters
     (
-    UUIDConverter::class
+    UUIDConverter::class,
+    BitMapConverter::class
 )
 
 abstract class AppDataBaseRoom : RoomDatabase() {

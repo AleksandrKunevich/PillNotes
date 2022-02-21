@@ -32,6 +32,7 @@ internal fun NoteTask.toNoteTaskEntity(): NoteTaskEntity {
 internal fun ContactDoctor.toContactEntity(): ContactDoctorEntity {
     return ContactDoctorEntity(
         uid = uid,
+        bitmap = bitmap,
         name = name,
         profession = profession,
         phone = phone,
@@ -44,6 +45,7 @@ internal fun ContactDoctor.toContactEntity(): ContactDoctorEntity {
 internal fun ContactDoctorEntity.toContact(): ContactDoctor {
     return ContactDoctor(
         uid = uid,
+        bitmap = bitmap,
         name = name,
         profession = profession,
         phone = phone,

@@ -85,6 +85,18 @@
         <action
             android:id="@+id/newContact_to_contacts"
             app:destination="@id/menuContacts" />
+        <action
+            android:id="@+id/newContact_to_camera"
+            app:destination="@id/cameraFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cameraFragment"
+        android:name="com.example.pillnotes.presentation.CameraFragment"
+        android:label="fragment_camera"
+        tools:layout="@layout/fragment_camera" >
+        <action
+            android:id="@+id/camera_to_newContact"
+            app:destination="@id/newContactDoctorFragment" />
     </fragment>
 
 </navigation>

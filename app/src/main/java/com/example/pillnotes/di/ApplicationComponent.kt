@@ -1,6 +1,7 @@
 package com.example.pillnotes.di
 
 import android.content.Context
+import com.example.pillnotes.domain.contactdoctor.SaveBitmapImpl
 import com.example.pillnotes.presentation.NewContactDoctorFragment
 import com.example.pillnotes.presentation.*
 import dagger.BindsInstance
@@ -28,4 +29,6 @@ interface ApplicationComponent {
     fun inject(target: ContactsFragment)
     fun inject(target: SettingsFragment)
     fun inject(target: NewContactDoctorFragment)
+    fun inject(target: SaveBitmapImpl)
+    fun inject(target: CameraFragment)
 }

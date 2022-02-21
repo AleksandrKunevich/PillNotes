@@ -71,6 +71,8 @@
     <string name="chooseemail">Choose Email Client</string>
     <string name="choose_call">Choose how You call:</string>
     <string name="choose_tracker">Choose location tracker:</string>
+    <string name="select_gallery">Select photo from Gallery</string>
+    <string name="capture_camera">Capture photo from Camera</string>
 
 
     <string-array name="place_type">

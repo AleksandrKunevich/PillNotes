@@ -17,6 +17,7 @@
         <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/drawable/down_menu_button_background.xml" value="0.1635" />
         <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/drawable/ic_account.xml" value="0.1635" />
         <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/drawable/ic_account_24.xml" value="0.1635" />
+        <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/drawable/ic_account_contact_24.xml" value="0.1585" />
         <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/drawable/ic_account_gray_24.xml" value="0.1615" />
         <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/drawable/ic_add_notes_48.xml" value="0.2375" />
         <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/drawable/ic_alternate_email_24.xml" value="0.1635" />
@@ -60,6 +61,7 @@
         <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/layout/fragment_ad_mob.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/layout/fragment_alarm.xml" value="0.25052083333333336" />
         <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/layout/fragment_calendar.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/layout/fragment_camera.xml" value="0.25052083333333336" />
         <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/layout/fragment_contacts.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/layout/fragment_maps.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Kunsanba/AndroidStudioProjects/PillNotes/app/src/main/res/layout/fragment_new_contact_doctor.xml" value="0.25416666666666665" />

@@ -1,5 +1,7 @@
 package com.example.pillnotes.presentation
 
+import android.app.Activity
+import android.content.Intent
 import android.content.SharedPreferences
 import android.location.Location
 import android.location.LocationManager
@@ -7,6 +9,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
+import androidx.core.graphics.drawable.toBitmap
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.pillnotes.DaggerApplication
@@ -28,6 +33,7 @@ import java.util.*
 import javax.inject.Inject
 
 private const val WAIT_TIME = 200L
+private const val GALLERY_REQUEST_CODE = 20000002
 
 class NewContactDoctorFragment : Fragment() {
 
@@ -79,29 +85,27 @@ class NewContactDoctorFragment : Fragment() {
                     takeIf { preference.isVibration() }?.apply { vibrateUtils.runVibrate() }
                     takeIf { preference.isSound() }?.apply { soundUtils.playBeep() }
                     delay(WAIT_TIME)
-                    contactViewModel.addContact(
-                        ContactDoctor(
-                            uid = UUID.randomUUID(),
-                            name = etContactName.text.toString(),
-                            profession = etContactProfession.text.toString(),
-                            phone = etContactPhone.text.toString(),
-                            when (cbIsLocation.isChecked) {
-                                true -> {
-//                                    contactDoctor!!.location
-                                    Location(LocationManager.GPS_PROVIDER)
-                                }
-                                false -> {
-                                    Location(LocationManager.GPS_PROVIDER)
-                                }
-                            },
-                            isLocation = cbIsLocation.isChecked
-                        )
-                    )
+                    contactViewModel.addContact(createContact())
                     findNavController().navigate(R.id.newContact_to_contacts)
                 }
             }
-            etContactName.setOnClickListener {
+            imgTakeLocation.setOnClickListener {
 
+            }
+            imgTakePhotoContact.setOnClickListener {
+                val pictureDialog = AlertDialog.Builder(requireContext())
+                pictureDialog.setTitle("Select Action")
+                val pictureDialogItem = arrayOf(
+                    getString(R.string.select_gallery),
+                    getString(R.string.capture_camera)
+                )
+                pictureDialog.setItems(pictureDialogItem) { dialog, which ->
+                    when (which) {
+                        0 -> goGallery()
+                        1 -> goCamera()
+                    }
+                }
+                pictureDialog.show()
             }
         }
     }
@@ -109,12 +113,60 @@ class NewContactDoctorFragment : Fragment() {
     private fun initContactDoctor() {
         if (contactDoctor != null) {
             binding.apply {
+                imgTakePhotoContact.setImageBitmap(contactDoctor!!.bitmap)
                 etContactName.setText(contactDoctor!!.name)
                 etContactProfession.setText(contactDoctor!!.profession)
                 etContactPhone.setText(contactDoctor!!.phone)
                 cbIsLocation.isChecked = contactDoctor!!.isLocation
                 btnCreate.text = getString(R.string.upgrade)
             }
+        }
+    }
+
+    private fun goGallery() {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        startActivityForResult(intent, GALLERY_REQUEST_CODE)
+    }
+
+    private fun goCamera() {
+        binding.apply {
+            val bundle = bundleOf(Constants.CONTACT_CODE to createContact())
+            findNavController().navigate(R.id.newContact_to_camera, bundle)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                GALLERY_REQUEST_CODE -> {
+                    binding.imgTakePhotoContact.setImageURI(data?.data)
+                }
+            }
+        }
+    }
+
+    private fun createContact(): ContactDoctor {
+        binding.apply {
+            return ContactDoctor(
+                uid = UUID.randomUUID(),
+                bitmap = imgTakePhotoContact.drawable.toBitmap(),
+                name = etContactName.text.toString(),
+                profession = etContactProfession.text.toString(),
+                phone = etContactPhone.text.toString(),
+                when (cbIsLocation.isChecked) {
+                    true -> {
+//                                    contactDoctor!!.location
+                        Location(LocationManager.GPS_PROVIDER)
+                    }
+                    false -> {
+                        Location(LocationManager.GPS_PROVIDER)
+                    }
+                },
+                isLocation = cbIsLocation.isChecked
+            )
         }
     }
 }

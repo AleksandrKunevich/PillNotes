@@ -1,5 +1,6 @@
 package com.example.pillnotes.data.room.model
 
+import android.graphics.Bitmap
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -10,6 +11,9 @@ data class ContactDoctorEntity(
 
     @PrimaryKey
     val uid: UUID = UUID.randomUUID(),
+
+    @ColumnInfo(name = "bitmap")
+    val bitmap: Bitmap,
 
     @ColumnInfo(name = "name")
     val name: String,
