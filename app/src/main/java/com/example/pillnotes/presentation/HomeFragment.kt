@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
@@ -82,8 +83,15 @@ class HomeFragment : Fragment() {
                 .setItems(dialogItem) { dialog, which ->
                     when (which) {
                         0 -> {
-                            calRem.deleteEvent(item)
-                            noteTaskViewModel.deleteTask(item)
+                            if (calRem.deleteEvent(item)) {
+                                noteTaskViewModel.deleteTask(item)
+                            } else {
+                                Toast.makeText(
+                                    requireContext(),
+                                    requireContext().getString(R.string.no_calendar_perm),
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
                         }
                     }
                 }

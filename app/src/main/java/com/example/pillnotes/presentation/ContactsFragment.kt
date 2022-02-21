@@ -120,7 +120,11 @@ class ContactsFragment : Fragment() {
                     }
                 }
             } else {
-                Toast.makeText(requireContext(), "${getString(R.string.no_location)}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    "${getString(R.string.no_location)}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }
@@ -177,10 +181,5 @@ class ContactsFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         requireContext().stopService(Intent(requireContext(), LocationService::class.java))
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-
     }
 }

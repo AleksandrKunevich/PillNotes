@@ -4,7 +4,7 @@ import com.example.pillnotes.domain.model.NoteTask
 
 interface CalendarReminder {
 
-    fun addEventCalendar(noteTask: NoteTask)
+    fun addEventCalendar(noteTask: NoteTask): Boolean
 
-    fun deleteEvent(noteTask: NoteTask)
+    fun deleteEvent(noteTask: NoteTask): Boolean
 }

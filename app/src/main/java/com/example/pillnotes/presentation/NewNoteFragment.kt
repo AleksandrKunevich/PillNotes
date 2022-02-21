@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -156,14 +157,28 @@ class NewNoteFragment : Fragment() {
 
                 CoroutineScope(Dispatchers.Main).launch {
                     if (note != null) {
-                        calRem.deleteEvent(note!!)
-                        noteTaskViewModel.deleteTask(note!!)
+                        if (calRem.deleteEvent(note!!)) {
+                            noteTaskViewModel.deleteTask(note!!)
+                        } else {
+                            Toast.makeText(
+                                requireContext(),
+                                requireContext().getString(R.string.no_calendar_perm),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                     }
                     takeIf { preference.isVibration() }?.apply { vibrateUtils.runVibrate() }
                     takeIf { preference.isSound() }?.apply { soundUtils.playBeep() }
                     delay(WAIT_TIME)
-                    noteTaskViewModel.addTask(newNote)
-                    calRem.addEventCalendar(newNote)
+                    if (calRem.addEventCalendar(newNote)) {
+                        noteTaskViewModel.addTask(newNote)
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            requireContext().getString(R.string.no_calendar_perm),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                     findNavController().navigate(R.id.newNote_to_home)
                 }
             }

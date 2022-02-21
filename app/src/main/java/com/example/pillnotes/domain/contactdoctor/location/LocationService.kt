@@ -37,14 +37,14 @@ class LocationService : Service() {
         if (!(applicationContext.getSystemService(Service.LOCATION_SERVICE) as LocationManager)
                 .isProviderEnabled(LocationManager.GPS_PROVIDER)
         ) {
-
             locationManager.requestLocationUpdates(
                 LocationManager.GPS_PROVIDER, 1100L, 0f, locationListener
             )
+
+            locationManager.requestLocationUpdates(
+                LocationManager.NETWORK_PROVIDER, 1100L, 0f, locationListener
+            )
         }
-        locationManager.requestLocationUpdates(
-            LocationManager.NETWORK_PROVIDER, 1100L, 0f, locationListener
-        )
         return START_STICKY
     }
 }
