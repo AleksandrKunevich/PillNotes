@@ -19,7 +19,7 @@
     </androidx.appcompat.widget.AppCompatTextView>
 
     <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/etContactName"
+        android:id="@+id/etNoteTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_medium"
@@ -38,9 +38,9 @@
         android:layout_height="48dp"
         android:layout_marginBottom="@dimen/margin_min"
         android:src="@drawable/ic_qr_code_scanner_24"
-        app:layout_constraintBottom_toBottomOf="@id/etContactName"
+        app:layout_constraintBottom_toBottomOf="@id/etNoteTitle"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/etContactName" />
+        app:layout_constraintTop_toTopOf="@id/etNoteTitle" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvNoteTime"
@@ -53,7 +53,7 @@
         android:textSize="@dimen/size_pill_note_head"
         app:layout_constraintEnd_toStartOf="@id/tvNoteDate"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etContactName">
+        app:layout_constraintTop_toBottomOf="@id/etNoteTitle">
 
     </androidx.appcompat.widget.AppCompatTextView>
 
@@ -83,7 +83,7 @@
         android:textSize="@dimen/size_pill_note_head"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/tvNoteTime"
-        app:layout_constraintTop_toBottomOf="@id/etContactName">
+        app:layout_constraintTop_toBottomOf="@id/etNoteTitle">
 
     </androidx.appcompat.widget.AppCompatTextView>
 

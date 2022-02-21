@@ -58,12 +58,11 @@ class NewNoteFragment : Fragment() {
     lateinit var preference: SharedPreferences
 
     private lateinit var binding: FragmentNoteNewBinding
-    private lateinit var textQr: String
-    private lateinit var typeQr: String
     private lateinit var cal: Calendar
+    private var textQr = ""
+    private var typeQr = ""
     private var note: NoteTask? = null
     private var randomUUID = UUID.randomUUID()
-    private var isRrule = false
     private var rrule = ""
     private var rrulePos = 0
     private var spinnerTaskPos = 0
@@ -91,12 +90,6 @@ class NewNoteFragment : Fragment() {
             if (bundle.getString(Constants.TEXT_CODE) != null) {
                 textQr = bundle.getString(Constants.TEXT_CODE).toString()
                 typeQr = bundle.getString(Constants.TYPE_CODE).toString()
-                binding.etNoteTitle.setText("$typeQr $textQr")
-            }
-
-            if (bundle.getString(Constants.PERIOD_CODE) != null) {
-                binding.spinnerRrule.setSelection(4)
-                isRrule = true
             }
 
             if (bundle.getParcelable<NoteTask>(Constants.NOTE_TASK_CODE) != null) {
@@ -174,20 +167,24 @@ class NewNoteFragment : Fragment() {
             }
             imgQrScan.setOnClickListener {
 
-                val bundle = bundleOf(Constants.NOTE_TASK_CODE to NoteTask(
-                    randomUUID,
-                    time = "${binding.etNoteTime.text} ${binding.etNoteDate.text}",
-                    title = "${binding.etNoteTitle.text}",
-                    task = "${binding.spinnerTask.selectedItem}",
-                    priority = spinnerPriorityPos,
-                    rrule = rrule
-                ))
-                findNavController().navigate(R.id.newNote_to_scanner, bundle) }
+                val bundle = bundleOf(
+                    Constants.NOTE_TASK_CODE to NoteTask(
+                        randomUUID,
+                        time = "${binding.etNoteTime.text} ${binding.etNoteDate.text}",
+                        title = "${binding.etNoteTitle.text}",
+                        task = "${binding.spinnerTask.selectedItem}",
+                        priority = spinnerPriorityPos,
+                        rrule = rrule
+                    )
+                )
+                findNavController().navigate(R.id.newNote_to_scanner, bundle)
+            }
             newNoteUtil.setTime(etNoteTime, requireContext())
             newNoteUtil.setDate(etNoteDate, requireContext())
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun initNote() {
         if (note != null) {
             randomUUID = note!!.uid
@@ -220,6 +217,9 @@ class NewNoteFragment : Fragment() {
                 rrule = note!!.rrule
             }
             btnCreate.text = requireContext().resources.getString(R.string.upgrade)
+        }
+        if (typeQr.isNotEmpty() || textQr.isNotEmpty()) {
+            binding.etNoteTitle.setText("$typeQr $textQr")
         }
     }
 }

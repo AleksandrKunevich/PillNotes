@@ -5,7 +5,6 @@ object Constants {
     const val NOTE_TASK_CODE = "NOTE_CODE"
     const val CONTACT_CODE = "CONTACT_CODE"
     const val TYPE_CODE = "TYPE_CODE"
-    const val PERIOD_CODE = "TYPE_CODE"
     const val TIME_FORMAT = "HH:mm"
     const val DATE_FORMAT = "dd/MM/yyyy"
     const val MONTH_YEAR_FORMAT = "MM/yyyy"
