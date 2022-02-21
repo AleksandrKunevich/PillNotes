@@ -1,11 +1,13 @@
 package com.example.pillnotes.presentation
 
 import android.annotation.SuppressLint
+import android.app.Service
 import android.content.Intent
 import android.location.Location
+import android.location.LocationManager
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,15 +23,20 @@ import com.example.pillnotes.databinding.FragmentContactsBinding
 import com.example.pillnotes.domain.Constants
 import com.example.pillnotes.domain.contactdoctor.ContactDoctorListener
 import com.example.pillnotes.domain.contactdoctor.location.LocationService
+import com.example.pillnotes.domain.contactdoctor.location.SharedPreferenceLocationImpl
 import com.example.pillnotes.domain.model.ContactDoctor
 import com.example.pillnotes.domain.viewmodel.ContactViewModel
 import com.example.pillnotes.domain.viewmodel.LocationViewModel
 import com.example.pillnotes.presentation.recycler.contactdoctod.ContactDoctorAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import javax.inject.Inject
+
+const val PAUSE = 3000L
 
 class ContactsFragment : Fragment() {
 
@@ -47,7 +54,6 @@ class ContactsFragment : Fragment() {
     private var listContacts = listOf<ContactDoctor>()
     private val adapterContact by lazy { ContactDoctorAdapter(requireContext(), onClickContact) }
     private val scope: CoroutineScope = CoroutineScope(Dispatchers.IO)
-    private var yourLocation: Location? = null
 
     private val onClickContact: ContactDoctorListener = object : ContactDoctorListener {
         override fun onDeleteClick(item: ContactDoctor) {
@@ -80,32 +86,58 @@ class ContactsFragment : Fragment() {
         }
 
         override fun onContactDoctorMapsClick(item: ContactDoctor) {
-            yourLocation = locationViewModel.yourLocation.value
-            Log.e("!!!!!!!", "${item.isLocation}   $yourLocation")
-            if (item.isLocation && yourLocation != null) {
-                val intent = Intent(Intent.ACTION_VIEW)
-                val startLatitude = yourLocation!!.latitude
-                val startLongitude = yourLocation!!.longitude
-                val endLatitude = item.location.latitude
-                val endLongitude = item.location.longitude
-                intent.data = Uri.parse(
-                    "http://maps.google.com/maps?saddr=" +
-                            "$startLatitude," +
-                            "$startLongitude" +
-                            "&daddr=" +
-                            "$endLatitude," +
-                            "$endLongitude"
-                )
-                startActivity(Intent.createChooser(intent, getString(R.string.choose_tracker)))
-            } else {
-                Toast.makeText(
-                    requireContext(),
-                    "${item.name} ${getString(R.string.no_location)}",
-                    Toast.LENGTH_SHORT
-                ).show()
+            if (item.isLocation) {
+                if (!(requireContext().getSystemService(Service.LOCATION_SERVICE) as LocationManager)
+                        .isProviderEnabled(LocationManager.GPS_PROVIDER)
+                ) {
+                    Toast.makeText(
+                        requireContext(),
+                        getString(R.string.lets_on_gps),
+                        Toast.LENGTH_LONG
+                    ).show()
+                    CoroutineScope(Dispatchers.Main).launch {
+                        delay(PAUSE)
+                        startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
+                    }
+                } else {
+                    val prefs = SharedPreferenceLocationImpl(requireContext())
+                    val yourLocation = Location(LocationManager.GPS_PROVIDER)
+                    yourLocation.latitude = prefs.getLocation(
+                        Constants.KEY_LOCATION, Constants.KEY_LOCATION_2
+                    ).first
+                    yourLocation.longitude = prefs.getLocation(
+                        Constants.KEY_LOCATION, Constants.KEY_LOCATION_2
+                    ).second
+                    if (yourLocation.latitude != 0.0 && yourLocation.longitude != 0.0) {
+                        val intent = Intent(Intent.ACTION_VIEW)
+                        val startLatitude = yourLocation.latitude
+                        val startLongitude = yourLocation.longitude
+                        val endLatitude = item.location.latitude
+                        val endLongitude = item.location.longitude
+                        intent.data = Uri.parse(
+                            "http://maps.google.com/maps?saddr=" +
+                                    "$startLatitude," +
+                                    "$startLongitude" +
+                                    "&daddr=" +
+                                    "$endLatitude," +
+                                    "$endLongitude"
+                        )
+                        startActivity(
+                            Intent.createChooser(
+                                intent,
+                                getString(R.string.choose_tracker)
+                            )
+                        )
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            "${item.name} ${getString(R.string.no_location)}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
             }
         }
-
     }
 
     override fun onCreateView(
@@ -118,10 +150,14 @@ class ContactsFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        requireContext().startService(Intent(requireContext(), LocationService::class.java))
+        requireContext().startService(
+            Intent(
+                requireContext(),
+                LocationService::class.java
+            )
+        )
         initRecyclerContact()
         initObserve()
-        initLocationCheck()
 
         binding.apply {
             btnAddContact.setOnClickListener {
@@ -149,13 +185,6 @@ class ContactsFragment : Fragment() {
             listContacts = listContactDoctor
             setContactUpdate(listContactDoctor)
         }.launchIn(scope)
-    }
-
-    private fun initLocationCheck() {
-        locationViewModel.yourLocation.observe(viewLifecycleOwner) {
-            yourLocation = it
-            Log.e("!!!!!!!", "initObserve3: $yourLocation", )
-        }
     }
 
     override fun onDestroy() {

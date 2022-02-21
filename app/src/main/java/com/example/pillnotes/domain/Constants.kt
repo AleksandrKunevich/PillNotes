@@ -1,6 +1,8 @@
 package com.example.pillnotes.domain
 
 object Constants {
+    const val KEY_LOCATION = "KEY_LOCATION_1"
+    const val KEY_LOCATION_2 = "KEY_LOCATION_2"
     const val TEXT_CODE = "TEXT_CODE"
     const val NOTE_TASK_CODE = "NOTE_CODE"
     const val CONTACT_CODE = "CONTACT_CODE"

@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.pillnotes.R
 import com.example.pillnotes.databinding.FragmentMapsBinding
 import com.example.pillnotes.domain.Constants
+import com.example.pillnotes.domain.contactdoctor.location.SharedPreferenceLocationImpl
 import com.example.pillnotes.domain.model.ContactDoctor
 import com.example.pillnotes.domain.model.NoteTask
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -31,16 +32,24 @@ class MapsFragment : Fragment() {
     private var locationClicked = Location(LocationManager.GPS_PROVIDER)
 
     private val callbackMap = OnMapReadyCallback { googleMap ->
-        val yourLocation = LatLng(
-            contactDoctor!!.location.latitude,
-            contactDoctor!!.location.longitude
-        )
+
+        val prefs = SharedPreferenceLocationImpl(requireContext())
+        val yourLocation = Location(LocationManager.GPS_PROVIDER)
+        yourLocation.latitude = prefs.getLocation(
+            Constants.KEY_LOCATION, Constants.KEY_LOCATION_2
+        ).first
+        yourLocation.longitude = prefs.getLocation(
+            Constants.KEY_LOCATION, Constants.KEY_LOCATION_2
+        ).second
+
+        val latLng = LatLng(yourLocation.latitude, yourLocation.longitude)
+
         googleMap.addMarker(
             MarkerOptions()
-                .position(yourLocation)
+                .position(latLng)
                 .title(getString(R.string.you_are_here))
         )
-        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(yourLocation, CAMERA_ZOOM))
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, CAMERA_ZOOM))
 
         googleMap.setOnMarkerClickListener { marker ->
             Toast.makeText(requireContext(), "${marker.title}", Toast.LENGTH_LONG).show()

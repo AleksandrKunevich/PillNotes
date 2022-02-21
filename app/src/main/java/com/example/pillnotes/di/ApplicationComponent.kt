@@ -31,5 +31,4 @@ interface ApplicationComponent {
     fun inject(target: NewContactDoctorFragment)
     fun inject(target: SaveBitmapImpl)
     fun inject(target: LocationService)
-
 }

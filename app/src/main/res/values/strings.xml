@@ -78,6 +78,7 @@
     <string name="here">here ?</string>
     <string name="you_are_here">You are here</string>
     <string name="no_location">not checked location</string>
+    <string name="lets_on_gps">Let`s go to Settings ON GPS</string>
 
 
     <string-array name="place_type">

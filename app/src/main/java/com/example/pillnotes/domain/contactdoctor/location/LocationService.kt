@@ -4,9 +4,7 @@ import android.app.Service
 import android.content.Intent
 import android.location.LocationListener
 import android.location.LocationManager
-import android.os.Binder
 import android.os.IBinder
-import android.provider.Settings
 import com.example.pillnotes.DaggerApplication
 import com.example.pillnotes.domain.viewmodel.LocationViewModel
 import javax.inject.Inject
@@ -31,14 +29,12 @@ class LocationService : Service() {
         locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
     }
 
-    override fun onBind(intent: Intent?): IBinder {
-        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
-        }
-        return Binder()
+    override fun onBind(intent: Intent?): IBinder? {
+        return null
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+
         locationManager.requestLocationUpdates(
             LocationManager.GPS_PROVIDER, 1100L, 0f, locationListener
         )

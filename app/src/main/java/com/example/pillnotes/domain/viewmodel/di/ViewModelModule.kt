@@ -1,5 +1,6 @@
 package com.example.pillnotes.domain.viewmodel.di
 
+import android.content.Context
 import com.example.pillnotes.data.room.interactor.ContactInteractorImpl
 import com.example.pillnotes.data.room.interactor.NoteTaskInteractorImpl
 import com.example.pillnotes.domain.viewmodel.ContactViewModel
@@ -20,6 +21,6 @@ object ViewModelModule {
         ContactViewModel(repository)
 
     @Provides
-    fun provideLocationViewModel(): LocationViewModel =
-        LocationViewModel()
+    fun provideLocationViewModel(context: Context): LocationViewModel =
+        LocationViewModel(context)
 }
