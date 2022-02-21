@@ -3,21 +3,23 @@ package com.example.pillnotes.presentation
 import android.app.Activity
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.Bitmap
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.core.graphics.drawable.toBitmap
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.pillnotes.DaggerApplication
 import com.example.pillnotes.R
 import com.example.pillnotes.databinding.FragmentNewContactDoctorBinding
 import com.example.pillnotes.domain.Constants
+import com.example.pillnotes.domain.contactdoctor.SaveBitmapImpl
 import com.example.pillnotes.domain.isSound
 import com.example.pillnotes.domain.isVibration
 import com.example.pillnotes.domain.model.ContactDoctor
@@ -32,14 +34,19 @@ import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
 
+
 private const val WAIT_TIME = 200L
 private const val GALLERY_REQUEST_CODE = 20000002
+private const val CAMERA_REQUEST_CODE = 10000001
 
 class NewContactDoctorFragment : Fragment() {
 
     init {
         DaggerApplication.appComponent?.inject(this)
     }
+
+    @Inject
+    lateinit var saveBitmap: SaveBitmapImpl
 
     @Inject
     lateinit var contactViewModel: ContactViewModel
@@ -94,7 +101,9 @@ class NewContactDoctorFragment : Fragment() {
             }
             imgTakePhotoContact.setOnClickListener {
                 val pictureDialog = AlertDialog.Builder(requireContext())
-                pictureDialog.setTitle("Select Action")
+                pictureDialog.setTitle(
+                    getString(R.string.select_action)
+                )
                 val pictureDialogItem = arrayOf(
                     getString(R.string.select_gallery),
                     getString(R.string.capture_camera)
@@ -130,10 +139,8 @@ class NewContactDoctorFragment : Fragment() {
     }
 
     private fun goCamera() {
-        binding.apply {
-            val bundle = bundleOf(Constants.CONTACT_CODE to createContact())
-            findNavController().navigate(R.id.newContact_to_camera, bundle)
-        }
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        startActivityForResult(intent, CAMERA_REQUEST_CODE)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -143,6 +150,11 @@ class NewContactDoctorFragment : Fragment() {
             when (requestCode) {
                 GALLERY_REQUEST_CODE -> {
                     binding.imgTakePhotoContact.setImageURI(data?.data)
+                }
+                CAMERA_REQUEST_CODE -> {
+                    val bitmap = data?.extras?.get("data") as Bitmap
+                    saveBitmap.saveBitmapInStorage(bitmap, requireContext())
+                    binding.imgTakePhotoContact.setImageBitmap(bitmap)
                 }
             }
         }

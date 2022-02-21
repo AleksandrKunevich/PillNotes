@@ -30,5 +30,4 @@ interface ApplicationComponent {
     fun inject(target: SettingsFragment)
     fun inject(target: NewContactDoctorFragment)
     fun inject(target: SaveBitmapImpl)
-    fun inject(target: CameraFragment)
 }

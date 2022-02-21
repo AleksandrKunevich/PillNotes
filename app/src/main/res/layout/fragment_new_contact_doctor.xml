@@ -132,6 +132,7 @@
         android:layout_height="36dp"
         android:background="@color/background_home_fragment"
         android:button="@drawable/checkbox_location"
+        android:clickable="false"
         android:checked="false"
         app:layout_constraintBottom_toBottomOf="@id/imgTakeLocation"
         app:layout_constraintEnd_toEndOf="parent"
