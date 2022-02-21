@@ -27,6 +27,7 @@ class ContactDoctorHolder constructor(
             imgDoctorMaps.setOnClickListener {
                 listener.onContactDoctorMapsClick(item)
             }
+            imgPhotoDoctor.setImageBitmap(item.bitmap)
             tvDoctorName.text = item.name
             tvDoctorPhone.text = item.phone
             tvDoctorProfession.text = item.profession
