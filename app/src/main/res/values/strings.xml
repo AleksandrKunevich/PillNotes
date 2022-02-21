@@ -74,6 +74,10 @@
     <string name="select_gallery">Select photo from Gallery</string>
     <string name="capture_camera">Capture photo from Camera</string>
     <string name="select_action">Select action:</string>
+    <string name="ok">ok</string>
+    <string name="here">here ?</string>
+    <string name="you_are_here">You are here</string>
+    <string name="no_location">not checked location</string>
 
 
     <string-array name="place_type">

@@ -2,6 +2,7 @@ package com.example.pillnotes.presentation.recycler.contactdoctod
 
 import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
+import com.example.pillnotes.R
 import com.example.pillnotes.databinding.ContactDoctorItemBinding
 import com.example.pillnotes.domain.contactdoctor.ContactDoctorListener
 import com.example.pillnotes.domain.model.ContactDoctor
@@ -31,6 +32,11 @@ class ContactDoctorHolder constructor(
             tvDoctorName.text = item.name
             tvDoctorPhone.text = item.phone
             tvDoctorProfession.text = item.profession
+            if (item.isLocation) {
+                imgDoctorMaps.setImageResource(R.drawable.ic_baseline_map_24)
+            } else {
+                imgDoctorMaps.setImageResource(R.drawable.ic_baseline_map_none_24)
+            }
         }
     }
 }

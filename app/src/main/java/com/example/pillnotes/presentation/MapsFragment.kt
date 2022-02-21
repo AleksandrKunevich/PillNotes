@@ -1,118 +1,105 @@
 package com.example.pillnotes.presentation
 
+import android.location.Location
+import android.location.LocationManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.pillnotes.R
-import com.example.pillnotes.presentation.maps.MyApiRequestInterface
+import com.example.pillnotes.databinding.FragmentMapsBinding
+import com.example.pillnotes.domain.Constants
+import com.example.pillnotes.domain.model.ContactDoctor
+import com.example.pillnotes.domain.model.NoteTask
 import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+
+private const val CAMERA_ZOOM = 18f
 
 class MapsFragment : Fragment() {
 
-    lateinit var googleMap: GoogleMap
+    private lateinit var binding: FragmentMapsBinding
+    private var contactDoctor: ContactDoctor? = null
+    private var locationClicked = Location(LocationManager.GPS_PROVIDER)
 
-//    private val callback = object : Callback<DirectionResults> {
-//        override fun success(directionResults: DirectionResults?, response: Response?) {
-//
-//            val routelist: ArrayList<LatLng> = arrayListOf()
-//            if (directionResults?.routes?.size!! > 0) {
-//                var decodelist: ArrayList<LatLng> = arrayListOf()
-//                val routeA: Route = directionResults.routes[0]
-//                if (routeA.legs?.size!! > 0) {
-//                    val steps: List<Steps>? = routeA.legs[0].steps
-//                    var step: Steps
-//                    var location: Location
-//                    var polyline: String
-//                    for (i in 0 until steps!!.size) {
-//                        step = steps[i]
-//                        location = step.start_location!!
-//                        routelist.add(LatLng(location.lat, location.lng))
-//                        polyline = step.polyline?.points.toString()
-//                        decodelist = RouteDecode.decodePoly(polyline)
-//                        routelist.addAll(decodelist);
-//                        location = step.end_location!!
-//                        routelist.add(LatLng(location.lat, location.lng));
-//                    }
-//                }
-//            }
-//            if (routelist.size > 0) {
-//                val rectLine: PolylineOptions = PolylineOptions().width(10F).color(Color.RED)
-//                for (i in 0 until routelist.size) {
-//                    rectLine.add(routelist[i]);
-//                }
-//
-////                callBackGoogleMap = OnMapReadyCallback { googleMap ->
-////
-////                    googleMap.addPolyline(rectLine);
-////                    val markerOptions =
-////                        MarkerOptions()
-////                            .position(LatLng(38.0, 38.0))
-////                            .title("Marker in Sydney")
-////                    markerOptions.draggable(true);
-////                    googleMap.addMarker(markerOptions);
-////                    googleMap.moveCamera(CameraUpdateFactory.newLatLng(LatLng(38.0, 38.0)))
-////                }
-//            }
-//        }
-//
-//        override fun failure(error: RetrofitError?) {
-//
-//        }
-//    }
+    private val callbackMap = OnMapReadyCallback { googleMap ->
+        val yourLocation = LatLng(
+            contactDoctor!!.location.latitude,
+            contactDoctor!!.location.longitude
+        )
+        googleMap.addMarker(
+            MarkerOptions()
+                .position(yourLocation)
+                .title(getString(R.string.you_are_here))
+        )
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(yourLocation, CAMERA_ZOOM))
+
+        googleMap.setOnMarkerClickListener { marker ->
+            Toast.makeText(requireContext(), "${marker.title}", Toast.LENGTH_LONG).show()
+            true
+        }
+
+        googleMap.setOnMapClickListener { latLng ->
+            val markerOptions = MarkerOptions()
+            markerOptions.position(latLng)
+            locationClicked.latitude = latLng.latitude
+            locationClicked.longitude = latLng.longitude
+            markerOptions.title("${contactDoctor!!.name} ${getString(R.string.here)}")
+            googleMap.clear()
+            googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng))
+            googleMap.addMarker(markerOptions)
+        }
+    }
+    private val callbackBack: OnBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            val bundle = bundleOf(
+                Constants.CONTACT_CODE to arguments?.getParcelable<ContactDoctor>(Constants.CONTACT_CODE)
+            )
+            findNavController().navigate(R.id.googleMapsCheck_to_newContact, bundle)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_maps, container, false)
+    ): View {
+        binding = FragmentMapsBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    private val callback = OnMapReadyCallback { googleMap ->
-        val sydney = LatLng(-34.0, 151.0)
-        googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let { bundle ->
+            if (bundle.getParcelable<NoteTask>(Constants.CONTACT_CODE) != null) {
+                contactDoctor = bundle.getParcelable(Constants.CONTACT_CODE)!!
+            }
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val mapFragment = childFragmentManager.findFragmentById(R.id.map22) as SupportMapFragment?
-        mapFragment?.getMapAsync(callback)
-//        GoogleMapsLine().reqinterface
-//        val a = getNewsInternet().getJson("-34.0" + "," + "151.0",
-//            "-34.5" + "," + "152",
-//            callback)
-//        a
-
-//        startActivity(Intent(requireContext(), MainActivity22::class.java))
+        val mapFragment =
+            childFragmentManager.findFragmentById(R.id.mapGoogle) as SupportMapFragment?
+        mapFragment?.getMapAsync(callbackMap)
     }
-    
-    val API_KEY = "AIzaSyAIZRmVsM33sZ3-Xmkn2IpScp5R-LO8y1c"
-    val base_url = "https://maps.googleapis.com"
 
-    private var gson: Gson = GsonBuilder()
-        .setLenient()
-        .create()
-
-    private fun getClient(url: String = base_url) = Retrofit.Builder()
-        .baseUrl(url)
-        .addConverterFactory(GsonConverterFactory.create(gson))
-        .build()
-
-    fun getGoogleMapsResponse(): MyApiRequestInterface =
-        getClient().create(MyApiRequestInterface::class.java)
-
-
+    override fun onStart() {
+        super.onStart()
+        binding.btnLocationOk.setOnClickListener {
+            contactDoctor!!.location = locationClicked
+            contactDoctor!!.isLocation = true
+            val bundle = bundleOf(Constants.CONTACT_CODE to contactDoctor)
+            findNavController().navigate(R.id.googleMapsCheck_to_newContact, bundle)
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(callbackBack)
+    }
 }
-

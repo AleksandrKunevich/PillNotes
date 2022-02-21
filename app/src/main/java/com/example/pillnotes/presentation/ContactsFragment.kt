@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -71,10 +72,18 @@ class ContactsFragment : Fragment() {
         }
 
         override fun onContactDoctorMapsClick(item: ContactDoctor) {
-            val intent = Intent(Intent.ACTION_VIEW)
-            intent.data =
-                Uri.parse("http://maps.google.com/maps?saddr=20.344,34.34&daddr=20.5666,45.345")
-            startActivity(Intent.createChooser(intent, getString(R.string.choose_tracker)))
+            if (item.isLocation) {
+                val intent = Intent(Intent.ACTION_VIEW)
+                intent.data =
+                    Uri.parse("http://maps.google.com/maps?saddr=20.344,34.34&daddr=20.5666,45.345")
+                startActivity(Intent.createChooser(intent, getString(R.string.choose_tracker)))
+            } else {
+                Toast.makeText(
+                    requireContext(),
+                    "${item.name} ${getString(R.string.no_location)}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
 
     }

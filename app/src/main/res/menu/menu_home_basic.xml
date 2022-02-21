@@ -8,12 +8,6 @@
         android:visible="true" />
 
     <item
-        android:id="@+id/menuGooglePath"
-        android:icon="@drawable/ic_baseline_newspaper_48"
-        android:title="@string/news"
-        android:visible="true" />
-
-    <item
         android:id="@+id/menuContacts"
         android:icon="@drawable/ic_account_24"
         android:title="@string/contacts"

@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.core.graphics.drawable.toBitmap
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.pillnotes.DaggerApplication
@@ -97,7 +98,8 @@ class NewContactDoctorFragment : Fragment() {
                 }
             }
             imgTakeLocation.setOnClickListener {
-
+                val bundle = bundleOf(Constants.CONTACT_CODE to createContact())
+                findNavController().navigate(R.id.newContact_to_googleMapsCheck, bundle)
             }
             imgTakePhotoContact.setOnClickListener {
                 val pictureDialog = AlertDialog.Builder(requireContext())
@@ -170,8 +172,7 @@ class NewContactDoctorFragment : Fragment() {
                 phone = etContactPhone.text.toString(),
                 when (cbIsLocation.isChecked) {
                     true -> {
-//                                    contactDoctor!!.location
-                        Location(LocationManager.GPS_PROVIDER)
+                        contactDoctor!!.location
                     }
                     false -> {
                         Location(LocationManager.GPS_PROVIDER)

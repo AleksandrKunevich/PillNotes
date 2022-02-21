@@ -18,9 +18,6 @@
         android:name="com.example.pillnotes.presentation.HomeFragment"
         android:label="HomeFragment">
         <action
-            android:id="@+id/home_to_maps"
-            app:destination="@id/menuGooglePath" />
-        <action
             android:id="@+id/home_to_contacts"
             app:destination="@id/menuContacts" />
         <action
@@ -44,11 +41,13 @@
     </fragment>
 
     <fragment
-        android:id="@+id/menuGooglePath"
+        android:id="@+id/googleMapsCheck"
         android:name="com.example.pillnotes.presentation.MapsFragment"
         android:label="fragment_maps"
         tools:layout="@layout/fragment_maps">
-
+        <action
+            android:id="@+id/googleMapsCheck_to_newContact"
+            app:destination="@id/newContactDoctorFragment" />
     </fragment>
 
     <fragment
@@ -85,18 +84,10 @@
         <action
             android:id="@+id/newContact_to_contacts"
             app:destination="@id/menuContacts" />
+
         <action
-            android:id="@+id/newContact_to_camera"
-            app:destination="@id/cameraFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/cameraFragment"
-        android:name="com.example.pillnotes.presentation.CameraFragment"
-        android:label="fragment_camera"
-        tools:layout="@layout/fragment_camera" >
-        <action
-            android:id="@+id/camera_to_newContact"
-            app:destination="@id/newContactDoctorFragment" />
+            android:id="@+id/newContact_to_googleMapsCheck"
+            app:destination="@id/googleMapsCheck" />
     </fragment>
 
 </navigation>

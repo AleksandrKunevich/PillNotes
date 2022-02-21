@@ -13,6 +13,6 @@ data class ContactDoctor(
     val name: String,
     val profession: String,
     val phone: String,
-    val location: Location,
-    val isLocation: Boolean
+    var location: Location,
+    var isLocation: Boolean
 ): Parcelable
