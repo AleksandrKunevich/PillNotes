@@ -2,7 +2,6 @@ package com.example.pillnotes.domain.util.di
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.view.View
 import androidx.preference.PreferenceManager
 import com.example.pillnotes.domain.util.FlashLightUtils
 import com.example.pillnotes.domain.util.SoundUtils

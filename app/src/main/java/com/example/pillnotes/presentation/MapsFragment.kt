@@ -23,27 +23,33 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
-private const val CAMERA_ZOOM = 18f
-
 class MapsFragment : Fragment() {
+
+    companion object {
+        private const val CAMERA_ZOOM = 18f
+    }
 
     private lateinit var binding: FragmentMapsBinding
     private var contactDoctor: ContactDoctor? = null
     private var locationClicked = Location(LocationManager.GPS_PROVIDER)
+    private val yourLocation = Location(LocationManager.GPS_PROVIDER)
 
     private val callbackMap = OnMapReadyCallback { googleMap ->
-
         val prefs = SharedPreferenceLocationImpl(requireContext())
-        val yourLocation = Location(LocationManager.GPS_PROVIDER)
-        yourLocation.latitude = prefs.getLocation(
-            Constants.KEY_LOCATION, Constants.KEY_LOCATION_2
-        ).first
-        yourLocation.longitude = prefs.getLocation(
-            Constants.KEY_LOCATION, Constants.KEY_LOCATION_2
-        ).second
-
+        if (contactDoctor!!.isLocation) {
+            yourLocation.latitude = contactDoctor!!.location.latitude
+            yourLocation.longitude = contactDoctor!!.location.longitude
+        } else {
+            yourLocation.latitude = prefs.getLocation(
+                Constants.KEY_LOCATION, Constants.KEY_LOCATION_2
+            ).first
+            yourLocation.longitude = prefs.getLocation(
+                Constants.KEY_LOCATION, Constants.KEY_LOCATION_2
+            ).second
+        }
+        locationClicked.latitude = yourLocation.latitude
+        locationClicked.longitude = yourLocation.longitude
         val latLng = LatLng(yourLocation.latitude, yourLocation.longitude)
-
         googleMap.addMarker(
             MarkerOptions()
                 .position(latLng)
@@ -67,12 +73,21 @@ class MapsFragment : Fragment() {
             googleMap.addMarker(markerOptions)
         }
     }
-    private val callbackBack: OnBackPressedCallback = object : OnBackPressedCallback(true) {
+    private val callbackBackPress: OnBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
             val bundle = bundleOf(
                 Constants.CONTACT_CODE to arguments?.getParcelable<ContactDoctor>(Constants.CONTACT_CODE)
             )
             findNavController().navigate(R.id.googleMapsCheck_to_newContact, bundle)
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let { bundle ->
+            if (bundle.getParcelable<NoteTask>(Constants.CONTACT_CODE) != null) {
+                contactDoctor = bundle.getParcelable(Constants.CONTACT_CODE)!!
+            }
         }
     }
 
@@ -83,15 +98,6 @@ class MapsFragment : Fragment() {
     ): View {
         binding = FragmentMapsBinding.inflate(inflater, container, false)
         return binding.root
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let { bundle ->
-            if (bundle.getParcelable<NoteTask>(Constants.CONTACT_CODE) != null) {
-                contactDoctor = bundle.getParcelable(Constants.CONTACT_CODE)!!
-            }
-        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -109,6 +115,6 @@ class MapsFragment : Fragment() {
             val bundle = bundleOf(Constants.CONTACT_CODE to contactDoctor)
             findNavController().navigate(R.id.googleMapsCheck_to_newContact, bundle)
         }
-        requireActivity().onBackPressedDispatcher.addCallback(callbackBack)
+        requireActivity().onBackPressedDispatcher.addCallback(callbackBackPress)
     }
 }

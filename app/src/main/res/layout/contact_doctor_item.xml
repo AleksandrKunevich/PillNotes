@@ -20,8 +20,8 @@
         android:id="@+id/containerContact"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/padding_min"
         android:background="@drawable/down_menu_button_background"
+        android:padding="@dimen/padding_min"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -83,28 +83,26 @@
         </androidx.appcompat.widget.AppCompatTextView>
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imgDoctorCall"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_margin="@dimen/margin_medium"
-            android:foregroundGravity="center"
-            android:src="@drawable/ic_baseline_call_24"
-            app:layout_constraintBottom_toTopOf="@+id/imgDoctorMaps"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-        </androidx.appcompat.widget.AppCompatImageView>
-
-        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imgDoctorMaps"
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:layout_margin="@dimen/margin_medium"
             android:foregroundGravity="center"
             android:src="@drawable/ic_baseline_map_24"
-            app:layout_constraintTop_toBottomOf="@id/imgDoctorCall"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintTop_toTopOf="parent">
+
+        </androidx.appcompat.widget.AppCompatImageView>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgDoctorCall"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_margin="@dimen/margin_medium"
+            android:foregroundGravity="center"
+            android:src="@drawable/ic_baseline_call_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
         </androidx.appcompat.widget.AppCompatImageView>
 

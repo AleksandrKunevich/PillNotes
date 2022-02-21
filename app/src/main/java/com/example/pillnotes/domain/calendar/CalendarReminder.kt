@@ -7,6 +7,4 @@ interface CalendarReminder {
     fun addEventCalendar(noteTask: NoteTask)
 
     fun deleteEvent(noteTask: NoteTask)
-
-    fun showEventCalendar()
 }

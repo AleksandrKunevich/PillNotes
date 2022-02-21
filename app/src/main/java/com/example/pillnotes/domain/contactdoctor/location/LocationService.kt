@@ -34,11 +34,14 @@ class LocationService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        if (!(applicationContext.getSystemService(Service.LOCATION_SERVICE) as LocationManager)
+                .isProviderEnabled(LocationManager.GPS_PROVIDER)
+        ) {
 
-        locationManager.requestLocationUpdates(
-            LocationManager.GPS_PROVIDER, 1100L, 0f, locationListener
-        )
-
+            locationManager.requestLocationUpdates(
+                LocationManager.GPS_PROVIDER, 1100L, 0f, locationListener
+            )
+        }
         locationManager.requestLocationUpdates(
             LocationManager.NETWORK_PROVIDER, 1100L, 0f, locationListener
         )

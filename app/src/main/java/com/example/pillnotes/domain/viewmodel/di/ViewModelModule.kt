@@ -17,8 +17,11 @@ object ViewModelModule {
         NoteTaskViewModel(repository)
 
     @Provides
-    fun provideContactViewModel(repository: ContactInteractorImpl): ContactViewModel =
-        ContactViewModel(repository)
+    fun provideContactViewModel(
+        context: Context,
+        repository: ContactInteractorImpl
+    ): ContactViewModel =
+        ContactViewModel(context, repository)
 
     @Provides
     fun provideLocationViewModel(context: Context): LocationViewModel =

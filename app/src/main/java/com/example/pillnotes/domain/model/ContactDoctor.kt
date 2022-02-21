@@ -15,4 +15,4 @@ data class ContactDoctor(
     val phone: String,
     var location: Location,
     var isLocation: Boolean
-): Parcelable
+) : Parcelable

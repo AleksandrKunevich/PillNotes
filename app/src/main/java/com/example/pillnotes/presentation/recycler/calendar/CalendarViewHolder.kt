@@ -21,7 +21,12 @@ class CalendarViewHolder(
             if (item == CalendarUtils.selectedDate) {
                 cellDayText.setBackgroundColor(context.resources.getColor(R.color.gray, null))
             } else {
-                cellDayText.setBackgroundColor(context.resources.getColor(R.color.background_home_fragment, null))
+                cellDayText.setBackgroundColor(
+                    context.resources.getColor(
+                        R.color.background_home_fragment,
+                        null
+                    )
+                )
             }
         }
         itemBinding.cellDayText.setOnClickListener {

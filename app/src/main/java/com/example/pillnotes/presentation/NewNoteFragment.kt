@@ -31,9 +31,11 @@ import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
-private const val WAIT_TIME = 200L
-
 class NewNoteFragment : Fragment() {
+
+    companion object {
+        private const val WAIT_TIME = 200L
+    }
 
     init {
         DaggerApplication.appComponent?.inject(this)

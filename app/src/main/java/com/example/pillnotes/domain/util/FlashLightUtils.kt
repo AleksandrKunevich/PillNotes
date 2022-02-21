@@ -4,6 +4,7 @@ import com.example.pillnotes.R
 import com.example.pillnotes.databinding.FragmentScannerBinding
 
 class FlashLightUtils() {
+
     internal fun toggleFlashLight(status: Boolean, view: FragmentScannerBinding) {
         try {
             if (status) {
@@ -14,6 +15,7 @@ class FlashLightUtils() {
                 view.flashButton.setImageResource(R.drawable.ic_flash_off_24)
             }
         } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 }

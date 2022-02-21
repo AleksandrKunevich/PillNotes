@@ -3,7 +3,6 @@ package com.example.pillnotes.presentation.di
 import android.content.Context
 import android.database.Cursor
 import android.provider.CalendarContract
-import com.example.pillnotes.di.ApplicationComponent
 import dagger.Module
 import dagger.Provides
 

@@ -14,6 +14,10 @@ import javax.inject.Inject
 
 class SaveBitmapImpl @Inject constructor() : SaveBitmapInterface {
 
+    companion object {
+        const val QUALITY_JPEG = 100
+    }
+
     override fun saveBitmapInStorage(bitmap: Bitmap, context: Context) {
         val filename = "QR_" + "${System.currentTimeMillis()}.jpg"
         var fos: OutputStream? = null
@@ -35,7 +39,7 @@ class SaveBitmapImpl @Inject constructor() : SaveBitmapInterface {
             fos = FileOutputStream(image)
         }
         fos?.use {
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, it)
+            bitmap.compress(Bitmap.CompressFormat.JPEG, QUALITY_JPEG, it)
         }
     }
 }

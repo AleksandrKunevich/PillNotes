@@ -2,15 +2,13 @@ package com.example.pillnotes.domain.contactdoctor.location
 
 import android.content.Context
 import android.location.Location
-import android.util.Log
 
 class SharedPreferenceLocationImpl(private val context: Context) : SharedPreferenceLocation {
 
     companion object {
         private const val SHARED_PREFS_NAME = "SHARED_PREFS_LOCATION"
-
-        private const val DEFAULT_LATITUDE = 0f
-        private const val DEFAULT_LONGITUDE = 0f
+        private const val DEFAULT_LATITUDE = 0.0f
+        private const val DEFAULT_LONGITUDE = 0.0f
     }
 
     private val prefs by lazy {
@@ -21,10 +19,6 @@ class SharedPreferenceLocationImpl(private val context: Context) : SharedPrefere
     }
 
     override fun saveLocation(key: String, key2: String, value: Location) {
-        Log.e(
-            "!!!!!!!!",
-            "saveLocation: ${value.latitude.toFloat()}  +  ${value.longitude.toFloat()}"
-        )
 
         prefs.edit()
             .putFloat(key, value.latitude.toFloat())

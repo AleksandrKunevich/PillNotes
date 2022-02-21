@@ -28,6 +28,6 @@
     <Preference
         android:key="@string/key_email_me"
         android:icon="@drawable/ic_alternate_email_24"
-        android:summary="@string/email_me" />
+        android:summary="@string/send_email" />
 
 </PreferenceScreen>

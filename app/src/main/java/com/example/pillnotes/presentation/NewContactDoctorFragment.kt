@@ -35,12 +35,11 @@ import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
 
-
-private const val WAIT_TIME = 200L
-private const val GALLERY_REQUEST_CODE = 20000002
-private const val CAMERA_REQUEST_CODE = 10000001
-
 class NewContactDoctorFragment : Fragment() {
+
+    companion object {
+        private const val WAIT_TIME = 200L
+    }
 
     init {
         DaggerApplication.appComponent?.inject(this)
@@ -63,6 +62,8 @@ class NewContactDoctorFragment : Fragment() {
 
     private lateinit var binding: FragmentNewContactDoctorBinding
     private var contactDoctor: ContactDoctor? = null
+    private val galleryRequestCode = (1..100).random() + 1_000_000
+    private val cameraRequestCode = (1..100).random() + 2_000_000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -98,8 +99,10 @@ class NewContactDoctorFragment : Fragment() {
                 }
             }
             imgTakeLocation.setOnClickListener {
-                val bundle = bundleOf(Constants.CONTACT_CODE to createContact())
-                findNavController().navigate(R.id.newContact_to_googleMapsCheck, bundle)
+                if (contactViewModel.isGpsOn()) {
+                    val bundle = bundleOf(Constants.CONTACT_CODE to createContact())
+                    findNavController().navigate(R.id.newContact_to_googleMapsCheck, bundle)
+                }
             }
             imgTakePhotoContact.setOnClickListener {
                 val pictureDialog = AlertDialog.Builder(requireContext())
@@ -112,8 +115,8 @@ class NewContactDoctorFragment : Fragment() {
                 )
                 pictureDialog.setItems(pictureDialogItem) { dialog, which ->
                     when (which) {
-                        0 -> goGallery()
-                        1 -> goCamera()
+                        0 -> startGallery()
+                        1 -> startCamera()
                     }
                 }
                 pictureDialog.show()
@@ -134,15 +137,15 @@ class NewContactDoctorFragment : Fragment() {
         }
     }
 
-    private fun goGallery() {
+    private fun startGallery() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
-        startActivityForResult(intent, GALLERY_REQUEST_CODE)
+        startActivityForResult(intent, galleryRequestCode)
     }
 
-    private fun goCamera() {
+    private fun startCamera() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        startActivityForResult(intent, CAMERA_REQUEST_CODE)
+        startActivityForResult(intent, cameraRequestCode)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -150,10 +153,10 @@ class NewContactDoctorFragment : Fragment() {
 
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
-                GALLERY_REQUEST_CODE -> {
+                galleryRequestCode -> {
                     binding.imgTakePhotoContact.setImageURI(data?.data)
                 }
-                CAMERA_REQUEST_CODE -> {
+                cameraRequestCode -> {
                     val bitmap = data?.extras?.get("data") as Bitmap
                     saveBitmap.saveBitmapInStorage(bitmap, requireContext())
                     binding.imgTakePhotoContact.setImageBitmap(bitmap)
@@ -165,7 +168,7 @@ class NewContactDoctorFragment : Fragment() {
     private fun createContact(): ContactDoctor {
         binding.apply {
             return ContactDoctor(
-                uid = UUID.randomUUID(),
+                uid = contactDoctor?.uid ?: UUID.randomUUID(),
                 bitmap = imgTakePhotoContact.drawable.toBitmap(),
                 name = etContactName.text.toString(),
                 profession = etContactProfession.text.toString(),

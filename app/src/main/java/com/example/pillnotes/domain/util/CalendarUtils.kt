@@ -6,7 +6,9 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 object CalendarUtils {
+
     var selectedDate: LocalDate = LocalDate.now()
+
     fun monthYearFromDate(date: LocalDate): String {
         val formatter = DateTimeFormatter.ofPattern(Constants.MONTH_YEAR_FORMAT)
         return date.format(formatter)

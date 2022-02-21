@@ -14,12 +14,11 @@
     <string name="light">Light</string>
     <string name="theme_dark">Dark theme</string>
     <string name="theme_light">Light theme</string>
-    <string name="value_theme_dark">dark</string>
-    <string name="value_theme_light">light</string>
+    <string name="value_theme_dark">Dark</string>
+    <string name="value_theme_light">Light</string>
     <string name="key_theme">theme</string>
     <string name="key_email_me">emailme</string>
     <string name="theme">Theme</string>
-    <string name="email_me">Email me</string>
     <string name="are_you_sure_delete_this">Are you sure delete this?</string>
     <string name="cancel">Cancel</string>
     <string name="delete">Delete</string>
@@ -31,6 +30,7 @@
     <string name="enter_title">Enter title</string>
     <string name="enter_name">Enter name</string>
     <string name="enter_phone">Enter phone number</string>
+    <string name="phone_number">Phone number</string>
     <string name="choose_location">Choose location:</string>
     <string name="choose_task">Choose task</string>
     <string name="choose_priority">Choose priority</string>
@@ -58,7 +58,7 @@
     <string name="every_week">Every week</string>
     <string name="every_month">Every month</string>
     <string name="every_year">Every year</string>
-    <string name="other">Other...</string>
+    <string name="other">Other…</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="sun">SUN</string>
@@ -74,38 +74,10 @@
     <string name="select_gallery">Select photo from Gallery</string>
     <string name="capture_camera">Capture photo from Camera</string>
     <string name="select_action">Select action:</string>
-    <string name="ok">ok</string>
+    <string name="ok">OK</string>
     <string name="here">here ?</string>
     <string name="you_are_here">You are here</string>
-    <string name="no_location">not checked location</string>
-    <string name="lets_on_gps">Let`s go to Settings ON GPS</string>
-
-
-    <string-array name="place_type">
-        <item>airport</item>
-        <item>atm</item>
-        <item>bank</item>
-        <item>bus_station</item>
-        <item>church</item>
-        <item>doctor</item>
-        <item>hospital</item>
-        <item>mosque</item>
-        <item>movie_theater</item>
-        <item>hindu_temple</item>
-        <item>restaurant</item>
-    </string-array>
-
-    <string-array name="place_type_name">
-        <item>Airport</item>
-        <item>ATM</item>
-        <item>Bank</item>
-        <item>Bus Station</item>
-        <item>Church</item>
-        <item>Doctor</item>
-        <item>Hospital</item>
-        <item>Mosque</item>
-        <item>Movie Theater</item>
-        <item>Hindu Temple</item>
-        <item>Restaurant</item>
-    </string-array>
+    <string name="no_location">Not checked location</string>
+    <string name="lets_on_gps">You need GPS ON to use this function</string>
+    <string name="send_email">Send E-mail</string>
 </resources>

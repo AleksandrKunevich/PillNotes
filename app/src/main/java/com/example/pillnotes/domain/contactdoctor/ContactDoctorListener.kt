@@ -1,7 +1,6 @@
 package com.example.pillnotes.domain.contactdoctor
 
 import com.example.pillnotes.domain.model.ContactDoctor
-import com.example.pillnotes.domain.model.NoteTask
 
 interface ContactDoctorListener {
 

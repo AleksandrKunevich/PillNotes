@@ -5,18 +5,20 @@ import android.graphics.BitmapFactory
 import androidx.room.TypeConverter
 import java.io.ByteArrayOutputStream
 
-private const val LIMIT_IMAGE_SIZE = 500000
-
 object BitMapConverter {
+
+    private const val LIMIT_IMAGE_SIZE = 500000
+    private const val QUALITY_DOWN = 20
+
     @TypeConverter
     fun fromBitMap(bitmap: Bitmap): ByteArray {
         var stream = ByteArrayOutputStream()
-        var cality = 100
-        bitmap.compress(Bitmap.CompressFormat.JPEG, cality, stream)
+        var quality = 100
+        bitmap.compress(Bitmap.CompressFormat.JPEG, quality, stream)
         while (stream.toByteArray().size > LIMIT_IMAGE_SIZE) {
             stream = ByteArrayOutputStream()
-            cality -= 20
-            bitmap.compress(Bitmap.CompressFormat.JPEG, cality, stream)
+            quality -= QUALITY_DOWN
+            bitmap.compress(Bitmap.CompressFormat.JPEG, quality, stream)
         }
         return stream.toByteArray()
     }

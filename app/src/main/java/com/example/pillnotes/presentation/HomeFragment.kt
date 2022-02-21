@@ -37,20 +37,18 @@ class HomeFragment : Fragment() {
         private const val TAG = "TAG:com.example.pillnotes.presentation.HomeFragment"
         private const val GRANTED = "GRANTED"
         private const val DENIED = "DENIED"
+        private val PERMISSIONS = arrayOf(
+            android.Manifest.permission.INTERNET,
+            android.Manifest.permission.READ_CALENDAR,
+            android.Manifest.permission.WRITE_CALENDAR,
+            android.Manifest.permission.VIBRATE,
+            android.Manifest.permission.CAMERA,
+            android.Manifest.permission.ACCESS_FINE_LOCATION,
+            android.Manifest.permission.ACCESS_COARSE_LOCATION,
+            android.Manifest.permission.ACCESS_NETWORK_STATE,
+            android.Manifest.permission.READ_EXTERNAL_STORAGE,
+        )
     }
-
-    private val permissions = arrayOf(
-        android.Manifest.permission.INTERNET,
-        android.Manifest.permission.READ_CALENDAR,
-        android.Manifest.permission.WRITE_CALENDAR,
-        android.Manifest.permission.VIBRATE,
-        android.Manifest.permission.CAMERA,
-        android.Manifest.permission.ACCESS_FINE_LOCATION,
-        android.Manifest.permission.ACCESS_COARSE_LOCATION,
-        android.Manifest.permission.ACCESS_NETWORK_STATE,
-        android.Manifest.permission.READ_EXTERNAL_STORAGE,
-        android.Manifest.permission.ACCESS_BACKGROUND_LOCATION
-    )
 
     init {
         DaggerApplication.appComponent?.inject(this)
@@ -108,18 +106,18 @@ class HomeFragment : Fragment() {
 
         }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        registerPermissionListener()
+        checkPermissionCalendar()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = HomeFragmentBinding.inflate(inflater, container, false)
         return binding.root
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        registerPermissionListener()
-        checkPermissionCalendar()
     }
 
     override fun onStart() {
@@ -214,13 +212,13 @@ class HomeFragment : Fragment() {
     }
 
     private fun checkPermissionCalendar() {
-        permissions.map { permission ->
+        PERMISSIONS.map { permission ->
             when {
                 ContextCompat.checkSelfPermission(
                     requireContext(),
                     permission
                 ) != PackageManager.PERMISSION_GRANTED -> {
-                    pLauncher.launch(permissions)
+                    pLauncher.launch(PERMISSIONS)
                 }
             }
         }
@@ -230,7 +228,7 @@ class HomeFragment : Fragment() {
         pLauncher = registerForActivityResult(
             ActivityResultContracts.RequestMultiplePermissions()
         ) { mapPermission ->
-            permissions.map { permission ->
+            PERMISSIONS.map { permission ->
                 if (mapPermission[permission] == true) {
                     Log.e(TAG, "$permission $GRANTED")
                 } else {

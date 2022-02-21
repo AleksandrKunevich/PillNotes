@@ -1,15 +1,14 @@
 package com.example.pillnotes.domain.calendar
 
+import android.annotation.SuppressLint
 import android.content.ContentResolver
 import android.content.ContentUris
 import android.content.ContentValues
 import android.content.Context
 import android.net.Uri
 import android.provider.CalendarContract
-import android.util.Log
 import android.widget.Toast
 import com.example.pillnotes.domain.Constants
-import com.example.pillnotes.domain.longToTime
 import com.example.pillnotes.domain.model.NoteTask
 import java.lang.Long
 import java.text.SimpleDateFormat
@@ -20,10 +19,6 @@ import kotlin.Int
 
 class CalendarReminderImpl @Inject constructor(private val context: Context) : CalendarReminder {
 
-    companion object {
-        const val TAG = "TAG:com.example.pillnotes.domain.calendar.CalendarReminderImpl"
-    }
-
     override fun addEventCalendar(noteTask: NoteTask) {
         val uid = noteTask.uid.toString()
         val eventTitle = noteTask.title
@@ -33,8 +28,6 @@ class CalendarReminderImpl @Inject constructor(private val context: Context) : C
             noteTask.time.substring(Constants.TIME_START_INDEX, Constants.TIME_END_INDEX)
         val reminderDayTimeStart = "$eventTime $eventDay"
         val reminderDayTimeEnd = reminderDayTimeStart
-        Log.e(TAG, "$reminderDayTimeEnd")
-
         val formatter = SimpleDateFormat(Constants.DATE_FORMAT_24H)
         val startDate: Date = formatter.parse(reminderDayTimeStart)
         val endDate: Date = formatter.parse(reminderDayTimeEnd)
@@ -67,10 +60,11 @@ class CalendarReminderImpl @Inject constructor(private val context: Context) : C
             val remindersUri: Uri? = context.contentResolver.insert(reminderUri, reminders)
         } catch (e: Exception) {
             Toast.makeText(context, "Sorry! Calendar ERROR.", Toast.LENGTH_SHORT).show()
-            Log.e(TAG, "exception: $e")
+            e.stackTrace
         }
     }
 
+    @SuppressLint("Recycle")
     override fun deleteEvent(noteTask: NoteTask) {
         val cursor = context.contentResolver.query(
             CalendarContract.Events.CONTENT_URI,
@@ -90,45 +84,6 @@ class CalendarReminderImpl @Inject constructor(private val context: Context) : C
                 )
                 val rows: Int = context.contentResolver.delete(deleteUri, null, null)
             }
-        }
-    }
-
-    override fun showEventCalendar() {
-        val cursor = context.contentResolver.query(
-            CalendarContract.Events.CONTENT_URI,
-            null,
-            null,
-            null,
-            null
-        )!!
-        cursor.moveToFirst()
-        while (cursor.moveToNext()) {
-            val status = cursor.getColumnIndex(CalendarContract.Events.STATUS)
-            val uidEvents = cursor.getColumnIndex(CalendarContract.Events.UID_2445)
-            val titleEvents = cursor.getColumnIndex(CalendarContract.Events.TITLE)
-            val rruleEvents = cursor.getColumnIndex(CalendarContract.Events.RRULE)
-            val descriptionEvents = cursor.getColumnIndex(CalendarContract.Events.DESCRIPTION)
-            val startEvents = cursor.getColumnIndex(CalendarContract.Events.DTSTART)
-            val endEvents = cursor.getColumnIndex(CalendarContract.Events.DTEND)
-            val statusEvents = cursor.getColumnIndex(CalendarContract.Events.STATUS)
-            val uid = cursor.getString(uidEvents)
-            val title = cursor.getString(titleEvents)
-            val rrule = cursor.getString(rruleEvents)
-            val description = cursor.getString(descriptionEvents)
-            val dayStart = cursor.getLong(startEvents).longToTime()
-            val dayEnd = cursor.getLong(endEvents).longToTime()
-            val statusEvent = cursor.getString(statusEvents)
-            Log.e(
-                TAG, """
-                       id: $uid
-                       title: $title
-                       description: $description
-                       start: $dayStart 
-                       rrule: $rrule 
-                       end: $dayEnd
-                       status: $statusEvent
-                      """.trimIndent()
-            )
         }
     }
 }

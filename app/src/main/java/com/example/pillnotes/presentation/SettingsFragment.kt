@@ -36,10 +36,12 @@ class SettingsFragment : PreferenceFragmentCompat() {
             findPreference<Preference>(requireContext().resources.getString(R.string.key_email_me))
         email?.setOnPreferenceClickListener {
             val intent = Intent(Intent.ACTION_SENDTO)
-            intent.data = Uri.parse("mailto:" + Uri.encode(EMAIL) +
-                    "?subject=" + Uri.encode(SUBJECT) +
-                    "&body=" + Uri.encode(MESSAGE))
-            startActivity(Intent.createChooser(intent, "Send mail..."))
+            intent.data = Uri.parse(
+                "mailto:" + Uri.encode(EMAIL) +
+                        "?subject=" + Uri.encode(SUBJECT) +
+                        "&body=" + Uri.encode(MESSAGE)
+            )
+            startActivity(Intent.createChooser(intent, getString(R.string.send_email)))
             true
         }
     }
