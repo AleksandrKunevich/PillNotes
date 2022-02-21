@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_home_fragment"
-    tools:context=".NewContactDoctorFragment">
+    tools:context=".presentation.NewContactDoctorFragment">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imgTakePhotoContact"

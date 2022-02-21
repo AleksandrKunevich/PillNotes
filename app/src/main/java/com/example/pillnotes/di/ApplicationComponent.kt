@@ -1,7 +1,7 @@
 package com.example.pillnotes.di
 
 import android.content.Context
-import com.example.pillnotes.NewContactDoctorFragment
+import com.example.pillnotes.presentation.NewContactDoctorFragment
 import com.example.pillnotes.presentation.*
 import dagger.BindsInstance
 import dagger.Component

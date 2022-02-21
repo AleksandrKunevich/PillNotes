@@ -24,5 +24,8 @@ data class ContactDoctorEntity(
     val latitude: Double,
 
     @ColumnInfo(name = "longitude")
-    val longitude: Double
+    val longitude: Double,
+
+    @ColumnInfo(name = "isLocation")
+    val isLocation: Boolean
 )

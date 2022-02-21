@@ -36,7 +36,8 @@ internal fun ContactDoctor.toContactEntity(): ContactDoctorEntity {
         profession = profession,
         phone = phone,
         latitude = location.latitude,
-        longitude = location.longitude
+        longitude = location.longitude,
+        isLocation = isLocation
     )
 }
 
@@ -50,6 +51,7 @@ internal fun ContactDoctorEntity.toContact(): ContactDoctor {
             .apply {
                 longitude = this@toContact.longitude
                 latitude = this@toContact.latitude
-            }
+            },
+        isLocation = isLocation
     )
 }

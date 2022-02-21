@@ -11,5 +11,6 @@ data class ContactDoctor(
     val name: String,
     val profession: String,
     val phone: String,
-    val location: Location
+    val location: Location,
+    val isLocation: Boolean
 ): Parcelable

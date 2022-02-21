@@ -2,20 +2,20 @@ package com.example.pillnotes.presentation
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.location.Location
-import android.location.LocationManager
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.pillnotes.DaggerApplication
 import com.example.pillnotes.R
 import com.example.pillnotes.databinding.FragmentContactsBinding
+import com.example.pillnotes.domain.Constants
 import com.example.pillnotes.domain.contactdoctor.ContactDoctorListener
 import com.example.pillnotes.domain.model.ContactDoctor
 import com.example.pillnotes.domain.viewmodel.ContactViewModel
@@ -24,7 +24,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import java.util.*
 import javax.inject.Inject
 
 class ContactsFragment : Fragment() {
@@ -50,7 +49,7 @@ class ContactsFragment : Fragment() {
             )
             dialog
                 .setTitle(getString(R.string.are_you_sure_delete_this))
-                .setItems(dialogItem) { dialog, which ->
+                .setItems(dialogItem) { _, which ->
                     when (which) {
                         0 -> {
                             contactViewModel.deleteContact(item)
@@ -61,7 +60,8 @@ class ContactsFragment : Fragment() {
         }
 
         override fun onContactDoctorClick(item: ContactDoctor) {
-            findNavController().navigate(R.id.contacts_to_newContact)
+            val bundle = bundleOf(Constants.CONTACT_CODE to item)
+            findNavController().navigate(R.id.contacts_to_newContact, bundle)
         }
 
         override fun onContactDoctorCallClick(item: ContactDoctor) {
@@ -94,15 +94,7 @@ class ContactsFragment : Fragment() {
 
         binding.apply {
             btnAddContact.setOnClickListener {
-                contactViewModel.addContact(
-                    ContactDoctor(
-                        UUID.randomUUID(),
-                        "Doctor name",
-                        "superman",
-                        "+11111111",
-                        Location(LocationManager.GPS_PROVIDER)
-                    )
-                )
+                findNavController().navigate(R.id.contacts_to_newContact)
             }
         }
     }
@@ -115,6 +107,7 @@ class ContactsFragment : Fragment() {
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun setContactUpdate(listContact: List<ContactDoctor>) {
         adapterContact.updateList(listContact)
         binding.recyclerContact.post { adapterContact.notifyDataSetChanged() }
