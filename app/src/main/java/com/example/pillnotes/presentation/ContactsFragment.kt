@@ -2,8 +2,10 @@ package com.example.pillnotes.presentation
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.location.Location
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,8 +20,10 @@ import com.example.pillnotes.R
 import com.example.pillnotes.databinding.FragmentContactsBinding
 import com.example.pillnotes.domain.Constants
 import com.example.pillnotes.domain.contactdoctor.ContactDoctorListener
+import com.example.pillnotes.domain.contactdoctor.location.LocationService
 import com.example.pillnotes.domain.model.ContactDoctor
 import com.example.pillnotes.domain.viewmodel.ContactViewModel
+import com.example.pillnotes.domain.viewmodel.LocationViewModel
 import com.example.pillnotes.presentation.recycler.contactdoctod.ContactDoctorAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -36,10 +40,14 @@ class ContactsFragment : Fragment() {
     @Inject
     lateinit var contactViewModel: ContactViewModel
 
+    @Inject
+    lateinit var locationViewModel: LocationViewModel
+
     private lateinit var binding: FragmentContactsBinding
     private var listContacts = listOf<ContactDoctor>()
     private val adapterContact by lazy { ContactDoctorAdapter(requireContext(), onClickContact) }
     private val scope: CoroutineScope = CoroutineScope(Dispatchers.IO)
+    private var yourLocation: Location? = null
 
     private val onClickContact: ContactDoctorListener = object : ContactDoctorListener {
         override fun onDeleteClick(item: ContactDoctor) {
@@ -72,10 +80,22 @@ class ContactsFragment : Fragment() {
         }
 
         override fun onContactDoctorMapsClick(item: ContactDoctor) {
-            if (item.isLocation) {
+            yourLocation = locationViewModel.yourLocation.value
+            Log.e("!!!!!!!", "${item.isLocation}   $yourLocation")
+            if (item.isLocation && yourLocation != null) {
                 val intent = Intent(Intent.ACTION_VIEW)
-                intent.data =
-                    Uri.parse("http://maps.google.com/maps?saddr=20.344,34.34&daddr=20.5666,45.345")
+                val startLatitude = yourLocation!!.latitude
+                val startLongitude = yourLocation!!.longitude
+                val endLatitude = item.location.latitude
+                val endLongitude = item.location.longitude
+                intent.data = Uri.parse(
+                    "http://maps.google.com/maps?saddr=" +
+                            "$startLatitude," +
+                            "$startLongitude" +
+                            "&daddr=" +
+                            "$endLatitude," +
+                            "$endLongitude"
+                )
                 startActivity(Intent.createChooser(intent, getString(R.string.choose_tracker)))
             } else {
                 Toast.makeText(
@@ -98,8 +118,10 @@ class ContactsFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
+        requireContext().startService(Intent(requireContext(), LocationService::class.java))
         initRecyclerContact()
         initObserve()
+        initLocationCheck()
 
         binding.apply {
             btnAddContact.setOnClickListener {
@@ -127,5 +149,17 @@ class ContactsFragment : Fragment() {
             listContacts = listContactDoctor
             setContactUpdate(listContactDoctor)
         }.launchIn(scope)
+    }
+
+    private fun initLocationCheck() {
+        locationViewModel.yourLocation.observe(viewLifecycleOwner) {
+            yourLocation = it
+            Log.e("!!!!!!!", "initObserve3: $yourLocation", )
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        requireContext().stopService(Intent(requireContext(), LocationService::class.java))
     }
 }

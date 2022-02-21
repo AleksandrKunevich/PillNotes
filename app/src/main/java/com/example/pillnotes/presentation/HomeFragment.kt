@@ -40,12 +40,16 @@ class HomeFragment : Fragment() {
     }
 
     private val permissions = arrayOf(
+        android.Manifest.permission.INTERNET,
         android.Manifest.permission.READ_CALENDAR,
         android.Manifest.permission.WRITE_CALENDAR,
-        android.Manifest.permission.CAMERA,
         android.Manifest.permission.VIBRATE,
+        android.Manifest.permission.CAMERA,
+        android.Manifest.permission.ACCESS_FINE_LOCATION,
         android.Manifest.permission.ACCESS_COARSE_LOCATION,
-        android.Manifest.permission.ACCESS_FINE_LOCATION
+        android.Manifest.permission.ACCESS_NETWORK_STATE,
+        android.Manifest.permission.READ_EXTERNAL_STORAGE,
+        android.Manifest.permission.ACCESS_BACKGROUND_LOCATION
     )
 
     init {
