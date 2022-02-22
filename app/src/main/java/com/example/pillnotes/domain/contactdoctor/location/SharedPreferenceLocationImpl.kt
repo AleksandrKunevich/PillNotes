@@ -2,6 +2,7 @@ package com.example.pillnotes.domain.contactdoctor.location
 
 import android.content.Context
 import android.location.Location
+import android.util.Log
 
 class SharedPreferenceLocationImpl(private val context: Context) : SharedPreferenceLocation {
 
@@ -19,7 +20,7 @@ class SharedPreferenceLocationImpl(private val context: Context) : SharedPrefere
     }
 
     override fun saveLocation(key: String, key2: String, value: Location) {
-
+        Log.e("!!!!!!!!!", "saveLocation: $value")
         prefs.edit()
             .putFloat(key, value.latitude.toFloat())
             .putFloat(key2, value.longitude.toFloat())

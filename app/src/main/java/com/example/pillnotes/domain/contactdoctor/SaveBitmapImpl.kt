@@ -15,7 +15,7 @@ import javax.inject.Inject
 class SaveBitmapImpl @Inject constructor() : SaveBitmapInterface {
 
     companion object {
-        const val QUALITY_JPEG = 100
+        const val QUALITY_JPEG = 50
     }
 
     override fun saveBitmapInStorage(bitmap: Bitmap, context: Context) {

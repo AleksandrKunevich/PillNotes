@@ -74,18 +74,12 @@ class ContactViewModel @Inject constructor(
             if (!(context.getSystemService(Service.LOCATION_SERVICE) as LocationManager)
                     .isProviderEnabled(LocationManager.GPS_PROVIDER)
             ) {
-                val pictureDialog = AlertDialog.Builder(context)
-                pictureDialog.setTitle(context.getString(R.string.lets_on_gps))
-                val pictureDialogItem = arrayOf(
-                    context.getString(R.string.ok),
-                    context.getString(R.string.cancel)
+                Toast.makeText(
+                    context,
+                    context.getString(R.string.lets_on_gps),
+                    Toast.LENGTH_SHORT
                 )
-                pictureDialog.setItems(pictureDialogItem) { dialog, which ->
-                    when (which) {
-                        0 -> context.startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
-                    }
-                }
-                pictureDialog.show()
+                    .show()
             } else return true
             return false
         }

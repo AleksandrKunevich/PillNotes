@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.location.Location
 import android.location.LocationManager
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.LayoutInflater
@@ -21,6 +22,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.pillnotes.DaggerApplication
 import com.example.pillnotes.R
+import com.example.pillnotes.data.room.util.BitMapConverter
 import com.example.pillnotes.databinding.FragmentNewContactDoctorBinding
 import com.example.pillnotes.domain.Constants
 import com.example.pillnotes.domain.contactdoctor.SaveBitmapImpl
@@ -114,12 +116,14 @@ class NewContactDoctorFragment : Fragment() {
                 )
                 val pictureDialogItem = arrayOf(
                     getString(R.string.select_gallery),
-                    getString(R.string.capture_camera)
+                    getString(R.string.capture_camera),
+                    getString(R.string.cancel)
                 )
                 pictureDialog.setItems(pictureDialogItem) { dialog, which ->
                     when (which) {
                         0 -> startGallery()
                         1 -> startCamera()
+                        2 -> {}
                     }
                 }
                 pictureDialog.show()
@@ -141,7 +145,7 @@ class NewContactDoctorFragment : Fragment() {
     }
 
     private fun startGallery() {
-        val intent = Intent(Intent.ACTION_PICK)
+        val intent = Intent(Intent.ACTION_GET_CONTENT)
         intent.type = "image/*"
         startActivityForResult(intent, galleryRequestCode)
     }
@@ -167,12 +171,26 @@ class NewContactDoctorFragment : Fragment() {
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
                 galleryRequestCode -> {
-                    binding.imgTakePhotoContact.setImageURI(data?.data)
+                    var bitmap = MediaStore.Images.Media.getBitmap(
+                        requireContext().contentResolver,
+                        Uri.parse(data?.data.toString())
+                    )
+                    val bitmapByte = BitMapConverter.fromBitMap(bitmap)
+                    bitmap = BitMapConverter.bitmapFromByteArray(bitmapByte)
+                    binding.imgTakePhotoContact.setImageBitmap(bitmap)
+                    if (contactDoctor != null) {
+                        contactDoctor!!.bitmap = binding.imgTakePhotoContact.drawable.toBitmap()
+                    }
                 }
                 cameraRequestCode -> {
-                    val bitmap = data?.extras?.get("data") as Bitmap
+                    var bitmap = data?.extras?.get("data") as Bitmap
+                    val bitmapByte = BitMapConverter.fromBitMap(bitmap)
+                    bitmap = BitMapConverter.bitmapFromByteArray(bitmapByte)
                     saveBitmap.saveBitmapInStorage(bitmap, requireContext())
                     binding.imgTakePhotoContact.setImageBitmap(bitmap)
+                    if (contactDoctor != null) {
+                        contactDoctor!!.bitmap = binding.imgTakePhotoContact.drawable.toBitmap()
+                    }
                 }
             }
         }

@@ -105,10 +105,7 @@ class CalendarReminderImpl @Inject constructor(private val context: Context) : C
                 context,
                 android.Manifest.permission.READ_CALENDAR,
             ) == PackageManager.PERMISSION_GRANTED
-                    ) && (ContextCompat.checkSelfPermission(
-                context,
-                android.Manifest.permission.WRITE_CALENDAR
-            ) == PackageManager.PERMISSION_GRANTED)
+                    )
         ) {
             Toast.makeText(
                 context,

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.IBinder
+import android.util.Log
 import com.example.pillnotes.DaggerApplication
 import com.example.pillnotes.domain.viewmodel.LocationViewModel
 import javax.inject.Inject
@@ -21,6 +22,7 @@ class LocationService : Service() {
     private lateinit var locationManager: LocationManager
 
     private val locationListener: LocationListener = LocationListener { location ->
+        Log.e("!!!!!!!!!", "location: $location")
         locationViewModel.setYourLocation(location)
     }
 
@@ -34,7 +36,8 @@ class LocationService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        if (!(applicationContext.getSystemService(Service.LOCATION_SERVICE) as LocationManager)
+        Log.e("!!!!!!!!!", "onStart")
+        if ((applicationContext.getSystemService(Service.LOCATION_SERVICE) as LocationManager)
                 .isProviderEnabled(LocationManager.GPS_PROVIDER)
         ) {
             locationManager.requestLocationUpdates(

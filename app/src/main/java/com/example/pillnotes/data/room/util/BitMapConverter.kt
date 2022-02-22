@@ -7,8 +7,8 @@ import java.io.ByteArrayOutputStream
 
 object BitMapConverter {
 
-    private const val LIMIT_IMAGE_SIZE = 500000
-    private const val QUALITY_DOWN = 20
+    private const val LIMIT_IMAGE_SIZE = 100000
+    private const val QUALITY_DOWN = 10
 
     @TypeConverter
     fun fromBitMap(bitmap: Bitmap): ByteArray {
