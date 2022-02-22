@@ -34,6 +34,7 @@ class ContactDoctorAdapter(
 
     @SuppressLint("NotifyDataSetChanged")
     fun updateList(data: List<ContactDoctor>) {
-        items = data
+        val sortedData = data.sortedWith(compareBy { it.name })
+        items = sortedData
     }
 }

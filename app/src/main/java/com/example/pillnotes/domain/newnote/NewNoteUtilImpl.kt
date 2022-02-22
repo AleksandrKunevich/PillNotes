@@ -47,6 +47,7 @@ class NewNoteUtilImpl @Inject constructor(private val context: Context) : NewNot
         view.setOnClickListener {
             val timeCallBack =
                 TimePickerDialog.OnTimeSetListener { timePickerView, hourOfDay, minute ->
+                    timePickerView.setIs24HourView(true)
                     cal.set(Calendar.HOUR_OF_DAY, hourOfDay)
                     cal.set(Calendar.MINUTE, minute)
                     view.text = SimpleDateFormat(Constants.TIME_FORMAT).format(cal.time)

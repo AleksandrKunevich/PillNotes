@@ -41,7 +41,8 @@ class NoteTaskAdapter(
                 filteredData.add(note)
             }
         }
-        items = filteredData.toList()
+        val sortedData = filteredData.sortedWith(compareBy { it.time })
+        items = sortedData.toList()
     }
 
     private fun isRrule(note: NoteTask, monthYear: String, daySelected: LocalDate): Boolean {
