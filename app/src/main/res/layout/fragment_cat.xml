@@ -7,12 +7,18 @@
     android:background="@color/background_home_fragment"
     tools:context=".presentation.MainActivity">
 
+    <SurfaceView
+        android:id="@+id/sfCat"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </SurfaceView>
+
     <ImageView
         android:id="@+id/imgCat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/click_me"
-        android:src="@drawable/ic_baseline_thumb_up_300"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
