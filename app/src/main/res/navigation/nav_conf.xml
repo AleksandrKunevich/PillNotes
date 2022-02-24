@@ -14,6 +14,14 @@
     </fragment>
 
     <fragment
+        android:id="@+id/menuCat"
+        android:name="com.example.pillnotes.presentation.CatFragment"
+        android:label="CatFragment"
+        tools:layout="@layout/fragment_cat">
+
+    </fragment>
+
+    <fragment
         android:id="@+id/menuHome"
         android:name="com.example.pillnotes.presentation.HomeFragment"
         android:label="HomeFragment">
@@ -23,6 +31,9 @@
         <action
             android:id="@+id/home_to_settings"
             app:destination="@id/menuSetting" />
+        <action
+            android:id="@+id/home_to_cat"
+            app:destination="@id/menuCat" />
         <action
             android:id="@+id/home_to_newNote"
             app:destination="@id/newNoteFragment" />

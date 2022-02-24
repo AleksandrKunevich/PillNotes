@@ -3,6 +3,8 @@ package com.example.pillnotes.domain.viewmodel.di
 import android.content.Context
 import com.example.pillnotes.data.room.interactor.ContactInteractorImpl
 import com.example.pillnotes.data.room.interactor.NoteTaskInteractorImpl
+import com.example.pillnotes.domain.cat.CatInteractorInterface
+import com.example.pillnotes.domain.viewmodel.CatViewModel
 import com.example.pillnotes.domain.viewmodel.ContactViewModel
 import com.example.pillnotes.domain.viewmodel.LocationViewModel
 import com.example.pillnotes.domain.viewmodel.NoteTaskViewModel
@@ -26,4 +28,8 @@ object ViewModelModule {
     @Provides
     fun provideLocationViewModel(context: Context): LocationViewModel =
         LocationViewModel(context)
+
+    @Provides
+    fun provideCatViewModel(interactor: CatInteractorInterface): CatViewModel =
+        CatViewModel(interactor)
 }

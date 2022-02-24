@@ -14,6 +14,12 @@
         android:visible="true" />
 
     <item
+        android:id="@+id/menuCat"
+        android:icon="@drawable/ic_baseline_thumb_up_300"
+        android:title="@string/funny_cat"
+        android:visible="true" />
+
+    <item
         android:id="@+id/menuSetting"
         android:icon="@drawable/ic_settings_24"
         android:title="@string/settings"
