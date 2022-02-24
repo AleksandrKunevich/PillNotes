@@ -1,9 +1,6 @@
 package com.example.pillnotes.presentation
 
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.Canvas
-import android.graphics.Paint
+import android.graphics.*
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.SurfaceHolder
@@ -58,11 +55,22 @@ class CatFragment : Fragment() {
                 paint.style = Paint.Style.STROKE
                 paint.strokeWidth = 3.0f
                 canvas.drawPoint(100.0f, 100.0f, paint)
-
                 val bitmapSource: Bitmap =
                     BitmapFactory.decodeResource(context?.resources, R.mipmap.ic_app_star)
-                canvas.drawBitmap(bitmapSource, 300f, 300f, paint)
-
+                val matrix = Matrix().apply {
+                    postRotate(30f)
+                    postScale(0.5f, 0.5f)
+                }
+                val bitmap = Bitmap.createBitmap(
+                    bitmapSource,
+                    0,
+                    0,
+                    bitmapSource.width,
+                    bitmapSource.height,
+                    matrix,
+                    true
+                )
+                canvas.drawBitmap(bitmap, 200f, 200f, paint)
                 holder.unlockCanvasAndPost(canvas)
             }
 
