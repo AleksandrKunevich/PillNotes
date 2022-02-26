@@ -8,6 +8,8 @@ import android.view.SurfaceHolder
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import com.example.pillnotes.DaggerApplication
 import com.example.pillnotes.R
 import com.example.pillnotes.databinding.FragmentCatBinding
@@ -30,8 +32,14 @@ class CatFragment : Fragment() {
         DaggerApplication.appComponent?.inject(this)
     }
 
+//    @Inject
+//    lateinit var catViewModel: CatViewModel
+
     @Inject
-    lateinit var catViewModel: CatViewModel
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    private val catViewModel: CatViewModel by viewModels { viewModelFactory }
+
 
     private lateinit var binding: FragmentCatBinding
     private var scopeStar: Job? = null

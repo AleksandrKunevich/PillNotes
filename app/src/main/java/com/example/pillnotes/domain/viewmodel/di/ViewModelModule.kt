@@ -29,7 +29,7 @@ object ViewModelModule {
     fun provideLocationViewModel(context: Context): LocationViewModel =
         LocationViewModel(context)
 
-    @Provides
-    fun provideCatViewModel(interactor: CatInteractorInterface): CatViewModel =
-        CatViewModel(interactor)
+//    @Provides
+//    fun provideCatViewModel(interactor: CatInteractorInterface): CatViewModel =
+//        CatViewModel(interactor)
 }

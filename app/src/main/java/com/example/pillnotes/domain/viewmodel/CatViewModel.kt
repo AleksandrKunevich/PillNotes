@@ -6,8 +6,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pillnotes.domain.cat.CatInteractorInterface
 import kotlinx.coroutines.launch
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class CatViewModel(
+class CatViewModel @Inject constructor(
     private val interactor: CatInteractorInterface
 ) : ViewModel() {
 
