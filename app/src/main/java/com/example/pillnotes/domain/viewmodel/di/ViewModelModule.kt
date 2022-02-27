@@ -10,6 +10,7 @@ import com.example.pillnotes.domain.viewmodel.LocationViewModel
 import com.example.pillnotes.domain.viewmodel.NoteTaskViewModel
 import dagger.Module
 import dagger.Provides
+import javax.inject.Singleton
 
 @Module
 object ViewModelModule {
@@ -29,7 +30,7 @@ object ViewModelModule {
     fun provideLocationViewModel(context: Context): LocationViewModel =
         LocationViewModel(context)
 
-//    @Provides
-//    fun provideCatViewModel(interactor: CatInteractorInterface): CatViewModel =
-//        CatViewModel(interactor)
+    @Provides
+    fun provideCatViewModel(interactor: CatInteractorInterface): CatViewModel =
+        CatViewModel(interactor)
 }

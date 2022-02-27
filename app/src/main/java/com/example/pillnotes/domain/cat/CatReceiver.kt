@@ -20,8 +20,9 @@ class CatReceiver : BroadcastReceiver() {
         connectivityManager.registerDefaultNetworkCallback(object :
             ConnectivityManager.NetworkCallback() {
             override fun onAvailable(network: Network) {
-                CatFragment.catViewModel.getCatRandomBitmap()
-                Log.e("!!!!!!!!!", "onAvailable: ${CatFragment.catViewModel}")
+                val a = CatFragment().catViewModel
+                a.getCatRandomBitmap()
+                Log.e("!!!!!!!!!", "onAvailable: $a")
             }
 
             override fun onLost(network: Network) {

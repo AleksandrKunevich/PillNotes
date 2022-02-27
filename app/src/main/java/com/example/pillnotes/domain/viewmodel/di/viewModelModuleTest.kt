@@ -34,7 +34,7 @@ abstract class ViewModelModule2 {
 @MapKey
 annotation class ViewModelKey(val value: KClass<out ViewModel>)
 
-@Singleton
+//@Singleton
 class ViewModelFactory @Inject constructor(
     private val creators: Map<Class<out ViewModel>, @JvmSuppressWildcards Provider<ViewModel>>
 ) : ViewModelProvider.Factory {

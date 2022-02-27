@@ -10,6 +10,7 @@ import android.view.SurfaceHolder
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.pillnotes.DaggerApplication
 import com.example.pillnotes.R
@@ -28,15 +29,18 @@ class CatFragment : Fragment() {
 
     companion object {
         const val TAG = "!!!!!!!!!!"
-
-        @Inject
-        lateinit var viewModelFactory: ViewModelProvider.Factory
-        internal val catViewModel: CatViewModel = viewModelFactory.create(CatViewModel::class.java)
     }
 
     init {
         DaggerApplication.appComponent?.inject(this)
     }
+
+//    @Inject
+//    lateinit var viewModelFactory: ViewModelProvider.Factory
+//    internal val catViewModel: CatViewModel = viewModelFactory.create(CatViewModel::class.java)
+
+    @Inject
+    lateinit var catViewModel: CatViewModel
 
     private lateinit var binding: FragmentCatBinding
     private var scopeStar: Job? = null
