@@ -8,7 +8,9 @@ import com.example.pillnotes.domain.contactdoctor.location.LocationService
 import com.example.pillnotes.presentation.*
 import dagger.BindsInstance
 import dagger.Component
+import javax.inject.Singleton
 
+@Singleton
 @Component(
     modules = [AppModule::class]
 )
