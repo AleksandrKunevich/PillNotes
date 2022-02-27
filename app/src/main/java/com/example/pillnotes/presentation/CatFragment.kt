@@ -1,6 +1,8 @@
 package com.example.pillnotes.presentation
 
+import android.content.IntentFilter
 import android.graphics.*
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,11 +10,11 @@ import android.view.SurfaceHolder
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.pillnotes.DaggerApplication
 import com.example.pillnotes.R
 import com.example.pillnotes.databinding.FragmentCatBinding
+import com.example.pillnotes.domain.cat.CatReceiver
 import com.example.pillnotes.domain.stars.ModelStar
 import com.example.pillnotes.domain.stars.PointStar
 import com.example.pillnotes.domain.viewmodel.CatViewModel
@@ -26,23 +28,19 @@ class CatFragment : Fragment() {
 
     companion object {
         const val TAG = "!!!!!!!!!!"
+
+        @Inject
+        lateinit var viewModelFactory: ViewModelProvider.Factory
+        internal val catViewModel: CatViewModel = viewModelFactory.create(CatViewModel::class.java)
     }
 
     init {
         DaggerApplication.appComponent?.inject(this)
     }
 
-//    @Inject
-//    lateinit var catViewModel: CatViewModel
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    private val catViewModel: CatViewModel by viewModels { viewModelFactory }
-
-
     private lateinit var binding: FragmentCatBinding
     private var scopeStar: Job? = null
+    private val catReceiver: CatReceiver by lazy { CatReceiver() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,6 +52,10 @@ class CatFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        requireContext().registerReceiver(
+            catReceiver,
+            IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
+        )
         loadCat()
     }
 
@@ -145,10 +147,12 @@ class CatFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
+        requireContext().unregisterReceiver(catReceiver)
         scopeStar?.cancel()
     }
 
     private fun loadCat() {
         catViewModel.getCatRandomBitmap()
+        Log.e("!!!!!!!!!", "onAvailable: $catViewModel")
     }
 }

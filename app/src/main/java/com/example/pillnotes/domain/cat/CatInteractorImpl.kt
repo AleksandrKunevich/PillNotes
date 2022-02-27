@@ -22,26 +22,34 @@ class CatInteractorImpl @Inject constructor(
     override suspend fun loadCatImage(): Bitmap {
         val bitmap = withContext(Dispatchers.IO) {
             val catUrl = async {
-                return@async catApi.getCatRandom()[0].url
+                try {
+                    return@async catApi.getCatRandom()[0].url
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
             }.await()
 
             val waitBitMap = async {
-                Glide.with(context)
-                    .asBitmap()
-                    .load(catUrl)
-                    .into(object : CustomTarget<Bitmap>() {
-                        override fun onResourceReady(
-                            resource: Bitmap,
-                            transition: Transition<in Bitmap>?
-                        ) {
-                            result = resource
-                        }
+                try {
+                    Glide.with(context)
+                        .asBitmap()
+                        .load(catUrl)
+                        .into(object : CustomTarget<Bitmap>() {
+                            override fun onResourceReady(
+                                resource: Bitmap,
+                                transition: Transition<in Bitmap>?
+                            ) {
+                                result = resource
+                            }
 
-                        override fun onLoadCleared(placeholder: Drawable?) {
-                        }
-                    })
-                while (true) {
-                    if (result != null) return@async result
+                            override fun onLoadCleared(placeholder: Drawable?) {
+                            }
+                        })
+                    while (true) {
+                        if (result != null) return@async result
+                    }
+                } catch (e:Exception){
+                    e.printStackTrace()
                 }
             }.await()
             return@withContext waitBitMap

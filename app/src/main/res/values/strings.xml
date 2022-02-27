@@ -85,4 +85,5 @@
     <string name="no_camera_perm">No camera permission</string>
     <string name="no_location_perm">No location permission</string>
     <string name="no_calendar_perm">No calendar permission</string>
+    <string name="check_internet">Check INTERNET connection!</string>
 </resources>
