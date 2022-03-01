@@ -30,4 +30,5 @@ object Constants {
     const val RRULE_WEEKLY = "FREQ=WEEKLY;INTERVAL=1"
     const val RRULE_MONTHLY = "FREQ=MONTHLY;INTERVAL=1"
     const val RRULE_YEARLY = "FREQ=YEARLY;INTERVAL=1"
+    const val BASE_URL_CAT = "https://api.thecatapi.com/v1/"
 }

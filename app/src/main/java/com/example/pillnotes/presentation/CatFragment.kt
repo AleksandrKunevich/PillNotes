@@ -4,14 +4,11 @@ import android.content.IntentFilter
 import android.graphics.*
 import android.net.ConnectivityManager
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.SurfaceHolder
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import com.example.pillnotes.DaggerApplication
 import com.example.pillnotes.R
 import com.example.pillnotes.databinding.FragmentCatBinding
@@ -35,10 +32,6 @@ class CatFragment : Fragment() {
         DaggerApplication.appComponent?.inject(this)
     }
 
-//    @Inject
-//    lateinit var viewModelFactory: ViewModelProvider.Factory
-//    internal val catViewModel: CatViewModel = viewModelFactory.create(CatViewModel::class.java)
-
     @Inject
     lateinit var catViewModel: CatViewModel
 
@@ -54,18 +47,17 @@ class CatFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onResume() {
+        super.onResume()
         requireContext().registerReceiver(
             catReceiver,
             IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
         )
-        loadCat()
     }
 
     override fun onStart() {
         super.onStart()
-        Log.e(TAG, "onStart: ")
+        loadCat()
         binding.imgCat.setOnClickListener {
             loadCat()
         }
@@ -149,14 +141,14 @@ class CatFragment : Fragment() {
         scopeStar?.start()
     }
 
-    override fun onPause() {
-        super.onPause()
+    override fun onStop() {
+        super.onStop()
         requireContext().unregisterReceiver(catReceiver)
         scopeStar?.cancel()
+        super.onDestroy()
     }
 
     private fun loadCat() {
         catViewModel.getCatRandomBitmap()
-        Log.e("!!!!!!!!!", "onAvailable: $catViewModel")
     }
 }

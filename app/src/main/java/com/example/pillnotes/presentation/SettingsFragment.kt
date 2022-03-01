@@ -45,4 +45,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
             true
         }
     }
+
+    override fun onStop() {
+        super.onStop()
+        onDestroy()
+    }
 }

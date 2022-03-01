@@ -1,6 +1,7 @@
 package com.example.pillnotes.data.retrofit.di
 
 import com.example.pillnotes.data.retrofit.CatApi
+import com.example.pillnotes.domain.Constants
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -17,7 +18,7 @@ object RetrofitModule {
     @Provides
     fun provideRetrofit(gson: Gson): Retrofit =
         Retrofit.Builder()
-            .baseUrl("https://api.thecatapi.com/v1/")
+            .baseUrl(Constants.BASE_URL_CAT)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
 
