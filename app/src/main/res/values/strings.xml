@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">PillNotes</string>
     <string name="test_time">12:34</string>
@@ -6,7 +7,7 @@
     <string name="googlepath">Google path</string>
     <string name="settings">Settings</string>
     <string name="contacts">Contacts</string>
-    <string name="funny_cat">Funny cat`s</string>
+    <string name="funny_cat">Funny cat</string>
     <string name="click_me">Click me</string>
     <string name="vibration">Vibration</string>
     <string name="vibration_feedback">Vibration feedback</string>
@@ -18,8 +19,8 @@
     <string name="theme_light">Light theme</string>
     <string name="value_theme_dark">Dark</string>
     <string name="value_theme_light">Light</string>
-    <string name="key_theme">theme</string>
-    <string name="key_email_me">emailme</string>
+    <string name="key_theme">Theme</string>
+    <string name="key_email_me">E-mail me</string>
     <string name="theme">Theme</string>
     <string name="are_you_sure_delete_this">Are you sure delete this?</string>
     <string name="cancel">Cancel</string>
