@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="@color/background_pill_notes_item" />
+    <solid android:color="?attr/background_pill_notes_item" />
     <corners android:radius="@dimen/down_menu_button_radius"/>
 </shape>

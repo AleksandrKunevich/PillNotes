@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_home_fragment"
+    android:background="?attr/background_home_fragment"
     tools:context=".presentation.NewContactDoctorFragment">
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_min"
         android:text="@string/enter_name"
-        android:textColor="@color/text_color_note_enter_text"
+        android:textColor="?attr/text_color_note_enter_text"
         android:textSize="@dimen/size_pill_note_head"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/imgTakePhotoContact">
@@ -38,8 +38,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_min"
         android:hint="@string/name"
-        android:textColor="@color/text_color_note_enter_text"
-        android:textColorHint="@color/text_color_note_enter_text_hint"
+        android:textColor="?attr/text_color_note_enter_text"
+        android:textColorHint="?attr/text_color_note_enter_text_hint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvContactName">
@@ -52,7 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_min"
         android:text="@string/profession"
-        android:textColor="@color/text_color_note_enter_text"
+        android:textColor="?attr/text_color_note_enter_text"
         android:textSize="@dimen/size_pill_note_head"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/etContactName">
@@ -65,8 +65,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_min"
         android:hint="@string/profession"
-        android:textColor="@color/text_color_note_enter_text"
-        android:textColorHint="@color/text_color_note_enter_text_hint"
+        android:textColor="?attr/text_color_note_enter_text"
+        android:textColorHint="?attr/text_color_note_enter_text_hint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvContactProfession">
@@ -79,7 +79,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_min"
         android:text="@string/enter_phone"
-        android:textColor="@color/text_color_note_enter_text"
+        android:textColor="?attr/text_color_note_enter_text"
         android:textSize="@dimen/size_pill_note_head"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/etContactProfession">
@@ -93,8 +93,8 @@
         android:layout_margin="@dimen/margin_min"
         android:hint="@string/phone_number"
         android:inputType="phone"
-        android:textColor="@color/text_color_note_enter_text"
-        android:textColorHint="@color/text_color_note_enter_text_hint"
+        android:textColor="?attr/text_color_note_enter_text"
+        android:textColorHint="?attr/text_color_note_enter_text_hint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvContactPhone">
@@ -107,7 +107,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_min"
         android:text="@string/choose_location"
-        android:textColor="@color/text_color_note_enter_text"
+        android:textColor="?attr/text_color_note_enter_text"
         android:textSize="@dimen/size_pill_note_head"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/etContactPhone">
@@ -132,7 +132,7 @@
         android:layout_width="36dp"
         android:layout_height="36dp"
         android:layout_margin="@dimen/margin_min"
-        android:background="@color/background_home_fragment"
+        android:background="?attr/background_home_fragment"
         android:button="@drawable/checkbox_location"
         android:checked="false"
         android:clickable="false"
@@ -147,10 +147,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_min"
-        android:background="@color/background_down_menu_button"
+        android:background="?attr/background_down_menu_button"
         android:padding="@dimen/padding_min"
         android:text="@string/create"
-        android:textColor="@color/text_color_note_head"
+        android:textColor="?attr/text_color_note_head"
         android:textSize="@dimen/size_pill_btn_create"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <SwitchPreference
         android:defaultValue="true"
@@ -26,8 +25,8 @@
         tools:summary="@string/theme_dark" />
 
     <Preference
-        android:key="@string/key_email_me"
         android:icon="@drawable/ic_alternate_email_24"
+        android:key="@string/key_email_me"
         android:summary="@string/send_email" />
 
 </PreferenceScreen>

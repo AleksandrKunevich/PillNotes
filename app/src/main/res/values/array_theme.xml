@@ -2,7 +2,7 @@
 <resources>
     <array name="pref_theme_labels">
         <item>@string/dark</item>
-        <item>@string/theme_light</item>
+        <item>@string/light</item>
     </array>
 
     <string-array name="pref_theme_values">

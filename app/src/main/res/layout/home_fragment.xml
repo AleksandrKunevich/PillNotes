@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_home_fragment"
+    android:background="?attr/background_home_fragment"
     android:orientation="vertical">
 
     <LinearLayout
@@ -28,8 +28,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/back"
-                android:backgroundTint="@color/gray"
-                android:textColor="@color/text_color_item_name"
+                android:backgroundTint="?attr/background_home_fragment"
+                android:textColor="?attr/text_color_item_name"
                 android:textSize="@dimen/size_pill_item_result"
                 android:textStyle="bold" />
 
@@ -40,7 +40,7 @@
                 android:layout_weight="1"
                 android:text="@string/default_date_text"
                 android:textAlignment="center"
-                android:textColor="@color/black"
+                android:textColor="?attr/background_home_fragment"
                 android:textSize="@dimen/size_pill_item_task" />
 
             <Button
@@ -49,8 +49,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/forward"
-                android:backgroundTint="@color/gray"
-                android:textColor="@color/text_color_item_name"
+                android:backgroundTint="?attr/background_tint"
+                android:textColor="?attr/text_color_item_name"
                 android:textSize="@dimen/size_pill_item_task"
                 android:textStyle="bold" />
 
@@ -67,7 +67,7 @@
                 android:layout_weight="1"
                 android:text="@string/sun"
                 android:textAlignment="center"
-                android:textColor="@color/gray"
+                android:textColor="?attr/background_tint"
                 android:textSize="16sp" />
 
             <TextView
@@ -76,7 +76,7 @@
                 android:layout_weight="1"
                 android:text="@string/mon"
                 android:textAlignment="center"
-                android:textColor="@color/gray"
+                android:textColor="?attr/background_tint"
                 android:textSize="16sp" />
 
             <TextView
@@ -85,7 +85,7 @@
                 android:layout_weight="1"
                 android:text="@string/tue"
                 android:textAlignment="center"
-                android:textColor="@color/gray"
+                android:textColor="?attr/background_tint"
                 android:textSize="16sp" />
 
             <TextView
@@ -94,7 +94,7 @@
                 android:layout_weight="1"
                 android:text="@string/wed"
                 android:textAlignment="center"
-                android:textColor="@color/gray"
+                android:textColor="?attr/background_tint"
                 android:textSize="16sp" />
 
             <TextView
@@ -103,7 +103,7 @@
                 android:layout_weight="1"
                 android:text="@string/thur"
                 android:textAlignment="center"
-                android:textColor="@color/gray"
+                android:textColor="?attr/background_tint"
                 android:textSize="16sp" />
 
             <TextView
@@ -112,7 +112,7 @@
                 android:layout_weight="1"
                 android:text="@string/fri"
                 android:textAlignment="center"
-                android:textColor="@color/gray"
+                android:textColor="?attr/background_tint"
                 android:textSize="16sp" />
 
             <TextView
@@ -121,7 +121,7 @@
                 android:layout_weight="1"
                 android:text="@string/sat"
                 android:textAlignment="center"
-                android:textColor="@color/gray"
+                android:textColor="?attr/background_tint"
                 android:textSize="16sp" />
 
         </LinearLayout>
@@ -150,7 +150,7 @@
         android:layout_height="48dp"
         android:layout_marginEnd="@dimen/margin_medium"
         android:layout_marginBottom="@dimen/margin_medium"
-        android:backgroundTint="@color/transparent"
+        android:backgroundTint="?attr/transparent"
         app:icon="@drawable/add_circle_outline_48"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -163,7 +163,7 @@
         android:layout_height="48dp"
         android:layout_marginEnd="@dimen/margin_max"
         android:layout_marginBottom="@dimen/margin_medium"
-        android:backgroundTint="@color/transparent"
+        android:backgroundTint="?attr/transparent"
         android:contentDescription="@string/add_note"
         android:src="@drawable/ic_add_notes_48"
         android:visibility="invisible"
@@ -178,7 +178,7 @@
         android:layout_height="48dp"
         android:layout_marginEnd="@dimen/margin_max"
         android:layout_marginBottom="@dimen/margin_medium"
-        android:backgroundTint="@color/transparent"
+        android:backgroundTint="?attr/transparent"
         android:contentDescription="@string/add_alarm"
         android:src="@drawable/add_alert_48"
         android:visibility="invisible"
@@ -193,7 +193,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_min"
         android:text="@string/add_note"
-        android:textColor="@color/teal_700"
+        android:textColor="?attr/text_color_note_enter_text"
         android:textSize="@dimen/size_pill_item_task"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@id/floatingAddNote"
@@ -208,7 +208,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_min"
         android:text="@string/add_contact"
-        android:textColor="@color/teal_700"
+        android:textColor="?attr/text_color_note_enter_text"
         android:textSize="@dimen/size_pill_item_task"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@id/floatingAddContact"

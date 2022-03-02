@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="tutorial">
+        <attr name="background_tint" format="color" />
+        <attr name="background_image_tint" format="color" />
+        <attr name="background_home_fragment" format="color" />
+        <attr name="background_pill_notes_item" format="color" />
+        <attr name="background_down_menu_button" format="color" />
+        <attr name="text_color_item_name" format="color" />
+        <attr name="text_color_item_task" format="color" />
+        <attr name="text_color_item_result" format="color" />
+        <attr name="text_color_item_time_wait" format="color" />
+        <attr name="text_color_item_time_finish" format="color" />
+        <attr name="text_color_note_head" format="color" />
+        <attr name="text_color_note_enter_text" format="color" />
+        <attr name="text_color_note_enter_text_hint" format="color" />
+
+        <attr name="buttonColor" format="color" />
+        <attr name="textColorItem" format="color" />
+        <attr name="textColorItemName" format="color" />
+        <attr name="textColorItemTask" format="color" />
+        <attr name="textColorItemResult" format="color" />
+        <attr name="tintColor" format="color" />
+        <attr name="transparent" format="color" />
+    </declare-styleable>
+</resources>

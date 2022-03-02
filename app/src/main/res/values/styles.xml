@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Dark" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
+        <item name="colorOnPrimary">@color/colorOnPrimary</item>
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="colorSecondaryVariant">@color/colorSecondaryVariant</item>
+        <item name="colorOnSecondary">@color/colorOnSecondary</item>
+
+        <item name="background_tint">#6A6A6A</item>
+        <item name="background_image_tint">#FFFFFFFF</item>
+        <item name="background_home_fragment">#000000</item>
+        <item name="background_pill_notes_item">#333333</item>
+        <item name="background_down_menu_button">#5A5A5A</item>
+        <item name="text_color_item_name">#DDDDDD</item>
+        <item name="text_color_item_task">#9E9E9E</item>
+        <item name="text_color_item_result">#6BE42A</item>
+        <item name="text_color_item_time_wait">#F0F1EF</item>
+        <item name="text_color_item_time_finish">#36B0F1</item>
+        <item name="text_color_note_head">#3388EE</item>
+        <item name="text_color_note_enter_text">#FF03DAC5</item>
+        <item name="text_color_note_enter_text_hint">#AA008888</item>
+        <item name="transparent">@color/transparent</item>
+    </style>
+
+    <style name="Light" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
+        <item name="colorOnPrimary">@color/colorOnPrimary</item>
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="colorSecondaryVariant">@color/colorSecondaryVariant</item>
+        <item name="colorOnSecondary">@color/colorOnSecondary</item>
+
+        <item name="background_tint">#6A6A6A</item>
+        <item name="background_image_tint">#FFFFFFFF</item>
+        <item name="background_home_fragment">#000000</item>
+        <item name="background_pill_notes_item">#333333</item>
+        <item name="background_down_menu_button">#5A5A5A</item>
+        <item name="text_color_item_name">#DDDDDD</item>
+        <item name="text_color_item_task">#9E9E9E</item>
+        <item name="text_color_item_result">#6BE42A</item>
+        <item name="text_color_item_time_wait">#F0F1EF</item>
+        <item name="text_color_item_time_finish">#36B0F1</item>
+        <item name="text_color_note_head">#3388EE</item>
+        <item name="text_color_note_enter_text">#FF03DAC5</item>
+        <item name="text_color_note_enter_text_hint">#AA008888</item>
+        <item name="transparent">@color/transparent</item>
+    </style>
+</resources>
